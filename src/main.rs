@@ -1,12 +1,25 @@
+mod models {
+    pub mod blue_coin;
+    pub mod mem_card;
+    pub mod world;
+    pub mod save_file;
+}
 
-fn get_total_coins(save: &Vec<u8>, address: usize) -> u16 {
+mod data {
+    pub mod data;
+}
+
+use data::data::get_delfino_bcs;
+use models::{mem_card::MemoryCard, save_file::SaveFile, world::World};
+
+fn get_total_coins(save: &MemoryCard, address: usize) -> u16 {
     // SMS Saves the total coin high score as 2 bytes.
     // The first byte is used only if the high score exceeds 255 (or 0xFF)
     // The second byte is usually the entire high score since, on most levels, there are less than 255 coins.
 
     // Combine 2 bytes into 1 16-bit value using bitwise operations
     // Note: could cause endian problems.
-    (save[address - 1] as u16) << 8 | save[address] as u16
+    (save.sms_save_memory[address - 1] as u16) << 8 | save.sms_save_memory[address] as u16
 }
 
 fn compare(num1: u16, num2: u16) -> u16 {
@@ -16,32 +29,19 @@ fn compare(num1: u16, num2: u16) -> u16 {
     num1
 }
 
-fn get_blue_coin_collected(save: &Vec<u8>, address: usize, index: u32) -> bool {
+fn get_blue_coin_collected(save: &MemoryCard, address: usize, index: u32) -> bool {
     // Blue coin flags are stored in 2 addresses:
     // 0x2nnn and 0x4nnn (for File A)
     // The game switches between the two every save and will NOT save at both at the same time
     // The game will always save at the 0x2nnn address first
     // Ex: Get H.S, save -> Addr 1. Save again -> Addr 2. Save a 3rd time -> Addr 1. etc...
     // We need to check which address has the flag enabled (if it is at all)
-    let flag = save[address] | save[address + 0x2000];
+    let flag = save.sms_save_memory[address] | save.sms_save_memory[address + 0x2000];
     (flag & 2_u8.pow(index)) != 0
 }
 
 fn main() {
-    let SMS_SAVE_SIZE: usize = 57408;
-    println!("SMS Save Anaylser");
-
-    let save_file: Vec<u8> = match std::fs::read("./sms_usa_save.gci") {
-        Ok(file) => file,
-        Err(e) => {
-            println!("Error: {}", e);
-            vec![]
-        }
-    };
-
-    if save_file.len() != SMS_SAVE_SIZE {
-        std::process::exit(1)
-    }
+    let save_file: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
 
     // Coin high scores are stored in 2 addresses:
     // 0x2nnn and 0x4nnn (for File A)
@@ -165,6 +165,29 @@ fn main() {
         [0x20B6, 7]
     ];
 
-    let bc = get_blue_coin_collected(&save_file, 0x20AF, 3);
-    println!("{}", bc)
+    // For each world, make a World object. Do this 3 times for each save file
+
+    // save_file_index_offset = (save_file.index * 400)
+    // byte_addr = (200 + save_file_index_offset) | (200 + 200 + save_file_index_offset)
+    //              0x2000, 0x6000, 0x10000          0x4000, 0x8000, 0x12000
+    // To confirm save files B and C
+
+    let save_a: SaveFile = SaveFile::new(
+        SaveFile::SAVE_A_LABEL, 
+        SaveFile::SAVE_A_FILE_INDEX, 
+        SaveFile::SAVE_A_BC_START, 
+        SaveFile::SAVE_A_BC_END, 
+        World::get_worlds_with_data()
+    );
+    // let save_b: SaveFile = SaveFile::new('B', 1, 0x0, 0x0, World::get_defaults());
+    // let save_c: SaveFile = SaveFile::new('C', 2, 0x0, 0x0, World::get_defaults());
+
+    for i in save_a.worlds {
+        for j in i.blue_coins {
+            println!("{}", j.description);
+        }
+    }
+    
+    // let bc = get_blue_coin_collected(&save_file, 0x20AF, 3);
+    // println!("{}", bc)
 }
