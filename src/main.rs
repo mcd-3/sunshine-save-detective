@@ -9,8 +9,9 @@ mod data {
     pub mod data;
 }
 
-use data::data::get_delfino_bcs;
 use models::{mem_card::MemoryCard, save_file::SaveFile, world::World};
+
+use crate::{data::data::BlueCoinData, models::blue_coin::BlueCoin};
 
 fn get_total_coins(save: &MemoryCard, address: usize) -> u16 {
     // SMS Saves the total coin high score as 2 bytes.
@@ -172,21 +173,37 @@ fn main() {
     //              0x2000, 0x6000, 0x10000          0x4000, 0x8000, 0x12000
     // To confirm save files B and C
 
+    let delfino_bcs = BlueCoinData::get_delfino_bcs();
+    let mut blue_coins: Vec<BlueCoin> = vec![];
+    // let pianta_bcs = get_delfino_bcs();
+
+    // let delfino_w = World::new(String::from("asd"), 0, delfino_bcs);
+    // let pianta_w = World::new(String::from("asd"), 0, pianta_bcs);
+
     let save_a: SaveFile = SaveFile::new(
         SaveFile::SAVE_A_LABEL, 
         SaveFile::SAVE_A_FILE_INDEX, 
         SaveFile::SAVE_A_BC_START, 
         SaveFile::SAVE_A_BC_END, 
-        World::get_worlds_with_data()
     );
+
+
+    for bcd in delfino_bcs {
+        blue_coins.push(BlueCoin::from_data(&save_file, &save_a, &bcd));
+    }
+
+    for i in blue_coins {
+        println!("{} | {}", i.is_collected, i.description)
+    }
+
     // let save_b: SaveFile = SaveFile::new('B', 1, 0x0, 0x0, World::get_defaults());
     // let save_c: SaveFile = SaveFile::new('C', 2, 0x0, 0x0, World::get_defaults());
 
-    for i in save_a.worlds {
-        for j in i.blue_coins {
-            println!("{}", j.description);
-        }
-    }
+    // for i in save_a.worlds {
+    //     for j in i.blue_coins {
+    //         println!("{}", j.description);
+    //     }
+    // }
     
     // let bc = get_blue_coin_collected(&save_file, 0x20AF, 3);
     // println!("{}", bc)
