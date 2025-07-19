@@ -30,19 +30,8 @@ fn compare(num1: u16, num2: u16) -> u16 {
     num1
 }
 
-fn get_blue_coin_collected(save: &MemoryCard, address: usize, index: u32) -> bool {
-    // Blue coin flags are stored in 2 addresses:
-    // 0x2nnn and 0x4nnn (for File A)
-    // The game switches between the two every save and will NOT save at both at the same time
-    // The game will always save at the 0x2nnn address first
-    // Ex: Get H.S, save -> Addr 1. Save again -> Addr 2. Save a 3rd time -> Addr 1. etc...
-    // We need to check which address has the flag enabled (if it is at all)
-    let flag = save.sms_save_memory[address] | save.sms_save_memory[address + 0x2000];
-    (flag & 2_u8.pow(index)) != 0
-}
-
 fn main() {
-    let save_file: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
+    let save_file: MemoryCard = MemoryCard::read_from_file("./sms_50.gci");
 
     // Coin high scores are stored in 2 addresses:
     // 0x2nnn and 0x4nnn (for File A)
@@ -110,62 +99,6 @@ fn main() {
     println!("Noki: {}", noki_coins);
     println!("Pianta: {}", pianta_coins);
 
-    let delfino_bc: [[u16; 2]; 20] = [
-        [0x20AF, 1],
-        [0x20AF, 0],
-        [0x20AF, 4],
-        [0x20AF, 5],
-        [0x20B1, 5],
-        [0x20B1, 4],
-        [0x20B0, 3],
-        [0x20B1, 6],
-        [0x20B1, 7],
-        [0x20AF, 2],
-        [0x20B0, 1],
-        [0x20B0, 5],
-        [0x20B0, 7],
-        [0x20B0, 6],
-        [0x20B0, 4],
-        [0x20AF, 3],
-        [0x20AF, 6],
-        [0x20B0, 0],
-        [0x20B0, 2],
-        [0x20AF, 7],
-    ];
-
-    let bianco_bc: [[u16; 2]; 30] = [
-        [0x20B7, 0],
-        [0x20B5, 3],
-        [0x20B5, 2],
-        [0x20B8, 1],
-        [0x20B7, 3],
-        [0x20B7, 5],
-        [0x20B7, 4],
-        [0x20B8, 2],
-        [0x20B7, 1],
-        [0x20B7, 2],
-        [0x20B5, 5],
-        [0x20B5, 4],
-        [0x20B6, 3],
-        [0x20B5, 0],
-        [0x20B8, 0],
-        [0x20B7, 7],
-        [0x20B5, 1],
-        [0x20B8, 7],
-        [0x20B6, 0],
-        [0x20B6, 5],
-        [0x20B6, 6],
-        [0x20B7, 6],
-        [0x20B6, 4],
-        [0x20B6, 1],
-        [0x20B8, 6],
-        [0x20B8, 5],
-        [0x20B8, 4],
-        [0x20B6, 2],
-        [0x20B8, 3],
-        [0x20B6, 7]
-    ];
-
     // For each world, make a World object. Do this 3 times for each save file
 
     // save_file_index_offset = (save_file.index * 400)
@@ -195,16 +128,4 @@ fn main() {
     for i in blue_coins {
         println!("{} | {}", i.is_collected, i.description)
     }
-
-    // let save_b: SaveFile = SaveFile::new('B', 1, 0x0, 0x0, World::get_defaults());
-    // let save_c: SaveFile = SaveFile::new('C', 2, 0x0, 0x0, World::get_defaults());
-
-    // for i in save_a.worlds {
-    //     for j in i.blue_coins {
-    //         println!("{}", j.description);
-    //     }
-    // }
-    
-    // let bc = get_blue_coin_collected(&save_file, 0x20AF, 3);
-    // println!("{}", bc)
 }
