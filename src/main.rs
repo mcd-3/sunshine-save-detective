@@ -20,7 +20,7 @@ fn get_total_coins(save: &MemoryCard, address: usize) -> u16 {
 
     // Combine 2 bytes into 1 16-bit value using bitwise operations
     // Note: could cause endian problems.
-    (save.sms_save_memory[address - 1] as u16) << 8 | save.sms_save_memory[address] as u16
+    (save.get_mem_data()[address - 1] as u16) << 8 | save.get_mem_data()[address] as u16
 }
 
 fn compare(num1: u16, num2: u16) -> u16 {

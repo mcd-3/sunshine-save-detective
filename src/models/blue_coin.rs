@@ -31,7 +31,7 @@ impl BlueCoin {
         let address: u32 = bcd.get_byte() + save_file_offset;
         let index: u32 = bcd.get_byte_index();
 
-        let flag = mem_card.sms_save_memory[address as usize] | mem_card.sms_save_memory[(address + 0x2000) as usize];
+        let flag: u8 = mem_card.get_mem_data()[address as usize] | mem_card.get_mem_data()[(address + 0x2000) as usize];
         (flag & 2_u8.pow(index)) != 0
     }
 

@@ -1,8 +1,12 @@
 pub struct MemoryCard {
-    pub sms_save_memory: Vec<u8>
+    mem_data: Vec<u8>
 }
 
 impl MemoryCard {
+    pub fn get_mem_data(&self) -> &Vec<u8> {
+        &self.mem_data
+    }
+
     pub fn read_from_file(path: &str) -> Self {
         let sms_save_size: usize = 57408;
         let save_file: Vec<u8> = match std::fs::read(path) {
@@ -18,6 +22,6 @@ impl MemoryCard {
             std::process::exit(1)
         }
 
-        MemoryCard { sms_save_memory: save_file }
+        MemoryCard { mem_data: save_file }
     }
 }
