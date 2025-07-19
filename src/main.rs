@@ -131,6 +131,6 @@ fn main() {
     }
 
     for i in blue_coins {
-        println!("{} | {}", i.is_collected, i.description)
+        println!("{} | {}", i.get_is_collected(), i.get_description())
     }
 }

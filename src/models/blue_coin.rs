@@ -1,9 +1,9 @@
 use crate::{data::blue_coin_data::BlueCoinData, models::{mem_card::MemoryCard, save_file::SaveFile}};
 
 pub struct BlueCoin {
-    pub is_collected: bool,
+    is_collected: bool,
     mpl_order_number: u8,
-    pub description: String,
+    description: String,
 }
 
 impl BlueCoin {
@@ -11,7 +11,15 @@ impl BlueCoin {
         BlueCoin { is_collected, mpl_order_number, description }
     }
 
-    fn get_blue_coin_collected(mem_card: &MemoryCard, save_file: &SaveFile, bcd: &BlueCoinData) -> bool {//address: usize, index: u32) -> bool {
+    pub fn get_is_collected(&self) -> bool {
+        self.is_collected
+    }
+
+    pub fn get_description(&self) -> &str {
+        &self.description
+    }
+
+    fn get_blue_coin_collected(mem_card: &MemoryCard, save_file: &SaveFile, bcd: &BlueCoinData) -> bool {
         // Blue coin flags are stored in 2 addresses:
         // 0x2nnn and 0x4nnn (for File A)
         // The game switches between the two every save and will NOT save at both at the same time
