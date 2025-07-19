@@ -6,12 +6,12 @@ mod models {
 }
 
 mod data {
-    pub mod data;
+    pub mod blue_coin_data;
 }
 
 use models::{mem_card::MemoryCard, save_file::SaveFile, world::World};
 
-use crate::{data::data::BlueCoinData, models::blue_coin::BlueCoin};
+use crate::{data::blue_coin_data::BlueCoinData, models::blue_coin::BlueCoin};
 
 fn get_total_coins(save: &MemoryCard, address: usize) -> u16 {
     // SMS Saves the total coin high score as 2 bytes.
