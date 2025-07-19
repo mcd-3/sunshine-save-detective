@@ -61,4 +61,39 @@ impl BlueCoinData {
             BlueCoinData::new(0x00B1, Self::BINARY_INDEX_8, 9, String::from("Underground near Corona Mountain")),
         ]
     }
+
+    pub fn get_biano_bcs() -> Vec<BlueCoinData> {
+        vec![
+            BlueCoinData::new(0x00B5, Self::BINARY_INDEX_128, 14, String::from("Pianta in cavity")),
+            BlueCoinData::new(0x00B5, Self::BINARY_INDEX_64, 17, String::from("Palm tree near ropes")),
+            BlueCoinData::new(0x00B5, Self::BINARY_INDEX_32, 3, String::from("Spray water in right doorway of the rocket nozzle building in the village")),
+            BlueCoinData::new(0x00B5, Self::BINARY_INDEX_16, 2, String::from("Building with 2 towers")),
+            BlueCoinData::new(0x00B5, Self::BINARY_INDEX_8, 12, String::from("Spray stone pillar near large windmill")),
+            BlueCoinData::new(0x00B5, Self::BINARY_INDEX_4, 11, String::from("'M' on big windmill path")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_128, 19, String::from("Under chain bridge")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_64, 24, String::from("Blue bird in village")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_32, 28, String::from("Underwater in windmill lake")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_16, 13, String::from("Underwater in windmill lake")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_8, 23, String::from("Past the cloud platforms")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_4, 20, String::from("Hillside brick platform Pokey")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_2, 21, String::from("Border wall pianta")),
+            BlueCoinData::new(0x00B6, Self::BINARY_INDEX_1, 30, String::from("Beehive near chain bridge")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_128, 1, String::from("Underwater near the dam")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_64, 9, String::from("'X' near lakeside wall")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_32, 10, String::from("Spray wind wheel")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_16, 5, String::from("'M' behind 2 tower house")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_8, 7, String::from("'M' on top of village border wall")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_4, 6, String::from("'M' behind waterwheel wall")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_2, 22, String::from("Petey Pianta wooden platform")),
+            BlueCoinData::new(0x00B7, Self::BINARY_INDEX_1, 16, String::from("On top of large windmill")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_128, 15, String::from("Tallest wooden pillar")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_64, 4, String::from("Spinning bridge")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_32, 8, String::from("'X' in wall cavity")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_16, 29, String::from("Blue butterflies")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_8, 27, String::from("Circle paint near river")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_4, 26, String::from("Circle paint near throwing Pianta")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_2, 25, String::from("Throwing Pianta")),
+            BlueCoinData::new(0x00B8, Self::BINARY_INDEX_1, 18, String::from("Ledge near village")),
+        ]
+    }
 }

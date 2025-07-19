@@ -31,7 +31,7 @@ fn compare(num1: u16, num2: u16) -> u16 {
 }
 
 fn main() {
-    let save_file: MemoryCard = MemoryCard::read_from_file("./sms_50.gci");
+    let save_file: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
 
     // Coin high scores are stored in 2 addresses:
     // 0x2nnn and 0x4nnn (for File A)
@@ -107,6 +107,7 @@ fn main() {
     // To confirm save files B and C
 
     let delfino_bcs = BlueCoinData::get_delfino_bcs();
+    let bianco_bcs = BlueCoinData::get_biano_bcs();
     let mut blue_coins: Vec<BlueCoin> = vec![];
     // let pianta_bcs = get_delfino_bcs();
 
@@ -122,6 +123,10 @@ fn main() {
 
 
     for bcd in delfino_bcs {
+        blue_coins.push(BlueCoin::from_data(&save_file, &save_a, &bcd));
+    }
+
+    for bcd in bianco_bcs {
         blue_coins.push(BlueCoin::from_data(&save_file, &save_a, &bcd));
     }
 
