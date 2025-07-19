@@ -35,4 +35,13 @@ impl SaveFile {
             _ => 0x2000
         }
     }
+
+    pub fn get_coin_hs_byte_offset(&self) -> u32 {
+        match self.index {
+            SaveFile::SAVE_A_FILE_INDEX => 0x2200,
+            SaveFile::SAVE_B_FILE_INDEX => 0x6200,
+            SaveFile::SAVE_C_FILE_INDEX => 0xA200,
+            _ => 0x2200,
+        }
+    }
 }
