@@ -1,11 +1,11 @@
-use crate::{data::coin_data::CoinData, models::{mem_card::MemoryCard, save_file::SaveFile}};
+use crate::{data::{blue_coin_data::BlueCoinData, coin_data::CoinData}, models::{mem_card::MemoryCard, save_file::SaveFile}};
 
 use super::blue_coin::BlueCoin;
 
 pub struct World {
     name: String,
     coin_hs: u16,
-    blue_coins: Vec<BlueCoin>,
+    pub blue_coins: Vec<BlueCoin>,
 }
 
 impl World {
@@ -37,9 +37,15 @@ impl World {
         save_file: &SaveFile,
         name: String,
         coin_data: CoinData,
-        blue_coins: Vec<BlueCoin>
+        blue_coin_data: Vec<BlueCoinData>
     ) -> World {
         let coin_hs: u16 = World::get_total_coins(mem_card, save_file, coin_data.get_byte() as usize);
+
+        let mut blue_coins: Vec<BlueCoin> = vec![];
+        for bcd in blue_coin_data {
+            blue_coins.push(BlueCoin::from_data(mem_card, save_file, &bcd));
+        }
+
         World { name, coin_hs, blue_coins }
     }
 }

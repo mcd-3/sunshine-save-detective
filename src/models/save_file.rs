@@ -10,10 +10,10 @@ pub struct SaveFile {
 impl SaveFile {
     pub const SAVE_A_BC_START: u32 = 0x20AF;
     pub const SAVE_A_BC_END: u32 = 0x20E4;
-    // pub const SAVE_B_BC_START: u32 = 0x60AF;
-    // pub const SAVE_B_BC_END: u32 = 0x60E4;
-    // pub const SAVE_C_BC_START: u32 = 0xA0AF;
-    // pub const SAVE_C_BC_END: u32 = 0xA0E4;
+    pub const SAVE_B_BC_START: u32 = 0x60AF;
+    pub const SAVE_B_BC_END: u32 = 0x60E4;
+    pub const SAVE_C_BC_START: u32 = 0xA0AF;
+    pub const SAVE_C_BC_END: u32 = 0xA0E4;
 
     pub const SAVE_A_LABEL: char = 'A';
     pub const SAVE_B_LABEL: char = 'B';
