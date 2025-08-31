@@ -10,11 +10,17 @@ mod data {
     pub mod coin_data;
 }
 
+mod views {
+    pub mod upload;
+}
+
 use models::{mem_card::MemoryCard, save_file::SaveFile, world::World};
+
+use views::upload::Upload;
 
 use crate::{data::{blue_coin_data::BlueCoinData, coin_data::CoinData}};
 
-fn main() {
+fn main() -> iced::Result {
     let mem_card: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
 
     // For each world, make a World object. Do this 3 times for each save file
@@ -77,4 +83,9 @@ fn main() {
     for i in w_delfino.blue_coins {
         println!("{} | {}", i.get_is_collected(), i.get_description())
     }
+
+
+    let app_name = env!("CARGO_PKG_NAME");
+
+    iced::run(&*app_name, Upload::update, Upload::view)
 }
