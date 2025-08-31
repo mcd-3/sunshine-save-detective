@@ -3,10 +3,19 @@ use iced::window;
 use iced::color;
 use iced::{Center, Element, Task};
 
+use rfd::FileDialog;
+
 // #[derive(Default)]
 // pub struct Exit {
 //     show_confirm: bool,
 // }
+
+pub fn pick_file() {
+    let files = FileDialog::new()
+        .add_filter("Gamecube Saves", &["gci"])
+        .set_directory("/")
+        .pick_file();
+}
 
 #[derive(Default)]
 pub struct Upload {
@@ -46,7 +55,10 @@ impl Upload {
                 .color(color!(0xFFFFFF)),
             button("Upload")
                 .padding([10, 20])
-                .on_press(Message::FileSelect),
+                .on_press({
+                    pick_file();
+                    Message::FileSelect
+                }),
             text(version)
                 .size(12)
                 .color(color!(0xAAAAAA))
