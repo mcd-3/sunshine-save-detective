@@ -14,11 +14,18 @@ mod views {
     pub mod upload;
 }
 
-use models::{mem_card::MemoryCard, save_file::SaveFile, world::World};
+use models::{
+    mem_card::MemoryCard,
+    save_file::SaveFile,
+    world::World
+};
 
 use views::upload::Upload;
 
-use crate::{data::{blue_coin_data::BlueCoinData, coin_data::CoinData}};
+use data::{
+    blue_coin_data::BlueCoinData,
+    coin_data::CoinData
+};
 
 fn main() -> iced::Result {
     let mem_card: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
@@ -87,5 +94,7 @@ fn main() -> iced::Result {
 
     let app_name = env!("CARGO_PKG_NAME");
 
-    iced::run(&*app_name, Upload::update, Upload::view)
+    iced::application(&*app_name, Upload::update, Upload::view)
+        .window_size(iced::Size::new(600.0, 400.0))
+        .run()
 }
