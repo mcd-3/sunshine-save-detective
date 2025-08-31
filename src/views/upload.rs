@@ -1,5 +1,6 @@
-use iced::widget::{button, center, column};
+use iced::widget::{button, center, column, text};
 use iced::window;
+use iced::color;
 use iced::{Center, Element, Task};
 
 // #[derive(Default)]
@@ -37,11 +38,18 @@ impl Upload {
     }
 
     pub fn view(&self) -> Element<'_, Message> {
+        let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
+
         let content = column![
-            "Select a GCI save file",
+            text("Select a GCI file")
+                .size(16)
+                .color(color!(0xFFFFFF)),
             button("Upload")
                 .padding([10, 20])
                 .on_press(Message::FileSelect),
+            text(version)
+                .size(12)
+                .color(color!(0xAAAAAA))
         ]
         .spacing(10)
         .align_x(Center);
