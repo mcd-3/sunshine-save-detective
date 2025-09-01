@@ -1,5 +1,6 @@
-use iced::widget::{button, center, column, text};
-use iced::window;
+use iced::alignment::Horizontal::{Left, Right};
+use iced::widget::{button, center, column, row, text};
+use iced::{window};
 use iced::color;
 use iced::{Center, Element, Task};
 
@@ -50,18 +51,34 @@ impl Upload {
         let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
 
         let content = column![
-            text("Select a GCI file")
-                .size(16)
-                .color(color!(0xFFFFFF)),
-            button("Upload")
-                .padding([10, 20])
-                .on_press({
-                    pick_file();
-                    Message::FileSelect
-                }),
-            text(version)
-                .size(12)
-                .color(color!(0xAAAAAA))
+            row![
+                text("Sunshine Save Detective")
+                    .size(24)
+                    .color(color!(0xFFFFFF))
+            ].width(iced::Length::Fill),
+            row![
+                column![
+                    text("Select a GCI file")
+                        .size(16)
+                        .color(color!(0xFFFFFF)),
+                    button("Upload")
+                        .padding([10, 20])
+                        .on_press({
+                            pick_file();
+                            Message::FileSelect
+                        })
+                ]
+            ].width(iced::Length::Fill),
+            row![
+                text("License")
+                    .size(12)
+                    .color(color!(0xFFFFFF))
+                    .align_x(Left),
+                text(version)
+                    .size(12)
+                    .color(color!(0xAAAAAA))
+                    .align_x(Right)
+            ].width(iced::Length::Fill)
         ]
         .spacing(10)
         .align_x(Center);
