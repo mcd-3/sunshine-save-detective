@@ -54,14 +54,14 @@ impl Upload {
         let content = column![
             row![
                 text("Sunshine Save Detective")
-                    .size(24)
+                    .size(18)
                     .width(Length::FillPortion(1))
                     .align_x(Left),
             ].height(Shrink),
             row![
                 column![
                     text("Select a GCI file")
-                        .size(16),
+                        .size(22),
                     button("Upload")
                         .padding([10, 20])
                         .on_press({
@@ -69,7 +69,9 @@ impl Upload {
                             Message::FileSelect
                         })
                 ].align_x(Center)
-            ].height(Fill).align_y(Center),
+                    .spacing(15)
+            ].height(Fill)
+                .align_y(Center),
             row![
                 text("License")
                     .size(12)
@@ -80,10 +82,9 @@ impl Upload {
                     .width(Length::FillPortion(1))
                     .align_x(Right),
             ].height(Shrink)
-        ]
-        .height(Fill)
-        .spacing(10)
-        .align_x(Center);
+        ].height(Fill)
+            .spacing(10)
+            .align_x(Center);
 
         center(content).padding(20).into()
     }
