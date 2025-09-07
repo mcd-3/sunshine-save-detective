@@ -1,5 +1,6 @@
 use iced::alignment::Horizontal::{Left, Right};
-use iced::widget::{button, center, column, row, text};
+use iced::alignment::Vertical::Bottom;
+use iced::widget::{Image, button, center, column, row, text};
 use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
@@ -43,10 +44,13 @@ impl Upload {
 
         let content = column![
             row![
-                text("-()- Sunshine Save Detective")
+                Image::new("src/assets/sun_icon.png").width(32).height(32),
+                text(" Sunshine Save Detective")
                     .size(18)
                     .width(Length::FillPortion(1))
-                    .align_x(Left),
+                    .height(Fill)
+                    .align_x(Left)
+                    .align_y(Center),
             ].height(Shrink),
             row![
                 column![
