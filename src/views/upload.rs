@@ -6,6 +6,8 @@ use iced::{Center, Element, Fill, Length, Task};
 
 use rfd::FileDialog;
 
+// TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
+
 pub fn pick_file() {
     let files = FileDialog::new()
         .add_filter("Gamecube Saves", &["gci"])
