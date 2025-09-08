@@ -1,6 +1,6 @@
 use iced::alignment::Horizontal::{Left, Right};
 use iced::alignment::Vertical::Bottom;
-use iced::widget::{Image, button, center, column, row, text};
+use iced::widget::{button, center, column, row, text, Image, Row};
 use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
@@ -46,8 +46,7 @@ impl App {
     pub fn view(&self) -> Element<'_, Message> {
         let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
 
-        let content = column![
-            row![
+        let header: Row<'_, Message> = row![
                 Image::new("src/assets/sun_icon.png").width(32).height(32),
                 text(" Sunshine Save Detective")
                     .size(18)
@@ -55,7 +54,21 @@ impl App {
                     .height(Fill)
                     .align_x(Left)
                     .align_y(Center),
-            ].height(Shrink),
+            ].height(Shrink);
+
+        let footer: Row<'_, Message> = row![
+                text("License")
+                    .size(12)
+                    .width(Length::FillPortion(1))
+                    .align_x(Left),
+                text(version.clone())
+                    .size(12)
+                    .width(Length::FillPortion(1))
+                    .align_x(Right),
+            ].height(Shrink);
+
+        let content = column![
+            header,
             row![
                 column![
                     text("Select a GCI file")
@@ -67,16 +80,7 @@ impl App {
                     .spacing(15)
             ].height(Fill)
                 .align_y(Center),
-            row![
-                text("License")
-                    .size(12)
-                    .width(Length::FillPortion(1))
-                    .align_x(Left),
-                text(version)
-                    .size(12)
-                    .width(Length::FillPortion(1))
-                    .align_x(Right),
-            ].height(Shrink)
+            footer,
         ].height(Fill)
             .spacing(10)
             .align_x(Center);
