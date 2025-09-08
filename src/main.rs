@@ -11,7 +11,7 @@ mod data {
 }
 
 mod views {
-    pub mod upload;
+    pub mod app;
 }
 
 use models::{
@@ -20,7 +20,7 @@ use models::{
     world::World
 };
 
-use views::upload::Upload;
+use views::app::App;
 
 use data::{
     blue_coin_data::BlueCoinData,
@@ -94,7 +94,7 @@ fn main() -> iced::Result {
 
     let app_name = env!("CARGO_PKG_NAME");
 
-    iced::application(&*app_name, Upload::update, Upload::view)
+    iced::application(&*app_name, App::update, App::view)
         .window_size(iced::Size::new(800.0, 600.0))
         .run()
 }

@@ -17,7 +17,7 @@ pub fn pick_file() {
 }
 
 #[derive(Default)]
-pub struct Upload {
+pub struct App {
     show_file_dialog: bool,
     is_uploading: bool,
 }
@@ -25,15 +25,15 @@ pub struct Upload {
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
     Default,
-    FileSelect,
+    FileSelectOpen,
     Uploading
 }
 
-impl Upload {
+impl App {
     pub fn update(&mut self, message: Message) -> Task<Message> {
         match message {
             Message::Default => window::get_latest().and_then(window::close),
-            Message::FileSelect => {
+            Message::FileSelectOpen => {
                 pick_file();
                 Task::none()
             }
@@ -62,7 +62,7 @@ impl Upload {
                         .size(22),
                     button("Upload")
                         .padding([10, 20])
-                        .on_press(Message::FileSelect)
+                        .on_press(Message::FileSelectOpen)
                 ].align_x(Center)
                     .spacing(15)
             ].height(Fill)
