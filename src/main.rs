@@ -95,6 +95,6 @@ fn main() -> iced::Result {
     let app_name = env!("CARGO_PKG_NAME");
 
     iced::application(&*app_name, Upload::update, Upload::view)
-        .window_size(iced::Size::new(600.0, 400.0))
+        .window_size(iced::Size::new(800.0, 600.0))
         .run()
 }
