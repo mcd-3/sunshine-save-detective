@@ -33,6 +33,10 @@ impl Upload {
     pub fn update(&mut self, message: Message) -> Task<Message> {
         match message {
             Message::Default => window::get_latest().and_then(window::close),
+            Message::FileSelect => {
+                pick_file();
+                Task::none()
+            }
             _ => {
                 Task::none()
             }
@@ -58,10 +62,7 @@ impl Upload {
                         .size(22),
                     button("Upload")
                         .padding([10, 20])
-                        .on_press({
-                            pick_file();
-                            Message::FileSelect
-                        })
+                        .on_press(Message::FileSelect)
                 ].align_x(Center)
                     .spacing(15)
             ].height(Fill)
