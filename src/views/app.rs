@@ -7,13 +7,24 @@ use iced::{Center, Element, Fill, Length, Task};
 
 use rfd::FileDialog;
 
+use crate::models::mem_card::MemoryCard;
+
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 
 pub fn pick_file() {
-    let files = FileDialog::new()
+    let result_path = FileDialog::new()
         .add_filter("Gamecube Saves", &["gci"])
         .set_directory("/")
         .pick_file();
+
+    let path = match result_path {
+        Some(pb) => pb.display().to_string(),
+        None => String::from(""),
+    };
+
+    let mem_card: MemoryCard = MemoryCard::read_from_file(&path);
+
+    println!("We got the save! {}", mem_card.get_mem_data()[0]);
 }
 
 #[derive(Default)]
