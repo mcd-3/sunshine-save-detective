@@ -11,7 +11,8 @@ use crate::models::mem_card::MemoryCard;
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 
-pub fn pick_file() {
+// TODO: Change this return type to an enum
+pub fn pick_file() -> bool {
     let result_path = FileDialog::new()
         .add_filter("Gamecube Saves", &["gci"])
         .set_directory("/")
@@ -22,15 +23,46 @@ pub fn pick_file() {
         None => String::from(""),
     };
 
+    if path == "" {
+        return false;
+    }
+
     let mem_card: MemoryCard = MemoryCard::read_from_file(&path);
 
     println!("We got the save! {}", mem_card.get_mem_data()[0]);
+
+    true
+}
+
+pub fn get_main_content(is_uploaded: bool) -> Row<'static, Message> {
+    if is_uploaded {
+        return row![
+            column![
+                text("Uploaded Successfully!")
+                    .size(22),
+            ].align_x(Center)
+                .spacing(15)
+        ].height(Fill)
+            .align_y(Center)
+    } else {
+        return row![
+            column![
+                text("Select a GCI file")
+                    .size(22),
+                button("Upload")
+                    .padding([10, 20])
+                    .on_press(Message::FileSelectOpen)
+            ].align_x(Center)
+                .spacing(15)
+        ].height(Fill)
+            .align_y(Center)
+    }
 }
 
 #[derive(Default)]
 pub struct App {
     show_file_dialog: bool,
-    is_uploading: bool,
+    is_uploaded: bool,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -45,7 +77,12 @@ impl App {
         match message {
             Message::Default => window::get_latest().and_then(window::close),
             Message::FileSelectOpen => {
-                pick_file();
+                let result = pick_file();
+
+                if result {
+                    self.is_uploaded = true;
+                }
+
                 Task::none()
             }
             _ => {
@@ -80,17 +117,7 @@ impl App {
 
         let content = column![
             header,
-            row![
-                column![
-                    text("Select a GCI file")
-                        .size(22),
-                    button("Upload")
-                        .padding([10, 20])
-                        .on_press(Message::FileSelectOpen)
-                ].align_x(Center)
-                    .spacing(15)
-            ].height(Fill)
-                .align_y(Center),
+            get_main_content(self.is_uploaded),
             footer,
         ].height(Fill)
             .spacing(10)
