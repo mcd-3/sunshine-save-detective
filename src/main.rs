@@ -14,6 +14,10 @@ mod views {
     pub mod app;
 }
 
+mod enums {
+    pub mod file_error;
+}
+
 use models::{
     mem_card::MemoryCard,
     save_file::SaveFile,
