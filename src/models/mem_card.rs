@@ -2,7 +2,7 @@ use crate::enums::file_error::FileError;
 
 pub struct MemoryCard {
     mem_data: Vec<u8>,
-    file_error: FileError,
+    pub file_error: FileError,
 }
 
 impl MemoryCard {
@@ -66,5 +66,11 @@ impl MemoryCard {
         }
 
         MemoryCard { mem_data: save_file, file_error: FileError::NoError }
+    }
+}
+
+impl Default for MemoryCard {
+    fn default() -> Self {
+        Self { mem_data: vec![], file_error: FileError::NoError }
     }
 }
