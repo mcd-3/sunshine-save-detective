@@ -1,6 +1,6 @@
 use iced::alignment::Horizontal::{Left, Right};
 use iced::alignment::Vertical::Bottom;
-use iced::widget::{button, center, column, row, text, Image, Row};
+use iced::widget::{button, center, column, radio, row, text, Image, Row};
 use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
@@ -34,14 +34,17 @@ pub fn pick_file() -> bool {
     true
 }
 
-pub fn get_main_content(is_uploaded: bool) -> Row<'static, Message> {
+pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
         return row![
             column![
-                text("Uploaded Successfully!")
-                    .size(22),
-            ].align_x(Center)
-                .spacing(15)
+                row![
+                    text("Save File: "),
+                    radio("A", 1, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                    radio("B", 2, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                    radio("C", 3, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                ],
+            ].spacing(15)
         ].height(Fill)
             .align_y(Center)
     } else {
@@ -63,13 +66,15 @@ pub fn get_main_content(is_uploaded: bool) -> Row<'static, Message> {
 pub struct App {
     show_file_dialog: bool,
     is_uploaded: bool,
+    selected_save_file: Option<u32>
 }
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
     Default,
     FileSelectOpen,
-    Uploading
+    Uploading,
+    SelectSaveFile(u32),
 }
 
 impl App {
@@ -83,6 +88,10 @@ impl App {
                     self.is_uploaded = true;
                 }
 
+                Task::none()
+            },
+            Message::SelectSaveFile(i) => {
+                self.selected_save_file = Some(i);
                 Task::none()
             }
             _ => {
@@ -117,7 +126,7 @@ impl App {
 
         let content = column![
             header,
-            get_main_content(self.is_uploaded),
+            get_main_content(&self, self.is_uploaded),
             footer,
         ].height(Fill)
             .spacing(10)
