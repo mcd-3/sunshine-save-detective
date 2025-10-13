@@ -1,6 +1,6 @@
 use iced::alignment::Horizontal::{Left, Right};
 use iced::alignment::Vertical::Bottom;
-use iced::widget::{button, center, column, radio, row, text, Image, Row};
+use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row};
 use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
@@ -39,12 +39,31 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
         return row![
             column![
                 row![
-                    text("Save File: "),
-                    radio("A", 1, app.selected_save_file, |i| Message::SelectSaveFile(i)),
-                    radio("B", 2, app.selected_save_file, |i| Message::SelectSaveFile(i)),
-                    radio("C", 3, app.selected_save_file, |i| Message::SelectSaveFile(i)),
-                ],
-            ].spacing(15)
+                    row![
+                        text("Save File: "),
+                        radio("A ", 1, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                        radio("B ", 2, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                        radio("C", 3, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                    ].width(Length::FillPortion(1)),
+                    row![
+                        text("Total Shines: NA  "),
+                        text("Total Blue Coins: 255"),
+                    ].width(Length::FillPortion(1))
+                ].spacing(15),
+                row![
+                    row![
+                        text("World: "),
+                        pick_list(
+                            vec!["Construct from function"],
+                            Some("Construct from function"),
+                            |_| Message::DoNothing
+                        ),
+                    ].width(Length::FillPortion(1)),
+                    row![
+                        text("Coin Highscore: 999 "),
+                    ].width(Length::FillPortion(1))
+                ]
+            ],
         ].height(Fill)
             .align_y(Center)
     } else {
@@ -75,6 +94,7 @@ pub enum Message {
     FileSelectOpen,
     Uploading,
     SelectSaveFile(u32),
+    DoNothing,
 }
 
 impl App {
