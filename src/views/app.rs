@@ -5,37 +5,15 @@ use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
 
-use rfd::FileDialog;
-
 use crate::data::blue_coin_data::BlueCoinData;
 use crate::data::coin_data::CoinData;
 use crate::enums::file_error::FileError;
 use crate::models::mem_card::MemoryCard;
 use crate::models::save_file::SaveFile;
 use crate::models::world::World;
+use crate::utils::file_pick::pick_file;
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
-
-// TODO: Change this return type to an enum
-pub fn pick_file() -> MemoryCard {
-    let result_path = FileDialog::new()
-        .add_filter("Gamecube Saves", &["gci"])
-        .set_directory("/")
-        .pick_file();
-
-    let path = match result_path {
-        Some(pb) => pb.display().to_string(),
-        None => String::from(""),
-    };
-
-    if path == "" {
-        return MemoryCard { mem_data: vec![], file_error: FileError::ReadCancelled };
-    }
-
-    let mem_card: MemoryCard = MemoryCard::read_from_file(&path);
-
-    mem_card.clone()
-}
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {

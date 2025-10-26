@@ -18,6 +18,10 @@ mod enums {
     pub mod file_error;
 }
 
+mod utils {
+    pub mod file_pick;
+}
+
 use models::{
     mem_card::MemoryCard,
     save_file::SaveFile,
