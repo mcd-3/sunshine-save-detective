@@ -7,12 +7,17 @@ use iced::{Center, Element, Fill, Length, Task};
 
 use rfd::FileDialog;
 
+use crate::data::blue_coin_data::BlueCoinData;
+use crate::data::coin_data::CoinData;
+use crate::enums::file_error::FileError;
 use crate::models::mem_card::MemoryCard;
+use crate::models::save_file::SaveFile;
+use crate::models::world::World;
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 
 // TODO: Change this return type to an enum
-pub fn pick_file() -> bool {
+pub fn pick_file() -> MemoryCard {
     let result_path = FileDialog::new()
         .add_filter("Gamecube Saves", &["gci"])
         .set_directory("/")
@@ -24,18 +29,39 @@ pub fn pick_file() -> bool {
     };
 
     if path == "" {
-        return false;
+        return MemoryCard { mem_data: vec![], file_error: FileError::ReadCancelled };
     }
 
     let mem_card: MemoryCard = MemoryCard::read_from_file(&path);
 
-    println!("We got the save! {}", mem_card.get_mem_data()[0]);
-
-    true
+    mem_card.clone()
 }
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
+        let save_a: SaveFile = SaveFile::new(
+            SaveFile::SAVE_A_LABEL,
+            SaveFile::SAVE_A_FILE_INDEX,
+            SaveFile::SAVE_A_BC_START,
+            SaveFile::SAVE_A_BC_END,
+        );
+
+        let w_delfino = World::new(
+            &app.mem_card,
+            &save_a,
+            String::from("Delfino"),
+            CoinData::get_delfino_coin_data(),
+            BlueCoinData::get_delfino_bcs()
+        );
+
+        let result = [
+            "Coin HS:",
+            w_delfino
+                .get_coin_hs()
+                .to_string()
+                .as_str()
+        ].join(" ");
+
         return row![
             column![
                 row![
@@ -47,7 +73,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     ].width(Length::FillPortion(1)),
                     row![
                         text("Total Shines: NA  "),
-                        text("Total Blue Coins: 255"),
+                        text(result),
                     ].width(Length::FillPortion(1))
                 ].spacing(15),
                 row![
@@ -85,7 +111,8 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
 pub struct App {
     show_file_dialog: bool,
     is_uploaded: bool,
-    selected_save_file: Option<u32>
+    selected_save_file: Option<u32>,
+    mem_card: MemoryCard,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -104,7 +131,8 @@ impl App {
             Message::FileSelectOpen => {
                 let result = pick_file();
 
-                if result {
+                if matches!(result.file_error, FileError::NoError) {
+                    self.mem_card = result.clone();
                     self.is_uploaded = true;
                 }
 

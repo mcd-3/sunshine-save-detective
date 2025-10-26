@@ -1,7 +1,8 @@
 use crate::enums::file_error::FileError;
 
+#[derive(Clone)]
 pub struct MemoryCard {
-    mem_data: Vec<u8>,
+    pub mem_data: Vec<u8>,
     pub file_error: FileError,
 }
 
