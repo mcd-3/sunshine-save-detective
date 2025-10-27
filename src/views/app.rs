@@ -89,7 +89,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
 pub struct App {
     show_file_dialog: bool,
     is_uploaded: bool,
-    selected_save_file: Option<u32>,
+    selected_save_file: Option<u8>,
     mem_card: MemoryCard,
 }
 
@@ -98,7 +98,7 @@ pub enum Message {
     Default,
     FileSelectOpen,
     Uploading,
-    SelectSaveFile(u32),
+    SelectSaveFile(u8),
     DoNothing,
 }
 
@@ -107,11 +107,12 @@ impl App {
         match message {
             Message::Default => window::get_latest().and_then(window::close),
             Message::FileSelectOpen => {
-                let result = pick_file();
+                let result: MemoryCard = pick_file();
 
                 if matches!(result.file_error, FileError::NoError) {
                     self.mem_card = result.clone();
                     self.is_uploaded = true;
+                    self.selected_save_file = Some(SaveFile::SAVE_A_FILE_INDEX + 1)
                 }
 
                 Task::none()
