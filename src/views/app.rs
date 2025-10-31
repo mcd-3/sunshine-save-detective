@@ -15,6 +15,24 @@ use crate::utils::file_pick::pick_file;
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 
+#[derive(Default)]
+pub struct App {
+    show_file_dialog: bool,
+    is_uploaded: bool,
+    selected_save_file: Option<u8>,
+    mem_card: MemoryCard,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum Message {
+    Default,
+    FileSelectOpen,
+    Uploading,
+    SelectSaveFile(u8),
+    DoNothing,
+}
+
+
 fn get_save_file(save_file_option: u8) -> SaveFile {
     let save_index: u8 = save_file_option - 1;
     match save_index {
@@ -102,23 +120,6 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
         ].height(Fill)
             .align_y(Center)
     }
-}
-
-#[derive(Default)]
-pub struct App {
-    show_file_dialog: bool,
-    is_uploaded: bool,
-    selected_save_file: Option<u8>,
-    mem_card: MemoryCard,
-}
-
-#[derive(Debug, Clone, Copy)]
-pub enum Message {
-    Default,
-    FileSelectOpen,
-    Uploading,
-    SelectSaveFile(u8),
-    DoNothing,
 }
 
 impl App {
