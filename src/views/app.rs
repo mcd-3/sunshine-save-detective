@@ -67,7 +67,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
         );
 
         let result = [
-            "Coin HS:",
+            "Coin Highscore:",
             w_delfino
                 .get_coin_hs()
                 .to_string()
@@ -84,8 +84,8 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         radio("C", 3, app.selected_save_file, |i| Message::SelectSaveFile(i)),
                     ].width(Length::FillPortion(1)),
                     row![
-                        text("Total Shines:  "),
-                        text(result),
+                        text("Total Shines: 120 "),
+                        text("Total Blue Coins: 240"),
                     ].width(Length::FillPortion(1))
                 ].spacing(15)
                     .height(32),
@@ -93,15 +93,15 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     row![
                         text("World: "),
                         pick_list(
-                            vec!["Construct from function"],
-                            Some("Construct from function"),
+                            vec!["Delfino Plaza"],
+                            Some("Delfino Plaza"),
                             |_| Message::DoNothing
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
-                        text("Coin Highscore: 999 "),
+                        text(result),
                     ].width(Length::FillPortion(1))
-                ]
+                ].spacing(15)
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),
