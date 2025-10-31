@@ -27,6 +27,43 @@ impl SaveFile {
         SaveFile { label, index, bc_start_byte, bc_end_byte }
     }
 
+    pub fn new_by_label(label: char) -> Self {
+        match label {
+            SaveFile::SAVE_A_LABEL => {
+                SaveFile::new(
+                    SaveFile::SAVE_A_LABEL,
+                    SaveFile::SAVE_A_FILE_INDEX,
+                    SaveFile::SAVE_A_BC_START,
+                    SaveFile::SAVE_A_BC_END
+                )
+            },
+            SaveFile::SAVE_B_LABEL => {
+                SaveFile::new(
+                    SaveFile::SAVE_B_LABEL,
+                    SaveFile::SAVE_B_FILE_INDEX,
+                    SaveFile::SAVE_B_BC_START,
+                    SaveFile::SAVE_B_BC_END
+                )
+            },
+            SaveFile::SAVE_C_LABEL => {
+                SaveFile::new(
+                    SaveFile::SAVE_C_LABEL,
+                    SaveFile::SAVE_C_FILE_INDEX,
+                    SaveFile::SAVE_C_BC_START,
+                    SaveFile::SAVE_C_BC_END
+                )
+            },
+            _ => {
+                SaveFile::new(
+                    SaveFile::SAVE_A_LABEL,
+                    SaveFile::SAVE_A_FILE_INDEX,
+                    SaveFile::SAVE_A_BC_START,
+                    SaveFile::SAVE_A_BC_END
+                )
+            }
+        }
+    }
+
     pub fn get_bc_byte_offeset(&self) -> u32 {
         match self.index {
             SaveFile::SAVE_A_FILE_INDEX => 0x2000,

@@ -15,18 +15,34 @@ use crate::utils::file_pick::pick_file;
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 
+fn get_save_file(save_file_option: u8) -> SaveFile {
+    let save_index: u8 = save_file_option - 1;
+    match save_index {
+        SaveFile::SAVE_A_FILE_INDEX => {
+            SaveFile::new_by_label(SaveFile::SAVE_A_LABEL)
+        },
+        SaveFile::SAVE_B_FILE_INDEX => {
+            SaveFile::new_by_label(SaveFile::SAVE_B_LABEL)
+        },
+        SaveFile::SAVE_C_FILE_INDEX => {
+            SaveFile::new_by_label(SaveFile::SAVE_C_LABEL)
+        },
+        _ => {
+            SaveFile::new_by_label(SaveFile::SAVE_A_LABEL)
+        },
+    }
+}
+
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
-        let save_a: SaveFile = SaveFile::new(
-            SaveFile::SAVE_A_LABEL,
-            SaveFile::SAVE_A_FILE_INDEX,
-            SaveFile::SAVE_A_BC_START,
-            SaveFile::SAVE_A_BC_END,
-        );
+        let save_file = match &app.selected_save_file {
+            Some(i) => get_save_file(*i),
+            None => get_save_file(SaveFile::SAVE_A_FILE_INDEX + 1)
+        };
 
         let w_delfino = World::new(
             &app.mem_card,
-            &save_a,
+            &save_file,
             String::from("Delfino"),
             CoinData::get_delfino_coin_data(),
             BlueCoinData::get_delfino_bcs()
