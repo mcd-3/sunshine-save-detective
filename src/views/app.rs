@@ -50,10 +50,11 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         radio("C", 3, app.selected_save_file, |i| Message::SelectSaveFile(i)),
                     ].width(Length::FillPortion(1)),
                     row![
-                        text("Total Shines: NA  "),
+                        text("Total Shines:  "),
                         text(result),
                     ].width(Length::FillPortion(1))
-                ].spacing(15),
+                ].spacing(15)
+                    .height(32),
                 row![
                     row![
                         text("World: "),
@@ -67,7 +68,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         text("Coin Highscore: 999 "),
                     ].width(Length::FillPortion(1))
                 ]
-            ],
+            ].height(Fill)
+                .width(Fill)
+                .align_x(Center),
         ].height(Fill)
             .align_y(Center)
     } else {
