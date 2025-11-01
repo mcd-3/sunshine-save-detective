@@ -29,6 +29,20 @@ pub fn get_save_file(save_file_option: u8) -> SaveFile {
     }
 }
 
+pub fn get_world_id_index(world_id: WorldIdentifier) -> usize {
+    match world_id {
+        WorldIdentifier::DelfinoId => 0,
+        WorldIdentifier::BiancoId => 1,
+        WorldIdentifier::RiccoId => 2,
+        WorldIdentifier::GelatoId => 3,
+        WorldIdentifier::PinnaId => 4,
+        WorldIdentifier::SirenaId => 5,
+        WorldIdentifier::NokiId => 6,
+        WorldIdentifier::PiantaId => 7,
+        WorldIdentifier::CoronaId => 8,
+    }
+}
+
 pub fn get_worlds_data_list(
     mem_card: &MemoryCard,
     save_file: &SaveFile

@@ -1,3 +1,4 @@
+#[derive(Debug, Clone, Copy)]
 pub enum WorldIdentifier {
     DelfinoId,
     BiancoId,
@@ -8,4 +9,10 @@ pub enum WorldIdentifier {
     NokiId,
     PiantaId,
     CoronaId,
+}
+
+impl Default for WorldIdentifier {
+    fn default() -> Self {
+        WorldIdentifier::DelfinoId
+    }
 }

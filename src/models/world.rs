@@ -53,6 +53,36 @@ impl World {
         self.coin_hs
     }
 
+    pub fn get_identifier_from_name(str: &str) -> WorldIdentifier {
+        match str {
+            World::NAME_DELFINO => WorldIdentifier::DelfinoId,
+            World::NAME_BIANCO => WorldIdentifier::BiancoId,
+            World::NAME_RICCO => WorldIdentifier::RiccoId,
+            World::NAME_GELATO => WorldIdentifier::GelatoId,
+            World::NAME_PINNA => WorldIdentifier::PinnaId,
+            World::NAME_SIRENA => WorldIdentifier::SirenaId,
+            World::NAME_NOKI => WorldIdentifier::NokiId,
+            World::NAME_PIANTA => WorldIdentifier::PiantaId,
+            World::NAME_CORONA => WorldIdentifier::CoronaId,
+            _ => WorldIdentifier::DelfinoId
+        }
+    }
+
+    pub fn get_name_from_identifier(id: WorldIdentifier) -> &'static str {
+         match id {
+            WorldIdentifier::DelfinoId => World::NAME_DELFINO,
+            WorldIdentifier::BiancoId => World::NAME_BIANCO,
+            WorldIdentifier::RiccoId => World::NAME_RICCO,
+            WorldIdentifier::GelatoId => World::NAME_GELATO,
+            WorldIdentifier::PinnaId => World::NAME_PINNA,
+            WorldIdentifier::SirenaId => World::NAME_SIRENA,
+            WorldIdentifier::NokiId => World::NAME_NOKI,
+            WorldIdentifier::PiantaId => World::NAME_PIANTA,
+            WorldIdentifier::CoronaId => World::NAME_CORONA,
+            _ => World::NAME_DELFINO
+        }
+    }
+
     pub fn new(
         mem_card: &MemoryCard,
         save_file: &SaveFile,

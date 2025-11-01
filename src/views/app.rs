@@ -4,6 +4,8 @@ use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
 
+use crate::enums::world_identifier::WorldIdentifier;
+use crate::utils::data::get_world_id_index;
 use crate::{
     enums::file_error::FileError,
     models::{
@@ -29,6 +31,7 @@ pub struct App {
     selected_save: SaveFile,
     mem_card: MemoryCard,
     worlds: Vec<World>,
+    selected_world: WorldIdentifier,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -36,6 +39,7 @@ pub enum Message {
     Default,
     FileSelectOpen,
     SelectSaveFile(u8),
+    SelectWorld(WorldIdentifier),
     DoNothing,
 }
 
@@ -43,7 +47,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
         let result = [
             "Coin Highscore:",
-            &app.worlds[0]
+            &app.worlds[get_world_id_index(app.selected_world)]
                 .get_coin_hs()
                 .to_string()
                 .as_str()
@@ -68,9 +72,19 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     row![
                         text("World: "),
                         pick_list(
-                            vec!["Delfino Plaza"],
-                            Some("Delfino Plaza"),
-                            |_| Message::DoNothing
+                            vec![
+                                World::NAME_DELFINO,
+                                World::NAME_BIANCO,
+                                World::NAME_RICCO,
+                                World::NAME_GELATO,
+                                World::NAME_PINNA,
+                                World::NAME_SIRENA,
+                                World::NAME_NOKI,
+                                World::NAME_PIANTA,
+                                World::NAME_CORONA,
+                            ],
+                            Some(World::get_name_from_identifier(app.selected_world)),
+                            |s| Message::SelectWorld(World::get_identifier_from_name(s))
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
@@ -112,6 +126,7 @@ impl App {
                         None => get_save_file(DEFAULT_SAVE_FILE_INDEX)
                     };
                     self.worlds = get_worlds_data_list(&self.mem_card, &self.selected_save);
+                    self.selected_world = WorldIdentifier::DelfinoId;
                 }
 
                 Task::none()
@@ -122,6 +137,11 @@ impl App {
                     &self.mem_card,
                     &self.selected_save
                 );
+                self.selected_world = WorldIdentifier::DelfinoId;
+                Task::none()
+            },
+            Message::SelectWorld(id) => {
+                self.selected_world = id;
                 Task::none()
             }
             _ => {
