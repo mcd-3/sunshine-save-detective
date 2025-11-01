@@ -1,3 +1,5 @@
+use std::str;
+
 use iced::alignment::Horizontal::{Left, Right};
 use iced::alignment::Vertical::Bottom;
 use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row};
@@ -14,6 +16,7 @@ use crate::models::world::World;
 use crate::utils::file_pick::pick_file;
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
+const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
 
 #[derive(Default)]
 pub struct App {
@@ -21,6 +24,7 @@ pub struct App {
     is_uploaded: bool,
     selected_save_file: Option<u8>,
     mem_card: MemoryCard,
+    worlds: Vec<World>,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -55,7 +59,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
         let save_file = match &app.selected_save_file {
             Some(i) => get_save_file(*i),
-            None => get_save_file(SaveFile::SAVE_A_FILE_INDEX + 1)
+            None => get_save_file(DEFAULT_SAVE_FILE_INDEX)
         };
 
         let w_delfino = World::new(
@@ -132,13 +136,16 @@ impl App {
                 if matches!(result.file_error, FileError::NoError) {
                     self.mem_card = result.clone();
                     self.is_uploaded = true;
-                    self.selected_save_file = Some(SaveFile::SAVE_A_FILE_INDEX + 1)
+                    self.selected_save_file = Some(DEFAULT_SAVE_FILE_INDEX)
                 }
 
                 Task::none()
             },
             Message::SelectSaveFile(i) => {
                 self.selected_save_file = Some(i);
+
+                println!("{}", i);
+
                 Task::none()
             }
             _ => {
