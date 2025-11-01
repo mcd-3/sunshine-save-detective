@@ -1,28 +1,32 @@
-use std::str;
-
 use iced::alignment::Horizontal::{Left, Right};
-use iced::alignment::Vertical::Bottom;
 use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row};
 use iced::Length::Shrink;
 use iced::{window};
 use iced::{Center, Element, Fill, Length, Task};
 
-use crate::data::blue_coin_data::BlueCoinData;
-use crate::data::coin_data::CoinData;
-use crate::enums::file_error::FileError;
-use crate::models::mem_card::MemoryCard;
-use crate::models::save_file::SaveFile;
-use crate::models::world::World;
-use crate::utils::file_pick::pick_file;
+use crate::{
+    enums::file_error::FileError,
+    models::{
+        mem_card::MemoryCard,
+        save_file::SaveFile,
+        world::World
+    },
+    utils::{
+        data::{
+            get_save_file,
+            get_worlds_data_list
+        },
+        file_pick::pick_file   
+    }
+};
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
 
 #[derive(Default)]
 pub struct App {
-    show_file_dialog: bool,
     is_uploaded: bool,
-    selected_save_file: Option<u8>,
+    selected_save: SaveFile,
     mem_card: MemoryCard,
     worlds: Vec<World>,
 }
@@ -31,48 +35,15 @@ pub struct App {
 pub enum Message {
     Default,
     FileSelectOpen,
-    Uploading,
     SelectSaveFile(u8),
     DoNothing,
 }
 
-
-fn get_save_file(save_file_option: u8) -> SaveFile {
-    let save_index: u8 = save_file_option - 1;
-    match save_index {
-        SaveFile::SAVE_A_FILE_INDEX => {
-            SaveFile::new_by_label(SaveFile::SAVE_A_LABEL)
-        },
-        SaveFile::SAVE_B_FILE_INDEX => {
-            SaveFile::new_by_label(SaveFile::SAVE_B_LABEL)
-        },
-        SaveFile::SAVE_C_FILE_INDEX => {
-            SaveFile::new_by_label(SaveFile::SAVE_C_LABEL)
-        },
-        _ => {
-            SaveFile::new_by_label(SaveFile::SAVE_A_LABEL)
-        },
-    }
-}
-
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
-        let save_file = match &app.selected_save_file {
-            Some(i) => get_save_file(*i),
-            None => get_save_file(DEFAULT_SAVE_FILE_INDEX)
-        };
-
-        let w_delfino = World::new(
-            &app.mem_card,
-            &save_file,
-            String::from("Delfino"),
-            CoinData::get_delfino_coin_data(),
-            BlueCoinData::get_delfino_bcs()
-        );
-
         let result = [
             "Coin Highscore:",
-            w_delfino
+            &app.worlds[0]
                 .get_coin_hs()
                 .to_string()
                 .as_str()
@@ -83,9 +54,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 row![
                     row![
                         text("Save File: "),
-                        radio("A ", 1, app.selected_save_file, |i| Message::SelectSaveFile(i)),
-                        radio("B ", 2, app.selected_save_file, |i| Message::SelectSaveFile(i)),
-                        radio("C", 3, app.selected_save_file, |i| Message::SelectSaveFile(i)),
+                        radio("A ", 1, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
+                        radio("B ", 2, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
+                        radio("C", 3, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
                     ].width(Length::FillPortion(1)),
                     row![
                         text("Total Shines: 120 "),
@@ -136,16 +107,21 @@ impl App {
                 if matches!(result.file_error, FileError::NoError) {
                     self.mem_card = result.clone();
                     self.is_uploaded = true;
-                    self.selected_save_file = Some(DEFAULT_SAVE_FILE_INDEX)
+                    self.selected_save = match Some(DEFAULT_SAVE_FILE_INDEX) {
+                        Some(i) => get_save_file(i),
+                        None => get_save_file(DEFAULT_SAVE_FILE_INDEX)
+                    };
+                    self.worlds = get_worlds_data_list(&self.mem_card, &self.selected_save);
                 }
 
                 Task::none()
             },
             Message::SelectSaveFile(i) => {
-                self.selected_save_file = Some(i);
-
-                println!("{}", i);
-
+                self.selected_save = get_save_file(i);
+                self.worlds = get_worlds_data_list(
+                    &self.mem_card,
+                    &self.selected_save
+                );
                 Task::none()
             }
             _ => {

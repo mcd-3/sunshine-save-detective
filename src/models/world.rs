@@ -1,4 +1,14 @@
-use crate::{data::{blue_coin_data::BlueCoinData, coin_data::CoinData}, models::{mem_card::MemoryCard, save_file::SaveFile}};
+use crate::{
+    data::{
+        blue_coin_data::BlueCoinData,
+        coin_data::CoinData
+    },
+    enums::world_identifier::WorldIdentifier,
+    models::{
+        mem_card::MemoryCard,
+        save_file::SaveFile
+    }
+};
 
 use super::blue_coin::BlueCoin;
 
@@ -6,9 +16,20 @@ pub struct World {
     name: String,
     coin_hs: u16,
     pub blue_coins: Vec<BlueCoin>,
+    pub identifier: WorldIdentifier,
 }
 
 impl World {
+    pub const NAME_DELFINO: &str = "Delfino Plaza";
+    pub const NAME_BIANCO: &str = "Bianco Hills";
+    pub const NAME_RICCO: &str = "Ricco Harbor";
+    pub const NAME_GELATO: &str = "Gelato Beach";
+    pub const NAME_PINNA: &str = "Pinna Park";
+    pub const NAME_SIRENA: &str = "Sirena Beach";
+    pub const NAME_NOKI: &str = "Noki Bay";
+    pub const NAME_PIANTA: &str = "Pianta Village";
+    pub const NAME_CORONA: &str = "Corona Mountain";
+
     fn get_total_coins(mem_card: &MemoryCard, save_file: &SaveFile, address: usize) -> u16 {
         // SMS Saves the total coin high score as 2 bytes.
         // The first byte is used only if the high score exceeds 255 (or 0xFF)
@@ -36,6 +57,7 @@ impl World {
         mem_card: &MemoryCard,
         save_file: &SaveFile,
         name: String,
+        world_identifier: WorldIdentifier,
         coin_data: CoinData,
         blue_coin_data: Vec<BlueCoinData>
     ) -> World {
@@ -46,6 +68,6 @@ impl World {
             blue_coins.push(BlueCoin::from_data(mem_card, save_file, &bcd));
         }
 
-        World { name, coin_hs, blue_coins }
+        World { name, coin_hs, blue_coins, identifier: world_identifier }
     }
 }

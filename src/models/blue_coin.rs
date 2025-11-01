@@ -1,4 +1,10 @@
-use crate::{data::blue_coin_data::BlueCoinData, models::{mem_card::MemoryCard, save_file::SaveFile}};
+use crate::{
+    data::blue_coin_data::BlueCoinData,
+    models::{
+        mem_card::MemoryCard,
+        save_file::SaveFile
+    }
+};
 
 pub struct BlueCoin {
     is_collected: bool,

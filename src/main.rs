@@ -16,10 +16,12 @@ mod views {
 
 mod enums {
     pub mod file_error;
+    pub mod world_identifier;
 }
 
 mod utils {
     pub mod file_pick;
+    pub mod data;
 }
 
 use models::{
@@ -34,6 +36,8 @@ use data::{
     blue_coin_data::BlueCoinData,
     coin_data::CoinData
 };
+
+use enums::world_identifier::WorldIdentifier;
 
 fn main() -> iced::Result {
     let mem_card: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
@@ -70,6 +74,7 @@ fn main() -> iced::Result {
         &mem_card,
         &save_a,
         String::from("Delfino"),
+        WorldIdentifier::DelfinoId,
         CoinData::get_delfino_coin_data(),
         BlueCoinData::get_delfino_bcs()
     );
@@ -78,6 +83,7 @@ fn main() -> iced::Result {
         &mem_card,
         &save_b,
         String::from("Delfino"),
+        WorldIdentifier::DelfinoId,
         CoinData::get_delfino_coin_data(),
         BlueCoinData::get_delfino_bcs()
     );
@@ -86,6 +92,7 @@ fn main() -> iced::Result {
         &mem_card,
         &save_c,
         String::from("Delfino"),
+        WorldIdentifier::DelfinoId,
         CoinData::get_delfino_coin_data(),
         BlueCoinData::get_delfino_bcs()
     );

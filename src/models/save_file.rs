@@ -1,8 +1,6 @@
-use super::world::World;
-
 pub struct SaveFile {
     label: char,
-    index: u8,
+    pub index: u8,
     bc_start_byte: u32,
     bc_end_byte: u32,   
 }
@@ -79,6 +77,17 @@ impl SaveFile {
             SaveFile::SAVE_B_FILE_INDEX => 0x6200,
             SaveFile::SAVE_C_FILE_INDEX => 0xA200,
             _ => 0x2200,
+        }
+    }
+}
+
+impl Default for SaveFile {
+    fn default() -> Self {
+        Self {
+            label: SaveFile::SAVE_A_LABEL,
+            index: SaveFile::SAVE_A_FILE_INDEX,
+            bc_start_byte: SaveFile::SAVE_A_BC_START,
+            bc_end_byte: SaveFile::SAVE_A_BC_END,
         }
     }
 }

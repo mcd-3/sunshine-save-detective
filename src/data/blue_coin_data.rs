@@ -64,7 +64,7 @@ impl BlueCoinData {
         ]
     }
 
-    pub fn get_biano_bcs() -> Vec<BlueCoinData> {
+    pub fn get_bianco_bcs() -> Vec<BlueCoinData> {
         vec![
             BlueCoinData::new(0x00B5, Self::BINARY_INDEX_128, 14, String::from("Pianta in cavity")),
             BlueCoinData::new(0x00B5, Self::BINARY_INDEX_64, 17, String::from("Palm tree near ropes")),
@@ -256,7 +256,7 @@ impl BlueCoinData {
         ]
     }
 
-    pub fn get_nokki_bcs() -> Vec<BlueCoinData> {
+    pub fn get_noki_bcs() -> Vec<BlueCoinData> {
         vec![
             BlueCoinData::new(0x00DA, Self::BINARY_INDEX_128, 10, String::from("Gooper Blooper wall maze")),
             BlueCoinData::new(0x00DA, Self::BINARY_INDEX_64, 5, String::from("Hole in wall next to rocket nozzle")),
