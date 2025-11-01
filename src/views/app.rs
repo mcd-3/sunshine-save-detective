@@ -45,13 +45,17 @@ pub enum Message {
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
-        let result = [
-            "Coin Highscore:",
-            &app.worlds[get_world_id_index(app.selected_world)]
-                .get_coin_hs()
-                .to_string()
-                .as_str()
-        ].join(" ");
+        let result: String = match app.selected_world {
+            WorldIdentifier::CoronaId => String::from("Coin Highscore: 0"),
+            _ => {
+                ["Coin Highscore:",
+                    &app.worlds[get_world_id_index(app.selected_world)]
+                    .get_coin_hs()
+                    .to_string()
+                    .as_str()
+                ].join(" ")
+            }
+        };
 
         return row![
             column![
