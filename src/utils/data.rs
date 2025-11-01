@@ -11,6 +11,9 @@ use crate::{
     }
 };
 
+/// Gets a save file from a save file option number
+/// 
+/// Returns a save file
 pub fn get_save_file(save_file_option: u8) -> SaveFile {
     let save_index: u8 = save_file_option - 1;
     match save_index {
@@ -29,6 +32,9 @@ pub fn get_save_file(save_file_option: u8) -> SaveFile {
     }
 }
 
+/// Gets a world identifier index from a world identifier
+/// 
+/// Returns a number
 pub fn get_world_id_index(world_id: WorldIdentifier) -> usize {
     match world_id {
         WorldIdentifier::DelfinoId => 0,
@@ -43,6 +49,9 @@ pub fn get_world_id_index(world_id: WorldIdentifier) -> usize {
     }
 }
 
+/// Gets a list of all worlds and associated save data
+/// 
+/// Returns a vec of worlds
 pub fn get_worlds_data_list(
     mem_card: &MemoryCard,
     save_file: &SaveFile
