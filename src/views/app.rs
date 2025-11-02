@@ -7,10 +7,11 @@ use iced::{window, Color};
 use iced::{Center, Element, Fill, Length, Task};
 use tokio::time::sleep;
 
-use crate::enums::world_identifier::WorldIdentifier;
-use crate::utils::data::get_world_id_index;
 use crate::{
-    enums::file_error::FileError,
+    enums::{
+        file_error::FileError,
+        world_identifier::WorldIdentifier
+    },
     models::{
         mem_card::MemoryCard,
         save_file::SaveFile,
@@ -19,7 +20,9 @@ use crate::{
     utils::{
         data::{
             get_save_file,
-            get_worlds_data_list
+            get_worlds_data_list,
+            get_blue_coin_count,
+            get_world_id_index
         },
         file_pick::pick_file   
     }
@@ -36,6 +39,7 @@ pub struct App {
     mem_card: MemoryCard,
     worlds: Vec<World>,
     selected_world: WorldIdentifier,
+    blue_coin_total: u16,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -50,7 +54,7 @@ pub enum Message {
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
-        let result: String = match app.selected_world {
+        let coin_hs_str: String = match app.selected_world {
             WorldIdentifier::CoronaId => String::from("Coin Highscore: 0"),
             _ => {
                 ["Coin Highscore:",
@@ -61,6 +65,10 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 ].join(" ")
             }
         };
+
+        let bc_total_str: String = 
+            String::from("Total Blue Coins: ") +
+                &app.blue_coin_total.to_string();
 
         return row![
             column![
@@ -73,7 +81,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     ].width(Length::FillPortion(1)),
                     row![
                         text("Total Shines: 120 "),
-                        text("Total Blue Coins: 240"),
+                        text(bc_total_str),
                     ].width(Length::FillPortion(1))
                 ].spacing(15)
                     .height(32),
@@ -97,7 +105,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
-                        text(result),
+                        text(coin_hs_str),
                     ].width(Length::FillPortion(1))
                 ].spacing(15)
             ].height(Fill)
@@ -151,6 +159,7 @@ impl App {
                     };
                     self.worlds = get_worlds_data_list(&self.mem_card, &self.selected_save);
                     self.selected_world = WorldIdentifier::DelfinoId;
+                    self.blue_coin_total = get_blue_coin_count(&self.worlds);
                 } else {
                     self.is_uploaded = false;
                     self.file_error = result.file_error;
@@ -176,6 +185,7 @@ impl App {
                     &self.selected_save
                 );
                 self.selected_world = WorldIdentifier::DelfinoId;
+                self.blue_coin_total = get_blue_coin_count(&self.worlds);
                 Task::none()
             },
             Message::SelectWorld(id) => {

@@ -131,3 +131,20 @@ pub fn get_worlds_data_list(
         ),
     ]
 }
+
+/// Gets the total blue coin count for a list of worlds
+/// 
+/// Returns u16 count of blue coin total
+pub fn get_blue_coin_count(world_list: &Vec<World>) -> u16 {
+    let mut blue_coin_count: u16 = 0;
+
+    for w in world_list {
+        for b in &w.blue_coins {
+            if b.get_is_collected() {
+                blue_coin_count += 1;
+            }
+        }
+    }
+
+    blue_coin_count
+}
