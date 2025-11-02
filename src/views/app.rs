@@ -1,8 +1,11 @@
+use std::time::Duration;
+
 use iced::alignment::Horizontal::{Left, Right};
-use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row};
+use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row, Text};
 use iced::Length::Shrink;
-use iced::{window};
+use iced::{window, Color};
 use iced::{Center, Element, Fill, Length, Task};
+use tokio::time::sleep;
 
 use crate::enums::world_identifier::WorldIdentifier;
 use crate::utils::data::get_world_id_index;
@@ -28,6 +31,7 @@ const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
 #[derive(Default)]
 pub struct App {
     is_uploaded: bool,
+    file_error: FileError,
     selected_save: SaveFile,
     mem_card: MemoryCard,
     worlds: Vec<World>,
@@ -38,6 +42,7 @@ pub struct App {
 pub enum Message {
     Default,
     FileSelectOpen,
+    DisplayFileError(FileError),
     SelectSaveFile(u8),
     SelectWorld(WorldIdentifier),
     DoNothing,
@@ -101,13 +106,27 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
         ].height(Fill)
             .align_y(Center)
     } else {
+
+        let error_text: &str = match app.file_error {
+            FileError::FileRead => "Cannot read file",
+            FileError::NotProperGame => "Game is not Super Mario Sunshine",
+            FileError::NotProperRegion => "Game is not from NA region",
+            FileError::NotValidSave => "Not a valid GCI file",
+            _ => ""
+        };
+        let error_text_widget: Text = text(error_text)
+            .color(
+                Color::from_rgb(255.0, 0.0, 0.0)
+            );
+
         return row![
             column![
                 text("Select a GCI file")
                     .size(22),
                 button("Upload")
                     .padding([10, 20])
-                    .on_press(Message::FileSelectOpen)
+                    .on_press(Message::FileSelectOpen),
+                error_text_widget,
             ].align_x(Center)
                 .spacing(15)
         ].height(Fill)
@@ -125,16 +144,31 @@ impl App {
                 if matches!(result.file_error, FileError::NoError) {
                     self.mem_card = result.clone();
                     self.is_uploaded = true;
+                    self.file_error = FileError::NoError;
                     self.selected_save = match Some(DEFAULT_SAVE_FILE_INDEX) {
                         Some(i) => get_save_file(i),
                         None => get_save_file(DEFAULT_SAVE_FILE_INDEX)
                     };
                     self.worlds = get_worlds_data_list(&self.mem_card, &self.selected_save);
                     self.selected_world = WorldIdentifier::DelfinoId;
+                } else {
+                    self.is_uploaded = false;
+                    self.file_error = result.file_error;
+                    return Task::perform(
+                        sleep(
+                            Duration::from_secs(1)
+                        ),
+                        move |_e| Message::DisplayFileError(result.file_error)
+                    );
                 }
 
                 Task::none()
             },
+            Message::DisplayFileError(e) => {
+                self.file_error = e;
+                self.is_uploaded = false;
+                Task::none()
+            }
             Message::SelectSaveFile(i) => {
                 self.selected_save = get_save_file(i);
                 self.worlds = get_worlds_data_list(

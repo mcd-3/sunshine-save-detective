@@ -1,4 +1,4 @@
-#[derive(Clone)]
+#[derive(Debug, Clone, Copy)]
 pub enum FileError {
     NoError,
     FileRead,
@@ -6,4 +6,10 @@ pub enum FileError {
     NotValidSave,
     NotProperRegion,
     ReadCancelled
+}
+
+impl Default for FileError {
+    fn default() -> Self {
+        FileError::NoError
+    }
 }
