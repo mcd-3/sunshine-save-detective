@@ -31,7 +31,7 @@ impl CoinData {
         CoinData::new(0x00CB)
     }
 
-    pub fn get_serena_coin_data() -> CoinData {
+    pub fn get_sirena_coin_data() -> CoinData {
         CoinData::new(0x00CF)
     }
 
@@ -40,6 +40,12 @@ impl CoinData {
     }
 
     pub fn get_pianta_coin_data() -> CoinData {
+        CoinData::new(0x00D3)
+    }
+
+    pub fn get_corona_coin_data() -> CoinData {
+        // TODO: The game does not save Corona coin data
+        //       Need to make it equal to 0
         CoinData::new(0x00D3)
     }
 }

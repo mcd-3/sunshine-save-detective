@@ -10,11 +10,36 @@ mod data {
     pub mod coin_data;
 }
 
-use models::{mem_card::MemoryCard, save_file::SaveFile, world::World};
+mod views {
+    pub mod app;
+}
 
-use crate::{data::{blue_coin_data::BlueCoinData, coin_data::CoinData}};
+mod enums {
+    pub mod file_error;
+    pub mod world_identifier;
+}
 
-fn main() {
+mod utils {
+    pub mod file_pick;
+    pub mod data;
+}
+
+use models::{
+    mem_card::MemoryCard,
+    save_file::SaveFile,
+    world::World
+};
+
+use views::app::App;
+
+use data::{
+    blue_coin_data::BlueCoinData,
+    coin_data::CoinData
+};
+
+use enums::world_identifier::WorldIdentifier;
+
+fn main() -> iced::Result {
     let mem_card: MemoryCard = MemoryCard::read_from_file("./sms_120.gci");
 
     // For each world, make a World object. Do this 3 times for each save file
@@ -49,6 +74,7 @@ fn main() {
         &mem_card,
         &save_a,
         String::from("Delfino"),
+        WorldIdentifier::DelfinoId,
         CoinData::get_delfino_coin_data(),
         BlueCoinData::get_delfino_bcs()
     );
@@ -57,6 +83,7 @@ fn main() {
         &mem_card,
         &save_b,
         String::from("Delfino"),
+        WorldIdentifier::DelfinoId,
         CoinData::get_delfino_coin_data(),
         BlueCoinData::get_delfino_bcs()
     );
@@ -65,6 +92,7 @@ fn main() {
         &mem_card,
         &save_c,
         String::from("Delfino"),
+        WorldIdentifier::DelfinoId,
         CoinData::get_delfino_coin_data(),
         BlueCoinData::get_delfino_bcs()
     );
@@ -77,4 +105,11 @@ fn main() {
     for i in w_delfino.blue_coins {
         println!("{} | {}", i.get_is_collected(), i.get_description())
     }
+
+
+    let app_name = env!("CARGO_PKG_NAME");
+
+    iced::application(&*app_name, App::update, App::view)
+        .window_size(iced::Size::new(800.0, 600.0))
+        .run()
 }

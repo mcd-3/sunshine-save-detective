@@ -1,0 +1,235 @@
+use std::time::Duration;
+
+use iced::alignment::Horizontal::{Left, Right};
+use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row, Text};
+use iced::Length::Shrink;
+use iced::{window, Color};
+use iced::{Center, Element, Fill, Length, Task};
+use tokio::time::sleep;
+
+use crate::{
+    enums::{
+        file_error::FileError,
+        world_identifier::WorldIdentifier
+    },
+    models::{
+        mem_card::MemoryCard,
+        save_file::SaveFile,
+        world::World
+    },
+    utils::{
+        data::{
+            get_save_file,
+            get_worlds_data_list,
+            get_blue_coin_count,
+            get_world_id_index
+        },
+        file_pick::pick_file   
+    }
+};
+
+// TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
+const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
+
+#[derive(Default)]
+pub struct App {
+    is_uploaded: bool,
+    file_error: FileError,
+    selected_save: SaveFile,
+    mem_card: MemoryCard,
+    worlds: Vec<World>,
+    selected_world: WorldIdentifier,
+    blue_coin_total: u16,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum Message {
+    Default,
+    FileSelectOpen,
+    DisplayFileError(FileError),
+    SelectSaveFile(u8),
+    SelectWorld(WorldIdentifier),
+    DoNothing,
+}
+
+pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
+    if is_uploaded {
+        let coin_hs_str: String = match app.selected_world {
+            WorldIdentifier::CoronaId => String::from("Coin Highscore: 0"),
+            _ => {
+                ["Coin Highscore:",
+                    &app.worlds[get_world_id_index(app.selected_world)]
+                    .get_coin_hs()
+                    .to_string()
+                    .as_str()
+                ].join(" ")
+            }
+        };
+
+        let bc_total_str: String = 
+            String::from("Total Blue Coins: ") +
+                &app.blue_coin_total.to_string();
+
+        return row![
+            column![
+                row![
+                    row![
+                        text("Save File: "),
+                        radio("A ", 1, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
+                        radio("B ", 2, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
+                        radio("C", 3, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
+                    ].width(Length::FillPortion(1)),
+                    row![
+                        text("Total Shines: 120 "),
+                        text(bc_total_str),
+                    ].width(Length::FillPortion(1))
+                ].spacing(15)
+                    .height(32),
+                row![
+                    row![
+                        text("World: "),
+                        pick_list(
+                            vec![
+                                World::NAME_DELFINO,
+                                World::NAME_BIANCO,
+                                World::NAME_RICCO,
+                                World::NAME_GELATO,
+                                World::NAME_PINNA,
+                                World::NAME_SIRENA,
+                                World::NAME_NOKI,
+                                World::NAME_PIANTA,
+                                World::NAME_CORONA,
+                            ],
+                            Some(World::get_name_from_identifier(app.selected_world)),
+                            |s| Message::SelectWorld(World::get_identifier_from_name(s))
+                        ),
+                    ].width(Length::FillPortion(1)),
+                    row![
+                        text(coin_hs_str),
+                    ].width(Length::FillPortion(1))
+                ].spacing(15)
+            ].height(Fill)
+                .width(Fill)
+                .align_x(Center),
+        ].height(Fill)
+            .align_y(Center)
+    } else {
+
+        let error_text: &str = match app.file_error {
+            FileError::FileRead => "Cannot read file",
+            FileError::NotProperGame => "Game is not Super Mario Sunshine",
+            FileError::NotProperRegion => "Game is not from NA region",
+            FileError::NotValidSave => "Not a valid GCI file",
+            _ => ""
+        };
+        let error_text_widget: Text = text(error_text)
+            .color(
+                Color::from_rgb(255.0, 0.0, 0.0)
+            );
+
+        return row![
+            column![
+                text("Select a GCI file")
+                    .size(22),
+                button("Upload")
+                    .padding([10, 20])
+                    .on_press(Message::FileSelectOpen),
+                error_text_widget,
+            ].align_x(Center)
+                .spacing(15)
+        ].height(Fill)
+            .align_y(Center)
+    }
+}
+
+impl App {
+    pub fn update(&mut self, message: Message) -> Task<Message> {
+        match message {
+            Message::Default => window::get_latest().and_then(window::close),
+            Message::FileSelectOpen => {
+                let result: MemoryCard = pick_file();
+
+                if matches!(result.file_error, FileError::NoError) {
+                    self.mem_card = result.clone();
+                    self.is_uploaded = true;
+                    self.file_error = FileError::NoError;
+                    self.selected_save = match Some(DEFAULT_SAVE_FILE_INDEX) {
+                        Some(i) => get_save_file(i),
+                        None => get_save_file(DEFAULT_SAVE_FILE_INDEX)
+                    };
+                    self.worlds = get_worlds_data_list(&self.mem_card, &self.selected_save);
+                    self.selected_world = WorldIdentifier::DelfinoId;
+                    self.blue_coin_total = get_blue_coin_count(&self.worlds);
+                } else {
+                    self.is_uploaded = false;
+                    self.file_error = result.file_error;
+                    return Task::perform(
+                        sleep(
+                            Duration::from_secs(1)
+                        ),
+                        move |_e| Message::DisplayFileError(result.file_error)
+                    );
+                }
+
+                Task::none()
+            },
+            Message::DisplayFileError(e) => {
+                self.file_error = e;
+                self.is_uploaded = false;
+                Task::none()
+            }
+            Message::SelectSaveFile(i) => {
+                self.selected_save = get_save_file(i);
+                self.worlds = get_worlds_data_list(
+                    &self.mem_card,
+                    &self.selected_save
+                );
+                self.selected_world = WorldIdentifier::DelfinoId;
+                self.blue_coin_total = get_blue_coin_count(&self.worlds);
+                Task::none()
+            },
+            Message::SelectWorld(id) => {
+                self.selected_world = id;
+                Task::none()
+            }
+            _ => {
+                Task::none()
+            }
+        }
+    }
+
+    pub fn view(&self) -> Element<'_, Message> {
+        let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
+
+        let header: Row<'_, Message> = row![
+                Image::new("src/assets/sun_icon.png").width(32).height(32),
+                text(" Sunshine Save Detective")
+                    .size(18)
+                    .width(Length::FillPortion(1))
+                    .height(Fill)
+                    .align_x(Left)
+                    .align_y(Center),
+            ].height(Shrink);
+
+        let footer: Row<'_, Message> = row![
+                text("License")
+                    .size(12)
+                    .width(Length::FillPortion(1))
+                    .align_x(Left),
+                text(version.clone())
+                    .size(12)
+                    .width(Length::FillPortion(1))
+                    .align_x(Right),
+            ].height(Shrink);
+
+        let content = column![
+            header,
+            get_main_content(&self, self.is_uploaded),
+            footer,
+        ].height(Fill)
+            .spacing(10)
+            .align_x(Center);
+
+        center(content).padding(20).into()
+    }
+}
