@@ -1,7 +1,9 @@
 use std::time::Duration;
 
 use iced::alignment::Horizontal::{Left, Right};
-use iced::widget::{button, center, column, pick_list, radio, row, text, Image, Row, Text};
+use iced::widget::tooltip::Position;
+use iced::widget::{container, Tooltip};
+use iced::widget::{button, center, column, pick_list, radio, row, text, Column, Image, Row, Svg, Text};
 use iced::Length::Shrink;
 use iced::{window, Color};
 use iced::{Center, Element, Fill, Length, Task};
@@ -50,6 +52,37 @@ pub enum Message {
     SelectSaveFile(u8),
     SelectWorld(WorldIdentifier),
     DoNothing,
+}
+
+pub fn get_blue_coin_rows(world: &World) -> Column<'static, Message>{
+    // TODO:
+    //   2. Check what world it is and build the rows accordingly
+    //       a) Delfino has 20 BCs
+    //       b) Corona has 10 BCs
+    //       c) All other worlds have 30 BCs
+    column![
+        text("Blue Coins"),
+        row![
+            Tooltip::new(
+                Svg::from_path("src/assets/blue_coin_collected.svg")
+                    .width(24)
+                    .height(24),
+                container(text("Blue coin collected"))
+                    .padding(10)
+                    .style(container::rounded_box),
+                Position::Top
+            ),
+            Tooltip::new(
+                Svg::from_path("src/assets/blue_coin_missing.svg")
+                    .width(24)
+                    .height(24),
+                container(text("Blue coin is missing"))
+                    .padding(10)
+                    .style(container::rounded_box),
+                Position::Top
+            ),
+        ]
+    ].width(Fill)
 }
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
@@ -107,7 +140,8 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     row![
                         text(coin_hs_str),
                     ].width(Length::FillPortion(1))
-                ].spacing(15)
+                ].spacing(15),
+                get_blue_coin_rows(&app.worlds[0])
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),
