@@ -6,6 +6,7 @@ use crate::{
     }
 };
 
+#[derive(Clone)]
 pub struct BlueCoin {
     is_collected: bool,
     mpl_order_number: u8,

@@ -5,7 +5,7 @@ use iced::widget::tooltip::Position;
 use iced::widget::{container, Tooltip};
 use iced::widget::{button, center, column, pick_list, radio, row, text, Column, Image, Row, Svg, Text};
 use iced::Length::Shrink;
-use iced::{window, Color};
+use iced::{window, Color, Renderer, Theme};
 use iced::{Center, Element, Fill, Length, Task};
 use tokio::time::sleep;
 
@@ -24,7 +24,9 @@ use crate::{
             get_save_file,
             get_worlds_data_list,
             get_blue_coin_count,
-            get_world_id_index
+            get_world_id_index,
+            get_svg_path_from_blue_coin_collected,
+            get_blue_coin_row_lists
         },
         file_pick::pick_file   
     }
@@ -54,37 +56,6 @@ pub enum Message {
     DoNothing,
 }
 
-pub fn get_blue_coin_rows(world: &World) -> Column<'static, Message>{
-    // TODO:
-    //   2. Check what world it is and build the rows accordingly
-    //       a) Delfino has 20 BCs
-    //       b) Corona has 10 BCs
-    //       c) All other worlds have 30 BCs
-    column![
-        text("Blue Coins"),
-        row![
-            Tooltip::new(
-                Svg::from_path("src/assets/blue_coin_collected.svg")
-                    .width(24)
-                    .height(24),
-                container(text("Blue coin collected"))
-                    .padding(10)
-                    .style(container::rounded_box),
-                Position::Top
-            ),
-            Tooltip::new(
-                Svg::from_path("src/assets/blue_coin_missing.svg")
-                    .width(24)
-                    .height(24),
-                container(text("Blue coin is missing"))
-                    .padding(10)
-                    .style(container::rounded_box),
-                Position::Top
-            ),
-        ]
-    ].width(Fill)
-}
-
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
         let coin_hs_str: String = match app.selected_world {
@@ -102,6 +73,42 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
         let bc_total_str: String = 
             String::from("Total Blue Coins: ") +
                 &app.blue_coin_total.to_string();
+
+        let blue_coin_row_lists = get_blue_coin_row_lists(
+            &app.worlds[
+                get_world_id_index(app.selected_world)
+            ]
+        );
+        let mut r1: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
+        let mut r2: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
+        let mut r3: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
+        let mut row_number = 0;
+
+        for r in blue_coin_row_lists {
+            if !r.is_empty() {
+                for b in r {
+                    let new_element = Element::new(Tooltip::new(
+                            Svg::from_path(
+                                    get_svg_path_from_blue_coin_collected(b.get_is_collected())
+                                )
+                                .width(24)
+                                .height(24),
+                            container(text(String::from(b.get_description())))
+                                .padding(10)
+                                .style(container::rounded_box),
+                                Position::Top
+                    ));
+
+                    match row_number {
+                        0 => r1.push(new_element),
+                        1 => r2.push(new_element),
+                        2 => r3.push(new_element),
+                        _ => {}
+                    }
+                }
+            }
+            row_number = row_number + 1;
+        }
 
         return row![
             column![
@@ -141,7 +148,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         text(coin_hs_str),
                     ].width(Length::FillPortion(1))
                 ].spacing(15),
-                get_blue_coin_rows(&app.worlds[0])
+                column![Row::with_children(r1).width(Length::Fill)].width(Length::Fill),
+                column![Row::with_children(r2).width(Length::Fill)].width(Length::Fill),
+                column![Row::with_children(r3).width(Length::Fill)].width(Length::Fill),
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),
