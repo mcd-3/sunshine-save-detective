@@ -34,6 +34,10 @@ use crate::{
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
+const SVG_SIZE: u16 = 28;
+const DEFAULT_SPACING: u16 = 15;
+const TEXT_SIZE_HEADER: u16 = 18;
+const TEXT_SIZE_SUBHEADER: u16 = 12;
 
 #[derive(Default)]
 pub struct App {
@@ -93,8 +97,8 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                                 Svg::from_path(
                                         get_svg_path_from_blue_coin_collected(b.get_is_collected())
                                     )
-                                    .width(24)
-                                    .height(24),
+                                    .width(SVG_SIZE)
+                                    .height(SVG_SIZE),
                                 container(text(String::from(b.get_description())))
                                     .padding(10)
                                     .style(container::rounded_box),
@@ -127,7 +131,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         text("Total Shines: 120 "),
                         text(bc_total_str),
                     ].width(Length::FillPortion(1))
-                ].spacing(15)
+                ].spacing(DEFAULT_SPACING)
                     .height(32),
                 row![
                     row![
@@ -151,10 +155,15 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     row![
                         text(coin_hs_str),
                     ].width(Length::FillPortion(1))
-                ].spacing(15),
-                column![Row::with_children(r1).width(Length::Fill)].width(Length::Fill).padding(8),
-                column![Row::with_children(r2).width(Length::Fill)].width(Length::Fill).padding(8),
-                column![Row::with_children(r3).width(Length::Fill)].width(Length::Fill).padding(8),
+                ].spacing(DEFAULT_SPACING),
+                row![
+                    column![
+                        text("Blue Coins"),
+                        column![Row::with_children(r1).width(Length::Fill)].width(Length::Fill).padding(8),
+                        column![Row::with_children(r2).width(Length::Fill)].width(Length::Fill).padding(8),
+                        column![Row::with_children(r3).width(Length::Fill)].width(Length::Fill).padding(8),
+                    ]
+                ].spacing(DEFAULT_SPACING),
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),
@@ -183,7 +192,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     .on_press(Message::FileSelectOpen),
                 error_text_widget,
             ].align_x(Center)
-                .spacing(15)
+                .spacing(DEFAULT_SPACING)
         ].height(Fill)
             .align_y(Center)
     }
@@ -251,7 +260,7 @@ impl App {
         let header: Row<'_, Message> = row![
                 Image::new("src/assets/sun_icon.png").width(32).height(32),
                 text(" Sunshine Save Detective")
-                    .size(18)
+                    .size(TEXT_SIZE_HEADER)
                     .width(Length::FillPortion(1))
                     .height(Fill)
                     .align_x(Left)
@@ -260,11 +269,11 @@ impl App {
 
         let footer: Row<'_, Message> = row![
                 text("License")
-                    .size(12)
+                    .size(TEXT_SIZE_SUBHEADER)
                     .width(Length::FillPortion(1))
                     .align_x(Left),
                 text(version.clone())
-                    .size(12)
+                    .size(TEXT_SIZE_SUBHEADER)
                     .width(Length::FillPortion(1))
                     .align_x(Right),
             ].height(Shrink);
