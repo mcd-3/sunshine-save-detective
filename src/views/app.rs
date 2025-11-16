@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use iced::alignment::Horizontal::{Left, Right};
 use iced::widget::tooltip::Position;
-use iced::widget::{container, Tooltip};
+use iced::widget::{container, Container, Tooltip};
 use iced::widget::{button, center, column, pick_list, radio, row, text, Column, Image, Row, Svg, Text};
 use iced::Length::Shrink;
 use iced::{window, Color, Renderer, Theme};
@@ -87,17 +87,21 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
         for r in blue_coin_row_lists {
             if !r.is_empty() {
                 for b in r {
-                    let new_element = Element::new(Tooltip::new(
-                            Svg::from_path(
-                                    get_svg_path_from_blue_coin_collected(b.get_is_collected())
-                                )
-                                .width(24)
-                                .height(24),
-                            container(text(String::from(b.get_description())))
-                                .padding(10)
-                                .style(container::rounded_box),
-                                Position::Top
-                    ));
+                    let new_element = Element::new(
+                        Container::new(
+                            Tooltip::new(
+                                Svg::from_path(
+                                        get_svg_path_from_blue_coin_collected(b.get_is_collected())
+                                    )
+                                    .width(24)
+                                    .height(24),
+                                container(text(String::from(b.get_description())))
+                                    .padding(10)
+                                    .style(container::rounded_box),
+                                    Position::Top
+                            )
+                        ).width(Length::FillPortion(1))
+                    );
 
                     match row_number {
                         0 => r1.push(new_element),
@@ -148,9 +152,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         text(coin_hs_str),
                     ].width(Length::FillPortion(1))
                 ].spacing(15),
-                column![Row::with_children(r1).width(Length::Fill)].width(Length::Fill),
-                column![Row::with_children(r2).width(Length::Fill)].width(Length::Fill),
-                column![Row::with_children(r3).width(Length::Fill)].width(Length::Fill),
+                column![Row::with_children(r1).width(Length::Fill)].width(Length::Fill).padding(8),
+                column![Row::with_children(r2).width(Length::Fill)].width(Length::Fill).padding(8),
+                column![Row::with_children(r3).width(Length::Fill)].width(Length::Fill).padding(8),
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),
