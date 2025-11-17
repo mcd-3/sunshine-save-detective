@@ -3,7 +3,19 @@ use std::time::Duration;
 use iced::alignment::Horizontal::{Left, Right};
 use iced::widget::tooltip::Position;
 use iced::widget::{container, Container, Tooltip};
-use iced::widget::{button, center, column, pick_list, radio, row, text, Column, Image, Row, Svg, Text};
+use iced::widget::{
+    button,
+    center,
+    column,
+    pick_list,
+    radio,
+    row,
+    text,
+    Image,
+    Row,
+    Svg,
+    Text
+};
 use iced::Length::Shrink;
 use iced::{window, Color, Renderer, Theme};
 use iced::{Center, Element, Fill, Length, Task};
@@ -66,10 +78,11 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
             WorldIdentifier::CoronaId => String::from("Coin Highscore: 0"),
             _ => {
                 ["Coin Highscore:",
-                    &app.worlds[get_world_id_index(app.selected_world)]
-                    .get_coin_hs()
-                    .to_string()
-                    .as_str()
+                    &app.worlds[
+                        get_world_id_index(app.selected_world)
+                    ].get_coin_hs()
+                        .to_string()
+                        .as_str()
                 ].join(" ")
             }
         };
@@ -124,9 +137,24 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 row![
                     row![
                         text("Save File: "),
-                        radio("A ", 1, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
-                        radio("B ", 2, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
-                        radio("C", 3, Some(app.selected_save.index + 1), |i| Message::SelectSaveFile(i)),
+                        radio(
+                            "A ",
+                            1,
+                            Some(app.selected_save.index + 1),
+                            |i| Message::SelectSaveFile(i)
+                        ),
+                        radio(
+                            "B ",
+                            2,
+                            Some(app.selected_save.index + 1),
+                            |i| Message::SelectSaveFile(i)
+                        ),
+                        radio(
+                            "C",
+                            3,
+                            Some(app.selected_save.index + 1),
+                            |i| Message::SelectSaveFile(i)
+                        ),
                     ].width(Length::FillPortion(1)),
                     row![
                         text("Total Shines: 120 "),
