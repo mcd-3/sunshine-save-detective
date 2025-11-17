@@ -16,8 +16,9 @@ use iced::widget::{
     Svg,
     Text
 };
+use iced::font::Weight::Semibold;
 use iced::Length::Shrink;
-use iced::{window, Color, Renderer, Theme};
+use iced::{window, Color, Font, Renderer, Theme};
 use iced::{Center, Element, Fill, Length, Task};
 use tokio::time::sleep;
 
@@ -193,7 +194,12 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 ].spacing(DEFAULT_SPACING),
                 row![
                     column![
-                        text("Blue Coins"),
+                        text("Blue Coins").font(
+                            Font {
+                                weight: Semibold,
+                                ..Font::DEFAULT
+                            }
+                        ),
                         column![
                             Row::with_children(r1)
                                 .width(Length::Fill)
