@@ -139,19 +139,19 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         text("Save File: "),
                         radio(
                             "A ",
-                            1,
+                            DEFAULT_SAVE_FILE_INDEX,
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
                         ),
                         radio(
                             "B ",
-                            2,
+                            DEFAULT_SAVE_FILE_INDEX + 1,
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
                         ),
                         radio(
                             "C",
-                            3,
+                            DEFAULT_SAVE_FILE_INDEX + 2,
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
                         ),
