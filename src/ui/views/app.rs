@@ -16,9 +16,8 @@ use iced::widget::{
     Svg,
     Text
 };
-use iced::font::Weight::Semibold;
 use iced::Length::Shrink;
-use iced::{window, Color, Font, Renderer, Theme};
+use iced::{window, Color, Renderer, Theme};
 use iced::{Center, Element, Fill, Length, Task};
 use tokio::time::sleep;
 
@@ -31,6 +30,11 @@ use crate::{
         mem_card::MemoryCard,
         save_file::SaveFile,
         world::World
+    },
+    ui::{
+        components::{
+            header::header
+        }
     },
     utils::{
         data::{
@@ -194,14 +198,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 ].spacing(DEFAULT_SPACING),
                 row![
                     column![
-                        row![
-                            text("Blue Coins").font(
-                                Font {
-                                    weight: Semibold,
-                                    ..Font::DEFAULT
-                                }
-                            ),
-                        ].padding([10, 0]),
+                        header(String::from("Blue Coins")),
                         column![
                             Row::with_children(r1)
                                 .width(Length::Fill)

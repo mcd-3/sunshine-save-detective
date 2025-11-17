@@ -14,6 +14,9 @@ mod ui {
     pub mod views {
         pub mod app;
     }
+    pub mod components {
+        pub mod header;
+    }
 }
 
 mod enums {
