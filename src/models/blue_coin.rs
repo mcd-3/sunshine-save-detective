@@ -26,6 +26,10 @@ impl BlueCoin {
         &self.description
     }
 
+    pub fn get_overview(&self) -> String {
+        return format!("{}\n\nMPL: {}", self.get_description(), self.mpl_order_number)
+    }
+
     fn get_blue_coin_collected(mem_card: &MemoryCard, save_file: &SaveFile, bcd: &BlueCoinData) -> bool {
         // Blue coin flags are stored in 2 addresses:
         // 0x2nnn and 0x4nnn (for File A)

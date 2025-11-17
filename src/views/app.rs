@@ -99,7 +99,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                                     )
                                     .width(SVG_SIZE)
                                     .height(SVG_SIZE),
-                                container(text(String::from(b.get_description())))
+                                container(text(b.get_overview()))
                                     .padding(10)
                                     .style(container::rounded_box),
                                     Position::Top
