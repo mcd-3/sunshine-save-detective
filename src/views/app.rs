@@ -108,11 +108,17 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         Container::new(
                             Tooltip::new(
                                 Svg::from_path(
-                                        get_svg_path_from_blue_coin_collected(b.get_is_collected())
+                                        get_svg_path_from_blue_coin_collected(
+                                            b.get_is_collected()
+                                        )
                                     )
                                     .width(SVG_SIZE)
                                     .height(SVG_SIZE),
-                                container(text(b.get_overview()))
+                                container(
+                                    text(
+                                            b.get_overview()
+                                        )
+                                    )
                                     .padding(10)
                                     .style(container::rounded_box),
                                     Position::Top
