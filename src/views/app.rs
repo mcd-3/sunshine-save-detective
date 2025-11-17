@@ -160,9 +160,21 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 row![
                     column![
                         text("Blue Coins"),
-                        column![Row::with_children(r1).width(Length::Fill)].width(Length::Fill).padding(8),
-                        column![Row::with_children(r2).width(Length::Fill)].width(Length::Fill).padding(8),
-                        column![Row::with_children(r3).width(Length::Fill)].width(Length::Fill).padding(8),
+                        column![
+                            Row::with_children(r1)
+                                .width(Length::Fill)
+                        ].width(Length::Fill)
+                            .padding(8),
+                        column![
+                            Row::with_children(r2)
+                                .width(Length::Fill)
+                        ].width(Length::Fill)
+                            .padding(8),
+                        column![
+                            Row::with_children(r3)
+                                .width(Length::Fill)
+                        ].width(Length::Fill)
+                            .padding(8),
                     ]
                 ].spacing(DEFAULT_SPACING),
             ].height(Fill)
