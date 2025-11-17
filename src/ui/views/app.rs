@@ -194,12 +194,14 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                 ].spacing(DEFAULT_SPACING),
                 row![
                     column![
-                        text("Blue Coins").font(
-                            Font {
-                                weight: Semibold,
-                                ..Font::DEFAULT
-                            }
-                        ),
+                        row![
+                            text("Blue Coins").font(
+                                Font {
+                                    weight: Semibold,
+                                    ..Font::DEFAULT
+                                }
+                            ),
+                        ].padding([10, 0]),
                         column![
                             Row::with_children(r1)
                                 .width(Length::Fill)

@@ -10,8 +10,10 @@ mod data {
     pub mod coin_data;
 }
 
-mod views {
-    pub mod app;
+mod ui {
+    pub mod views {
+        pub mod app;
+    }
 }
 
 mod enums {
@@ -30,7 +32,7 @@ use models::{
     world::World
 };
 
-use views::app::App;
+use ui::views::app::App;
 
 use data::{
     blue_coin_data::BlueCoinData,
