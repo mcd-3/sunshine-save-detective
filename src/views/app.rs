@@ -105,6 +105,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                                     Position::Top
                             )
                         ).width(Length::FillPortion(1))
+                            .align_x(Center)
                     );
 
                     match row_number {
