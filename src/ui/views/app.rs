@@ -148,19 +148,19 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     row![
                         text("Save File: "),
                         radio(
-                            "A ",
+                            format!("{} ", SaveFile::SAVE_A_LABEL),
                             DEFAULT_SAVE_FILE_INDEX,
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
                         ),
                         radio(
-                            "B ",
+                            format!("{} ", SaveFile::SAVE_B_LABEL),
                             DEFAULT_SAVE_FILE_INDEX + 1,
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
                         ),
                         radio(
-                            "C",
+                            SaveFile::SAVE_C_LABEL,
                             DEFAULT_SAVE_FILE_INDEX + 2,
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
@@ -180,7 +180,6 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                     .height(32),
                 row![
                     row![
-                        text("World: "),
                         pick_list(
                             vec![
                                 World::NAME_DELFINO,
