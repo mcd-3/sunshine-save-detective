@@ -93,9 +93,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
             }
         };
 
-        let bc_total_str: String = 
-            String::from("Total Blue Coins: ") +
-                &app.blue_coin_total.to_string();
+        let bc_total_str: String = format!(" {}", &app.blue_coin_total.to_string());
 
         let blue_coin_row_lists = get_blue_coin_row_lists(
             &app.worlds[
@@ -169,7 +167,13 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
-                        text("Total Shines: 120 "),
+                        Svg::from_path("src/assets/yellow_coin.svg")
+                            .width(SVG_SIZE)
+                            .height(SVG_SIZE),
+                        text(" 120 "),
+                        Svg::from_path("src/assets/blue_coin_collected.svg")
+                            .width(SVG_SIZE)
+                            .height(SVG_SIZE),
                         text(bc_total_str),
                     ].width(Length::FillPortion(1))
                 ].spacing(DEFAULT_SPACING)
