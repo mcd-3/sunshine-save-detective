@@ -80,15 +80,16 @@ pub enum Message {
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
     if is_uploaded {
         let coin_hs_str: String = match app.selected_world {
-            WorldIdentifier::CoronaId => String::from("Coin Highscore: 0"),
+            WorldIdentifier::CoronaId => String::from(" 0"),
             _ => {
-                ["Coin Highscore:",
-                    &app.worlds[
-                        get_world_id_index(app.selected_world)
-                    ].get_coin_hs()
-                        .to_string()
-                        .as_str()
-                ].join(" ")
+                format!(" {}",
+                    String::from(
+                        &app.worlds[
+                            get_world_id_index(app.selected_world)
+                        ].get_coin_hs()
+                            .to_string()
+                    )
+                )
             }
         };
 
@@ -193,7 +194,10 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
-                        text(coin_hs_str),
+                        Svg::from_path("src/assets/yellow_coin.svg")
+                            .width(SVG_SIZE)
+                            .height(SVG_SIZE),
+                        text(coin_hs_str)
                     ].width(Length::FillPortion(1))
                 ].spacing(DEFAULT_SPACING),
                 row![
