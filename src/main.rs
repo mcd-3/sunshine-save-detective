@@ -16,6 +16,7 @@ mod ui {
     }
     pub mod components {
         pub mod header;
+        pub mod icon;
     }
 }
 

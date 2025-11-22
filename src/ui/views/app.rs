@@ -33,7 +33,8 @@ use crate::{
     },
     ui::{
         components::{
-            header::header
+            header::header,
+            icon::icon
         }
     },
     utils::{
@@ -74,7 +75,6 @@ pub enum Message {
     DisplayFileError(FileError),
     SelectSaveFile(u8),
     SelectWorld(WorldIdentifier),
-    DoNothing,
 }
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
@@ -167,13 +167,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
-                        Svg::from_path("src/assets/yellow_coin.svg")
-                            .width(SVG_SIZE)
-                            .height(SVG_SIZE),
+                        icon("src/assets/yellow_coin.svg"),
                         text(" 120 "),
-                        Svg::from_path("src/assets/blue_coin_collected.svg")
-                            .width(SVG_SIZE)
-                            .height(SVG_SIZE),
+                        icon("src/assets/blue_coin_collected.svg"),
                         text(bc_total_str),
                     ].width(Length::FillPortion(1))
                 ].spacing(DEFAULT_SPACING)
@@ -197,9 +193,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
                         ),
                     ].width(Length::FillPortion(1)),
                     row![
-                        Svg::from_path("src/assets/yellow_coin.svg")
-                            .width(SVG_SIZE)
-                            .height(SVG_SIZE),
+                        icon("src/assets/yellow_coin.svg"),
                         text(coin_hs_str)
                     ].width(Length::FillPortion(1))
                 ].spacing(DEFAULT_SPACING),
