@@ -27,7 +27,12 @@ impl BlueCoin {
     }
 
     pub fn get_overview(&self) -> String {
-        return format!("{}\n\nMPL: {}", self.get_description(), self.mpl_order_number)
+        return format!(
+            "{}\n\nMPL: {}  |  {}",
+            self.get_description(),
+            self.mpl_order_number,
+            if self.is_collected { "Collected" } else { "Missing" }
+        )
     }
 
     fn get_blue_coin_collected(mem_card: &MemoryCard, save_file: &SaveFile, bcd: &BlueCoinData) -> bool {
