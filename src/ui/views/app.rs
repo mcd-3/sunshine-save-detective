@@ -77,7 +77,7 @@ pub enum Message {
     SelectWorld(WorldIdentifier),
 }
 
-pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'static, Message> {
+pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
     if is_uploaded {
         let coin_hs_str: String = match app.selected_world {
             WorldIdentifier::CoronaId => String::from(" 0"),
