@@ -5,9 +5,7 @@ use crate::{
     },
     enums::world_identifier::WorldIdentifier,
     models::{
-        mem_card::MemoryCard,
-        save_file::SaveFile,
-        world::World
+        blue_coin::BlueCoin, mem_card::MemoryCard, save_file::SaveFile, world::World
     }
 };
 
@@ -147,4 +145,39 @@ pub fn get_blue_coin_count(world_list: &Vec<World>) -> u16 {
     }
 
     blue_coin_count
+}
+
+/// Gets the SVG asset corresponding to blue coin collected state
+/// 
+/// Returns a path string to the SVG
+pub fn get_svg_path_from_blue_coin_collected(is_collected: bool) -> String {
+    return if is_collected {
+        String::from("src/assets/blue_coin_collected.svg")
+    } else {
+        String::from("src/assets/blue_coin_missing.svg")
+    }
+}
+
+/// Gets a list of blue coin lists to be divided into rows
+/// 
+/// Returns a list of 3 blue coin lists
+pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
+    let mut count: usize = 0;
+    let mut r1: Vec<BlueCoin> = vec![];
+    let mut r2: Vec<BlueCoin> = vec![];
+    let mut r3: Vec<BlueCoin> = vec![];
+
+    for b in &world.blue_coins {
+        // There is a max of 30 blue coins per level, so 10 per row
+        match count / 10 {
+            0 => r1.push(b.clone()),
+            1 => r2.push(b.clone()),
+            2 => r3.push(b.clone()),
+            _ => { /* Do nothing. Bluce Coins should never exceed 30 per level */ }
+        };
+
+        count = count +1;
+    }
+
+    vec![r1, r2, r3]
 }

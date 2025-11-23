@@ -10,11 +10,19 @@ mod data {
     pub mod coin_data;
 }
 
-mod views {
-    pub mod app;
+mod ui {
+    pub mod views {
+        pub mod app;
+    }
+    pub mod components {
+        pub mod header;
+        pub mod icon;
+        pub mod blue_coin_display;
+    }
 }
 
 mod enums {
+    pub mod message;
     pub mod file_error;
     pub mod world_identifier;
 }
@@ -30,7 +38,7 @@ use models::{
     world::World
 };
 
-use views::app::App;
+use ui::views::app::App;
 
 use data::{
     blue_coin_data::BlueCoinData,
