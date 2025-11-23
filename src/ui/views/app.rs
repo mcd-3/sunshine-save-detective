@@ -11,11 +11,9 @@ use iced::widget::{
     text,
     Image,
     Row,
-    Text
 };
 use iced::{
     window,
-    Color,
     Center,
     Element,
     Fill,
@@ -25,7 +23,6 @@ use iced::{
 };
 use tokio::time::sleep;
 
-use crate::ui::components::blue_coin_display::blue_coin_display;
 use crate::{
     enums::{
         message::Message,
@@ -39,7 +36,9 @@ use crate::{
     },
     ui::{
         components::{
-            icon::icon
+            icon::icon,
+            blue_coin_display::blue_coin_display,
+            error_warning::error_warning
         }
     },
     utils::{
@@ -63,7 +62,7 @@ const DEFAULT_ROW_HEIGHT: u16 = 36;
 #[derive(Default)]
 pub struct App {
     is_uploaded: bool,
-    file_error: FileError,
+    pub file_error: FileError,
     selected_save: SaveFile,
     mem_card: MemoryCard,
     pub worlds: Vec<World>,
@@ -162,19 +161,6 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
         ].height(Fill)
             .align_y(Center)
     } else {
-
-        let error_text: &str = match app.file_error {
-            FileError::FileRead => "Cannot read file",
-            FileError::NotProperGame => "Game is not Super Mario Sunshine",
-            FileError::NotProperRegion => "Game is not from NA region",
-            FileError::NotValidSave => "Not a valid GCI file",
-            _ => ""
-        };
-        let error_text_widget: Text = text(error_text)
-            .color(
-                Color::from_rgb(255.0, 0.0, 0.0)
-            );
-
         return row![
             column![
                 text("Select a GCI file")
@@ -182,7 +168,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 button("Upload")
                     .padding([10, 20])
                     .on_press(Message::FileSelectOpen),
-                error_text_widget,
+                error_warning(app),
             ].align_x(Center)
                 .spacing(DEFAULT_SPACING)
         ].height(Fill)

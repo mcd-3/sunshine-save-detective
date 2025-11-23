@@ -18,6 +18,7 @@ mod ui {
         pub mod header;
         pub mod icon;
         pub mod blue_coin_display;
+        pub mod error_warning;
     }
 }
 
