@@ -165,15 +165,19 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                             Some(app.selected_save.index + 1),
                             |i| Message::SelectSaveFile(i)
                         ),
-                    ].width(Length::FillPortion(1)),
+                    ].width(Length::FillPortion(1))
+                        .height(32)
+                        .align_y(Center),
                     row![
                         icon("src/assets/yellow_coin.svg"),
                         text(" 120 "),
                         icon("src/assets/blue_coin_collected.svg"),
                         text(bc_total_str),
                     ].width(Length::FillPortion(1))
+                        .height(Fill)
+                        .align_y(Center)
                 ].spacing(DEFAULT_SPACING)
-                    .height(32),
+                    .height(36),
                 row![
                     row![
                         pick_list(
