@@ -1,6 +1,6 @@
 use iced::{widget::{row, text, Row}, Font};
 use iced::font::Weight::Semibold;
-use crate::ui::views::app::Message;
+use crate::enums::message::Message;
 
 pub fn header(str: String) -> Row<'static, Message> {
     row![

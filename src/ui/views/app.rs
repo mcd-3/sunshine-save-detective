@@ -1,8 +1,6 @@
 use std::time::Duration;
 
 use iced::alignment::Horizontal::{Left, Right};
-use iced::widget::tooltip::Position;
-use iced::widget::{container, Container, Tooltip};
 use iced::widget::{
     button,
     center,
@@ -13,16 +11,24 @@ use iced::widget::{
     text,
     Image,
     Row,
-    Svg,
     Text
 };
-use iced::Length::Shrink;
-use iced::{window, Color, Renderer, Theme};
-use iced::{Center, Element, Fill, Length, Task};
+use iced::{
+    window,
+    Color,
+    Center,
+    Element,
+    Fill,
+    Length,
+    Task,
+    Length::Shrink
+};
 use tokio::time::sleep;
 
+use crate::ui::components::blue_coin_display::blue_coin_display;
 use crate::{
     enums::{
+        message::Message,
         file_error::FileError,
         world_identifier::WorldIdentifier
     },
@@ -33,7 +39,6 @@ use crate::{
     },
     ui::{
         components::{
-            header::header,
             icon::icon
         }
     },
@@ -43,8 +48,6 @@ use crate::{
             get_worlds_data_list,
             get_blue_coin_count,
             get_world_id_index,
-            get_svg_path_from_blue_coin_collected,
-            get_blue_coin_row_lists
         },
         file_pick::pick_file   
     }
@@ -52,7 +55,6 @@ use crate::{
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
-const SVG_SIZE: u16 = 28;
 const DEFAULT_SPACING: u16 = 15;
 const TEXT_SIZE_HEADER: u16 = 18;
 const TEXT_SIZE_SUBHEADER: u16 = 12;
@@ -64,18 +66,9 @@ pub struct App {
     file_error: FileError,
     selected_save: SaveFile,
     mem_card: MemoryCard,
-    worlds: Vec<World>,
-    selected_world: WorldIdentifier,
+    pub worlds: Vec<World>,
+    pub selected_world: WorldIdentifier,
     blue_coin_total: u16,
-}
-
-#[derive(Debug, Clone, Copy)]
-pub enum Message {
-    Default,
-    FileSelectOpen,
-    DisplayFileError(FileError),
-    SelectSaveFile(u8),
-    SelectWorld(WorldIdentifier),
 }
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
@@ -95,53 +88,6 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
         };
 
         let bc_total_str: String = format!(" {}", &app.blue_coin_total.to_string());
-
-        let blue_coin_row_lists = get_blue_coin_row_lists(
-            &app.worlds[
-                get_world_id_index(app.selected_world)
-            ]
-        );
-        let mut r1: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
-        let mut r2: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
-        let mut r3: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
-        let mut row_number = 0;
-
-        for r in blue_coin_row_lists {
-            if !r.is_empty() {
-                for b in r {
-                    let new_element = Element::new(
-                        Container::new(
-                            Tooltip::new(
-                                Svg::from_path(
-                                        get_svg_path_from_blue_coin_collected(
-                                            b.get_is_collected()
-                                        )
-                                    )
-                                    .width(SVG_SIZE)
-                                    .height(SVG_SIZE),
-                                container(
-                                    text(
-                                            b.get_overview()
-                                        )
-                                    )
-                                    .padding(10)
-                                    .style(container::rounded_box),
-                                    Position::Top
-                            )
-                        ).width(Length::FillPortion(1))
-                            .align_x(Center)
-                    );
-
-                    match row_number {
-                        0 => r1.push(new_element),
-                        1 => r2.push(new_element),
-                        2 => r3.push(new_element),
-                        _ => {}
-                    }
-                }
-            }
-            row_number = row_number + 1;
-        }
 
         return row![
             column![
@@ -208,24 +154,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
                 row![
-                    column![
-                        header(String::from("Blue Coins")),
-                        column![
-                            Row::with_children(r1)
-                                .width(Length::Fill)
-                        ].width(Length::Fill)
-                            .padding(8),
-                        column![
-                            Row::with_children(r2)
-                                .width(Length::Fill)
-                        ].width(Length::Fill)
-                            .padding(8),
-                        column![
-                            Row::with_children(r3)
-                                .width(Length::Fill)
-                        ].width(Length::Fill)
-                            .padding(8),
-                    ]
+                    blue_coin_display(app)
                 ].spacing(DEFAULT_SPACING),
             ].height(Fill)
                 .width(Fill)

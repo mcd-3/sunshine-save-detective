@@ -17,10 +17,12 @@ mod ui {
     pub mod components {
         pub mod header;
         pub mod icon;
+        pub mod blue_coin_display;
     }
 }
 
 mod enums {
+    pub mod message;
     pub mod file_error;
     pub mod world_identifier;
 }
