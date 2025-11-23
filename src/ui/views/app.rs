@@ -56,6 +56,7 @@ const SVG_SIZE: u16 = 28;
 const DEFAULT_SPACING: u16 = 15;
 const TEXT_SIZE_HEADER: u16 = 18;
 const TEXT_SIZE_SUBHEADER: u16 = 12;
+const DEFAULT_ROW_HEIGHT: u16 = 36;
 
 #[derive(Default)]
 pub struct App {
@@ -177,7 +178,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         .height(Fill)
                         .align_y(Center)
                 ].spacing(DEFAULT_SPACING)
-                    .height(36),
+                    .height(DEFAULT_ROW_HEIGHT),
                 row![
                     row![
                         pick_list(
@@ -195,12 +196,17 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                             Some(World::get_name_from_identifier(app.selected_world)),
                             |s| Message::SelectWorld(World::get_identifier_from_name(s))
                         ),
-                    ].width(Length::FillPortion(1)),
+                    ].width(Length::FillPortion(1))
+                        .height(Fill)
+                        .align_y(Center),
                     row![
                         icon("src/assets/yellow_coin.svg"),
                         text(coin_hs_str)
                     ].width(Length::FillPortion(1))
-                ].spacing(DEFAULT_SPACING),
+                        .height(Fill)
+                        .align_y(Center),
+                ].spacing(DEFAULT_SPACING)
+                    .height(DEFAULT_ROW_HEIGHT + 4),
                 row![
                     column![
                         header(String::from("Blue Coins")),
