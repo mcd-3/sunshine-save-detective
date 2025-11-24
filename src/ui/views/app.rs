@@ -119,6 +119,8 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         text(" 120 "),
                         icon("src/assets/blue_coin_collected.svg"),
                         text(bc_total_str),
+                        button("Upload")
+                            .on_press(Message::FileSelectOpen)
                     ].width(Length::FillPortion(1))
                         .height(Fill)
                         .align_y(Center)
@@ -199,7 +201,7 @@ impl App {
                     self.file_error = result.file_error;
                     return Task::perform(
                         sleep(
-                            Duration::from_secs(1)
+                            Duration::from_millis(50)
                         ),
                         move |_e| Message::DisplayFileError(result.file_error)
                     );
