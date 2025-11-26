@@ -246,8 +246,8 @@ impl App {
         let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
 
         let header: Row<'_, Message> = row![
-                icon_large("src/assets/sunshine.svg"),
-                text(" Sunshine Save Detective")
+                icon_large("src/assets/sunshine_detective.svg"),
+                text("  Sunshine Save Detective")
                     .size(TEXT_SIZE_HEADER)
                     .width(Length::FillPortion(1))
                     .height(Fill)
