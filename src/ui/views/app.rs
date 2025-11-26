@@ -23,6 +23,7 @@ use iced::{
 };
 use tokio::time::sleep;
 
+use crate::ui::components::icon::icon_large;
 use crate::{
     enums::{
         message::Message,
@@ -116,7 +117,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         .align_y(Center),
                     row![
                         row![
-                            icon("src/assets/yellow_coin.svg"),
+                            icon("src/assets/sunshine.svg"),
                             text(" 120    "),
                             icon("src/assets/blue_coin_collected.svg"),
                             text(bc_total_str),
@@ -245,7 +246,7 @@ impl App {
         let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
 
         let header: Row<'_, Message> = row![
-                Image::new("src/assets/sun_icon.png").width(32).height(32),
+                icon_large("src/assets/sunshine.svg"),
                 text(" Sunshine Save Detective")
                     .size(TEXT_SIZE_HEADER)
                     .width(Length::FillPortion(1))
