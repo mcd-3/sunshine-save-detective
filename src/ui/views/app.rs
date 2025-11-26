@@ -9,7 +9,6 @@ use iced::widget::{
     radio,
     row,
     text,
-    Image,
     Row,
 };
 use iced::{
@@ -36,9 +35,9 @@ use crate::{
     },
     ui::{
         components::{
-            icon::icon,
+            icon::{icon, icon_large},
             blue_coin_display::blue_coin_display,
-            error_warning::error_warning
+            error_warning::error_warning,
         }
     },
     utils::{
@@ -115,10 +114,19 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         .height(32)
                         .align_y(Center),
                     row![
-                        icon("src/assets/yellow_coin.svg"),
-                        text(" 120 "),
-                        icon("src/assets/blue_coin_collected.svg"),
-                        text(bc_total_str),
+                        row![
+                            icon("src/assets/sunshine.svg"),
+                            text(" 120    "),
+                            icon("src/assets/blue_coin_collected.svg"),
+                            text(bc_total_str),
+                        ].width(Fill)
+                            .align_y(Center),
+                        column![
+                            button("Upload")
+                                .on_press(Message::FileSelectOpen)
+                        ].width(Fill)
+                            .spacing(DEFAULT_SPACING)
+                            .align_x(Right)
                     ].width(Length::FillPortion(1))
                         .height(Fill)
                         .align_y(Center)
@@ -199,7 +207,7 @@ impl App {
                     self.file_error = result.file_error;
                     return Task::perform(
                         sleep(
-                            Duration::from_secs(1)
+                            Duration::from_millis(50)
                         ),
                         move |_e| Message::DisplayFileError(result.file_error)
                     );
@@ -236,8 +244,8 @@ impl App {
         let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
 
         let header: Row<'_, Message> = row![
-                Image::new("src/assets/sun_icon.png").width(32).height(32),
-                text(" Sunshine Save Detective")
+                icon_large("src/assets/sunshine_detective.svg"),
+                text("  Sunshine Save Detective")
                     .size(TEXT_SIZE_HEADER)
                     .width(Length::FillPortion(1))
                     .height(Fill)
