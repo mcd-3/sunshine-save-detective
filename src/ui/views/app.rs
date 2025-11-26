@@ -9,7 +9,6 @@ use iced::widget::{
     radio,
     row,
     text,
-    Image,
     Row,
 };
 use iced::{
@@ -23,7 +22,6 @@ use iced::{
 };
 use tokio::time::sleep;
 
-use crate::ui::components::icon::icon_large;
 use crate::{
     enums::{
         message::Message,
@@ -37,9 +35,9 @@ use crate::{
     },
     ui::{
         components::{
-            icon::icon,
+            icon::{icon, icon_large},
             blue_coin_display::blue_coin_display,
-            error_warning::error_warning
+            error_warning::error_warning,
         }
     },
     utils::{
