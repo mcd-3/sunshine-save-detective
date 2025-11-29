@@ -19,6 +19,7 @@ mod ui {
         pub mod icon;
         pub mod blue_coin_display;
         pub mod error_warning;
+        pub mod file_prompter;
     }
 }
 

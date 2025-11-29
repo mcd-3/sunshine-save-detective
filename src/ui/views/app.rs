@@ -37,7 +37,7 @@ use crate::{
         components::{
             icon::{icon, icon_large},
             blue_coin_display::blue_coin_display,
-            error_warning::error_warning,
+            file_prompter::file_prompter
         }
     },
     utils::{
@@ -174,18 +174,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
         ].height(Fill)
             .align_y(Center)
     } else {
-        return row![
-            column![
-                text("Select a GCI file")
-                    .size(22),
-                button("Upload")
-                    .padding([10, 20])
-                    .on_press(Message::FileSelectOpen),
-                error_warning(app),
-            ].align_x(Center)
-                .spacing(DEFAULT_SPACING)
-        ].height(Fill)
-            .align_y(Center)
+        return file_prompter(&app.file_error);
     }
 }
 
