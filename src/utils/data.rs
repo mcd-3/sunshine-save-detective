@@ -181,3 +181,19 @@ pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
 
     vec![r1, r2, r3]
 }
+
+/// Reads data from a byte address by comparing 2 save blocks from the memory card
+/// 
+/// Returns the u16 number from the read memory address
+pub fn read_u16_data_from_address(save_address: usize, mem_card: &MemoryCard) -> u16 {
+    // Combine 2 bytes into 1 16-bit value using bitwise operations
+    // Note: could cause endian problems.
+    let val_addr1: u16 = (mem_card.get_mem_data()[save_address - 1] as u16) << 8 | mem_card.get_mem_data()[save_address] as u16;
+    let val_addr2: u16 = 
+        (mem_card.get_mem_data()[(save_address + 0x2000) - 1] as u16) << 8 | mem_card.get_mem_data()[save_address + 0x2000] as u16;
+
+    if val_addr1 > val_addr2 {
+        return val_addr1;
+    }
+    val_addr2
+}

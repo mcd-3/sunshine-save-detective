@@ -7,7 +7,8 @@ use crate::{
     models::{
         mem_card::MemoryCard,
         save_file::SaveFile
-    }
+    },
+    utils::data::read_u16_data_from_address
 };
 
 use super::blue_coin::BlueCoin;
@@ -34,19 +35,8 @@ impl World {
         // SMS Saves the total coin high score as 2 bytes.
         // The first byte is used only if the high score exceeds 255 (or 0xFF)
         // The second byte is usually the entire high score since, on most levels, there are less than 255 coins.
-
         let save_address: usize = address + (save_file.get_coin_hs_byte_offset() as usize);
-
-        // Combine 2 bytes into 1 16-bit value using bitwise operations
-        // Note: could cause endian problems.
-        let val_addr1: u16 = (mem_card.get_mem_data()[save_address - 1] as u16) << 8 | mem_card.get_mem_data()[save_address] as u16;
-        let val_addr2: u16 = 
-            (mem_card.get_mem_data()[(save_address + 0x2000) - 1] as u16) << 8 | mem_card.get_mem_data()[save_address + 0x2000] as u16;
-
-        if val_addr1 > val_addr2 {
-            return val_addr1;
-        }
-        val_addr2
+        read_u16_data_from_address(save_address, mem_card)
     }
 
     pub fn get_coin_hs(&self) -> u16 {
