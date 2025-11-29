@@ -1,3 +1,5 @@
+use crate::{models::mem_card::MemoryCard, utils::data::read_u16_data_from_address};
+
 pub struct SaveFile {
     label: char,
     pub index: u8,
@@ -78,6 +80,20 @@ impl SaveFile {
             SaveFile::SAVE_C_FILE_INDEX => 0xA200,
             _ => 0x2200,
         }
+    }
+
+    fn get_shine_count_byte_offset(&self) -> u32 {
+        match self.index {
+            SaveFile::SAVE_A_FILE_INDEX => 0x205D,
+            SaveFile::SAVE_B_FILE_INDEX => 0x605D,
+            SaveFile::SAVE_C_FILE_INDEX => 0xA05D,
+            _ => 0x205D,
+        }
+    }
+
+    pub fn get_shine_count(&self, mem_card: &MemoryCard) -> u16 {
+        let save_address: usize = self.get_shine_count_byte_offset() as usize;
+        read_u16_data_from_address(save_address, mem_card)
     }
 }
 

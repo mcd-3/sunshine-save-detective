@@ -116,7 +116,12 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     row![
                         row![
                             icon("src/assets/sunshine.svg"),
-                            text(" 120    "),
+                            text(
+                                format!(
+                                    " {}    ",
+                                    app.selected_save.get_shine_count(&app.mem_card)
+                                )
+                            ),
                             icon("src/assets/blue_coin_collected.svg"),
                             text(bc_total_str),
                         ].width(Fill)
