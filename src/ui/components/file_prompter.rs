@@ -1,4 +1,8 @@
-use iced::{Alignment::Center, Length::Fill, widget::{Row, button, column, row, text}};
+use iced::{
+    Alignment::Center,
+    Length::Fill,
+    widget::{Row, button, column, row, text}
+};
 
 use crate::{
     enums::{

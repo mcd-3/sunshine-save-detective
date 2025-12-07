@@ -19,6 +19,7 @@ use iced::{
 };
 use tokio::time::sleep;
 
+use crate::utils::string::padded_string;
 use crate::{
     enums::{
         message::Message,
@@ -76,20 +77,22 @@ pub struct App {
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
     if is_uploaded {
         let coin_hs_str: String = match app.selected_world {
-            WorldIdentifier::CoronaId => String::from(" 0"),
+            WorldIdentifier::CoronaId => padded_string("0", 1, 0),
             _ => {
-                format!(" {}",
+                padded_string(
                     String::from(
                         &app.worlds[
                             get_world_id_index(app.selected_world)
                         ].get_coin_hs()
                             .to_string()
-                    )
+                    ).as_str(),
+                    1,
+                    0
                 )
             }
         };
 
-        let bc_total_str: String = format!(" {}", &app.blue_coin_total.to_string());
+        let bc_total_str: String = padded_string(&app.blue_coin_total.to_string(), 1, 0);
 
         return row![
             column![
@@ -99,9 +102,13 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         row![
                             icon(sunshine_svg_path()),
                             text(
-                                format!(
-                                    " {}    ",
-                                    app.selected_save.get_shine_count(&app.mem_card)
+                                padded_string(
+                                    app.selected_save
+                                        .get_shine_count(&app.mem_card)
+                                        .to_string()
+                                        .as_str(),
+                                    1,
+                                    4
                                 )
                             ),
                             icon(blue_coin_collected_svg_path()),

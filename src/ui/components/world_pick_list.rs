@@ -1,6 +1,16 @@
-use iced::{Alignment::Center, Length::{self, Fill}, widget::{Row, pick_list, row}};
+use iced::{
+    Alignment::Center,
+    Length::{self, Fill},
+    widget::{Row, pick_list, row}
+};
 
-use crate::{enums::{message::Message, world_identifier::WorldIdentifier}, models::world::World};
+use crate::{
+    enums::{
+        message::Message,
+        world_identifier::WorldIdentifier
+    },
+    models::world::World
+};
 
 pub fn world_pick_list<'a>(selected_world: WorldIdentifier) -> Row<'a, Message> {
     row![
