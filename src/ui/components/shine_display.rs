@@ -1,3 +1,4 @@
+use iced::Padding;
 use iced::{
     Alignment::Center,
     Element,
@@ -36,7 +37,7 @@ use crate::{
     }
 };
 
-const SVG_SIZE: u16 = 28;
+const SVG_SIZE: u16 = 40;
 
 pub fn shine_display(app: &App) -> Column<'_, Message> {
     let shine_row_lists = get_shine_row_lists(
@@ -90,7 +91,7 @@ pub fn shine_display(app: &App) -> Column<'_, Message> {
             Row::with_children(r1)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(8),
+            .padding(Padding::ZERO.bottom(12.0)),
         column![
             Row::with_children(r2)
                 .width(Length::Fill)
