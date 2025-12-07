@@ -6,7 +6,7 @@ use crate::{
     enums::world_identifier::WorldIdentifier,
     models::{
         blue_coin::BlueCoin, mem_card::MemoryCard, save_file::SaveFile, world::World
-    }
+    }, utils::assets::{blue_coin_collected_svg_path, blue_coin_missing_svg_path}
 };
 
 /// Gets a save file from a save file option number
@@ -152,9 +152,9 @@ pub fn get_blue_coin_count(world_list: &Vec<World>) -> u16 {
 /// Returns a path string to the SVG
 pub fn get_svg_path_from_blue_coin_collected(is_collected: bool) -> String {
     return if is_collected {
-        String::from("src/assets/blue_coin_collected.svg")
+        String::from(blue_coin_collected_svg_path())
     } else {
-        String::from("src/assets/blue_coin_missing.svg")
+        String::from(blue_coin_missing_svg_path())
     }
 }
 
