@@ -22,6 +22,8 @@ mod ui {
         pub mod file_prompter;
         pub mod save_radio;
         pub mod world_pick_list;
+        pub mod footer;
+        pub mod navbar;
     }
 }
 

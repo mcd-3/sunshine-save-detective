@@ -22,6 +22,7 @@ use iced::{
 };
 use tokio::time::sleep;
 
+use crate::ui::components::navbar::navbar;
 use crate::{
     enums::{
         message::Message,
@@ -35,11 +36,12 @@ use crate::{
     },
     ui::{
         components::{
-            icon::{icon, icon_large},
+            icon::icon,
             blue_coin_display::blue_coin_display,
             file_prompter::file_prompter,
             world_pick_list::world_pick_list,
-            save_radio::save_radio
+            save_radio::save_radio,
+            footer::footer
         }
     },
     utils::{
@@ -56,8 +58,6 @@ use crate::{
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
 const DEFAULT_SPACING: u16 = 15;
-const TEXT_SIZE_HEADER: u16 = 18;
-const TEXT_SIZE_SUBHEADER: u16 = 12;
 const DEFAULT_ROW_HEIGHT: u16 = 36;
 
 #[derive(Default)]
@@ -197,33 +197,10 @@ impl App {
     }
 
     pub fn view(&self) -> Element<'_, Message> {
-        let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
-
-        let header: Row<'_, Message> = row![
-                icon_large("src/assets/sunshine_detective.svg"),
-                text("  Sunshine Save Detective")
-                    .size(TEXT_SIZE_HEADER)
-                    .width(Length::FillPortion(1))
-                    .height(Fill)
-                    .align_x(Left)
-                    .align_y(Center),
-            ].height(Shrink);
-
-        let footer: Row<'_, Message> = row![
-                text("License")
-                    .size(TEXT_SIZE_SUBHEADER)
-                    .width(Length::FillPortion(1))
-                    .align_x(Left),
-                text(version.clone())
-                    .size(TEXT_SIZE_SUBHEADER)
-                    .width(Length::FillPortion(1))
-                    .align_x(Right),
-            ].height(Shrink);
-
         let content = column![
-            header,
+            navbar(),
             get_main_content(&self, self.is_uploaded),
-            footer,
+            footer(),
         ].height(Fill)
             .spacing(10)
             .align_x(Center);
