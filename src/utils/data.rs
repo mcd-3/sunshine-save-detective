@@ -1,12 +1,23 @@
 use crate::{
     data::{
         blue_coin_data::BlueCoinData,
-        coin_data::CoinData
+        coin_data::CoinData,
+        shine_data::ShineData
     },
     enums::world_identifier::WorldIdentifier,
     models::{
-        blue_coin::BlueCoin, mem_card::MemoryCard, save_file::SaveFile, world::World
-    }, utils::assets::{blue_coin_collected_svg_path, blue_coin_missing_svg_path}
+        blue_coin::BlueCoin,
+        mem_card::MemoryCard,
+        save_file::SaveFile,
+        shine::Shine,
+        world::World
+    },
+    utils::assets::{
+        blue_coin_collected_svg_path,
+        blue_coin_missing_svg_path,
+        sunshine_collected_svg_path,
+        sunshine_missing_svg_path
+    }
 };
 
 /// Gets a save file from a save file option number
@@ -61,7 +72,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_DELFINO),
             WorldIdentifier::DelfinoId,
             CoinData::get_delfino_coin_data(),
-            BlueCoinData::get_delfino_bcs()
+            BlueCoinData::get_delfino_bcs(),
+            ShineData::get_delfino_shines(),
         ),
         World::new(
             mem_card,
@@ -69,7 +81,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_BIANCO),
             WorldIdentifier::BiancoId,
             CoinData::get_bianco_coin_data(),
-            BlueCoinData::get_bianco_bcs()
+            BlueCoinData::get_bianco_bcs(),
+            ShineData::get_bianco_shines(),
         ),
         World::new(
             mem_card,
@@ -77,7 +90,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_RICCO),
             WorldIdentifier::RiccoId,
             CoinData::get_ricco_coin_data(),
-            BlueCoinData::get_ricco_bcs()
+            BlueCoinData::get_ricco_bcs(),
+            ShineData::get_ricco_shines(),
         ),        
         World::new(
             mem_card,
@@ -85,7 +99,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_GELATO),
             WorldIdentifier::GelatoId,
             CoinData::get_gelato_coin_data(),
-            BlueCoinData::get_gelato_bcs()
+            BlueCoinData::get_gelato_bcs(),
+            ShineData::get_gelato_shines(),
         ),
         World::new(
             mem_card,
@@ -93,7 +108,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_PINNA),
             WorldIdentifier::PinnaId,
             CoinData::get_pinna_coin_data(),
-            BlueCoinData::get_pinna_bcs()
+            BlueCoinData::get_pinna_bcs(),
+            ShineData::get_pinna_shines(),
         ),
         World::new(
             mem_card,
@@ -101,7 +117,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_SIRENA),
             WorldIdentifier::SirenaId,
             CoinData::get_sirena_coin_data(),
-            BlueCoinData::get_sirena_bcs()
+            BlueCoinData::get_sirena_bcs(),
+            ShineData::get_sirena_shines(),
         ),
         World::new(
             mem_card,
@@ -109,7 +126,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_NOKI),
             WorldIdentifier::NokiId,
             CoinData::get_noki_coin_data(),
-            BlueCoinData::get_noki_bcs()
+            BlueCoinData::get_noki_bcs(),
+            ShineData::get_noki_shines(),
         ),
         World::new(
             mem_card,
@@ -117,7 +135,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_PIANTA),
             WorldIdentifier::PiantaId,
             CoinData::get_pianta_coin_data(),
-            BlueCoinData::get_pianta_bcs()
+            BlueCoinData::get_pianta_bcs(),
+            ShineData::get_pianta_shines(),
         ),
         World::new(
             mem_card,
@@ -125,7 +144,8 @@ pub fn get_worlds_data_list(
             String::from(World::NAME_CORONA),
             WorldIdentifier::CoronaId,
             CoinData::get_corona_coin_data(),
-            BlueCoinData::get_corona_bcs()
+            BlueCoinData::get_corona_bcs(),
+            ShineData::get_corona_shines(),
         ),
     ]
 }
@@ -173,13 +193,49 @@ pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
             0 => r1.push(b.clone()),
             1 => r2.push(b.clone()),
             2 => r3.push(b.clone()),
-            _ => { /* Do nothing. Bluce Coins should never exceed 30 per level */ }
+            _ => { /* Do nothing. Blue Coins should never exceed 30 per level */ }
         };
 
         count = count +1;
     }
 
     vec![r1, r2, r3]
+}
+
+/// Gets the SVG asset corresponding to blue coin collected state
+/// 
+/// Returns a path string to the SVG
+pub fn get_svg_path_from_shine_collected(is_collected: bool) -> String {
+    return if is_collected {
+        String::from(sunshine_collected_svg_path())
+    } else {
+        String::from(sunshine_missing_svg_path())
+    }
+}
+
+/// Gets a list of shine lists to be divided into rows
+/// 
+/// Returns a list of 2 shine lists
+pub fn get_shine_row_lists(world: &World) -> Vec<Vec<Shine>> {
+    let mut count: usize = 0;
+    let divider = match world.identifier {
+        WorldIdentifier::DelfinoId => 9,
+        _ => 8,
+    };
+    let mut r1: Vec<Shine> = vec![];
+    let mut r2: Vec<Shine> = vec![];
+
+    for s in &world.shines {
+        match count / divider {
+            0 => r1.push(s.clone()),
+            1 => r2.push(s.clone()),
+            _ => { /* Do nothing */ }
+        };
+
+        count = count +1;
+    }
+
+    vec![r1, r2]
 }
 
 /// Reads data from a byte address by comparing 2 save blocks from the memory card

@@ -19,6 +19,7 @@ use iced::{
 };
 use tokio::time::sleep;
 
+use crate::ui::components::shine_display::shine_display;
 use crate::utils::string::padded_string;
 use crate::{
     enums::{
@@ -52,7 +53,7 @@ use crate::{
         file_pick::pick_file,
         assets::{
             blue_coin_collected_svg_path,
-            sunshine_svg_path,
+            sunshine_collected_svg_path,
             yellow_coin_svg_path
         }  
     }
@@ -100,7 +101,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     save_radio(app.selected_save.index),
                     row![
                         row![
-                            icon(sunshine_svg_path()),
+                            icon(sunshine_collected_svg_path()),
                             text(
                                 padded_string(
                                     app.selected_save
@@ -138,6 +139,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         .align_y(Center),
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
+                row![
+                    shine_display(app),
+                ].spacing(DEFAULT_SPACING),
                 row![
                     blue_coin_display(app)
                 ].spacing(DEFAULT_SPACING),
