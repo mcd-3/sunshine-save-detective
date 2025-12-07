@@ -22,6 +22,7 @@ use iced::{
 };
 use tokio::time::sleep;
 
+use crate::ui::components::save_radio::save_radio;
 use crate::{
     enums::{
         message::Message,
@@ -90,29 +91,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
         return row![
             column![
                 row![
-                    row![
-                        text("Save File: "),
-                        radio(
-                            format!("{} ", SaveFile::SAVE_A_LABEL),
-                            DEFAULT_SAVE_FILE_INDEX,
-                            Some(app.selected_save.index + 1),
-                            |i| Message::SelectSaveFile(i)
-                        ),
-                        radio(
-                            format!("{} ", SaveFile::SAVE_B_LABEL),
-                            DEFAULT_SAVE_FILE_INDEX + 1,
-                            Some(app.selected_save.index + 1),
-                            |i| Message::SelectSaveFile(i)
-                        ),
-                        radio(
-                            SaveFile::SAVE_C_LABEL,
-                            DEFAULT_SAVE_FILE_INDEX + 2,
-                            Some(app.selected_save.index + 1),
-                            |i| Message::SelectSaveFile(i)
-                        ),
-                    ].width(Length::FillPortion(1))
-                        .height(32)
-                        .align_y(Center),
+                    save_radio(app.selected_save.index),
                     row![
                         row![
                             icon("src/assets/sunshine.svg"),

@@ -20,6 +20,7 @@ mod ui {
         pub mod blue_coin_display;
         pub mod error_warning;
         pub mod file_prompter;
+        pub mod save_radio;
     }
 }
 
