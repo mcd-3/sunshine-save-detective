@@ -21,6 +21,7 @@ mod ui {
         pub mod error_warning;
         pub mod file_prompter;
         pub mod save_radio;
+        pub mod world_pick_list;
     }
 }
 

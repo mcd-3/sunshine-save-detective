@@ -22,7 +22,6 @@ use iced::{
 };
 use tokio::time::sleep;
 
-use crate::ui::components::save_radio::save_radio;
 use crate::{
     enums::{
         message::Message,
@@ -38,7 +37,9 @@ use crate::{
         components::{
             icon::{icon, icon_large},
             blue_coin_display::blue_coin_display,
-            file_prompter::file_prompter
+            file_prompter::file_prompter,
+            world_pick_list::world_pick_list,
+            save_radio::save_radio
         }
     },
     utils::{
@@ -117,25 +118,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT),
                 row![
-                    row![
-                        pick_list(
-                            vec![
-                                World::NAME_DELFINO,
-                                World::NAME_BIANCO,
-                                World::NAME_RICCO,
-                                World::NAME_GELATO,
-                                World::NAME_PINNA,
-                                World::NAME_SIRENA,
-                                World::NAME_NOKI,
-                                World::NAME_PIANTA,
-                                World::NAME_CORONA,
-                            ],
-                            Some(World::get_name_from_identifier(app.selected_world)),
-                            |s| Message::SelectWorld(World::get_identifier_from_name(s))
-                        ),
-                    ].width(Length::FillPortion(1))
-                        .height(Fill)
-                        .align_y(Center),
+                    world_pick_list(app.selected_world),
                     row![
                         icon("src/assets/yellow_coin.svg"),
                         text(coin_hs_str)
