@@ -1,12 +1,10 @@
 use std::time::Duration;
 
-use iced::alignment::Horizontal::{Left, Right};
+use iced::alignment::Horizontal::Right;
 use iced::widget::{
     button,
     center,
     column,
-    pick_list,
-    radio,
     row,
     text,
     Row,
@@ -17,13 +15,10 @@ use iced::{
     Element,
     Fill,
     Length,
-    Task,
-    Length::Shrink
+    Task
 };
 use tokio::time::sleep;
 
-use crate::ui::components::navbar::navbar;
-use crate::utils::assets::{blue_coin_collected_svg_path, sunshine_svg_path, yellow_coin_svg_path};
 use crate::{
     enums::{
         message::Message,
@@ -42,7 +37,8 @@ use crate::{
             file_prompter::file_prompter,
             world_pick_list::world_pick_list,
             save_radio::save_radio,
-            footer::footer
+            footer::footer,
+            navbar::navbar,
         }
     },
     utils::{
@@ -52,14 +48,19 @@ use crate::{
             get_blue_coin_count,
             get_world_id_index,
         },
-        file_pick::pick_file   
+        file_pick::pick_file,
+        assets::{
+            blue_coin_collected_svg_path,
+            sunshine_svg_path,
+            yellow_coin_svg_path
+        }  
     }
 };
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
-const DEFAULT_SPACING: u16 = 15;
-const DEFAULT_ROW_HEIGHT: u16 = 36;
+const DEFAULT_SPACING: u16 = 16;
+const DEFAULT_ROW_HEIGHT: u16 = 38;
 
 #[derive(Default)]
 pub struct App {
@@ -106,6 +107,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                             icon(blue_coin_collected_svg_path()),
                             text(bc_total_str),
                         ].width(Fill)
+                            .height(Fill)
                             .align_y(Center),
                         column![
                             button("Upload")
@@ -113,6 +115,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         ].width(Fill)
                             .spacing(DEFAULT_SPACING)
                             .align_x(Right)
+                            .height(Fill)
                     ].width(Length::FillPortion(1))
                         .height(Fill)
                         .align_y(Center)
