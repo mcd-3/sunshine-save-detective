@@ -23,6 +23,7 @@ use iced::{
 use tokio::time::sleep;
 
 use crate::ui::components::navbar::navbar;
+use crate::utils::assets::{blue_coin_collected_svg_path, sunshine_svg_path, yellow_coin_svg_path};
 use crate::{
     enums::{
         message::Message,
@@ -95,14 +96,14 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     save_radio(app.selected_save.index),
                     row![
                         row![
-                            icon("src/assets/sunshine.svg"),
+                            icon(sunshine_svg_path()),
                             text(
                                 format!(
                                     " {}    ",
                                     app.selected_save.get_shine_count(&app.mem_card)
                                 )
                             ),
-                            icon("src/assets/blue_coin_collected.svg"),
+                            icon(blue_coin_collected_svg_path()),
                             text(bc_total_str),
                         ].width(Fill)
                             .align_y(Center),
@@ -120,7 +121,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 row![
                     world_pick_list(app.selected_world),
                     row![
-                        icon("src/assets/yellow_coin.svg"),
+                        icon(yellow_coin_svg_path()),
                         text(coin_hs_str)
                     ].width(Length::FillPortion(1))
                         .height(Fill)

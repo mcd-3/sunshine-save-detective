@@ -36,6 +36,7 @@ mod enums {
 mod utils {
     pub mod file_pick;
     pub mod data;
+    pub mod assets;
 }
 
 use models::{

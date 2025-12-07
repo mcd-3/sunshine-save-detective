@@ -5,13 +5,13 @@ use iced::{
     widget::{Row, row, text}
 };
 
-use crate::{enums::message::Message, ui::components::icon::icon_large};
+use crate::{enums::message::Message, ui::components::icon::icon_large, utils::assets::sunshine_detective_svg_path};
 
 const TEXT_SIZE_HEADER: u16 = 18;
 
 pub fn navbar<'a>() -> Row<'a, Message> {
     row![
-        icon_large("src/assets/sunshine_detective.svg"),
+        icon_large(sunshine_detective_svg_path()),
         text(format!("  {}", "Sunshine Save Detective"))
             .size(TEXT_SIZE_HEADER)
             .width(Length::FillPortion(1))
