@@ -1,5 +1,6 @@
 use std::time::Duration;
 
+use iced::Length::{FillPortion, Shrink};
 use iced::alignment::Horizontal::Right;
 use iced::widget::{
     Row,
@@ -162,10 +163,10 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
                 column![
-                    shine_rows.spacing(SMALL_SPACING),
+                    shine_rows.spacing(SMALL_SPACING).height(FillPortion(3)),
                     row![
                         blue_coin_display(&app.worlds, app.selected_world)
-                    ].height(Fill),
+                    ].height(FillPortion(2)),
                 ]
             ].height(Fill)
                 .width(Fill)

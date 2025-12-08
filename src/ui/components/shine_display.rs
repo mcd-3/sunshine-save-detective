@@ -103,5 +103,6 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
             Row::with_children(r2)
                 .width(Length::Fill)
         ].width(Length::Fill)
+            .padding([12.0, 0.0]),
     ]
 }

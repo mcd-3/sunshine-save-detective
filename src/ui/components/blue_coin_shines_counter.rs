@@ -12,7 +12,6 @@ use crate::{
     utils::data::get_blue_coin_shine_count
 };
 
-const COMPONENT_HEIGHT: u16 = 48;
 const FONT_SIZE: u16 = 18;
 const TEXT_COLOUR_LIGHT_MODE: u32 = 0x000f88;
 const TEXT_COLOUR_DARK_MODE: u32 = 0x97c1ff;
@@ -34,7 +33,7 @@ pub fn blue_coin_shines_counter<'a>(
         )
     ).size(FONT_SIZE)
         .width(Fill)
-        .height(COMPONENT_HEIGHT)
+        .height(Fill)
         .align_x(Center)
         .color(color!(text_colour))
         .font(
