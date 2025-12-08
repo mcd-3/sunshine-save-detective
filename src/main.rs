@@ -44,12 +44,17 @@ mod utils {
     pub mod string;
 }
 
+use iced::{application, Result, window::Settings, Size};
 use ui::views::app::App;
 
-fn main() -> iced::Result {
+fn main() -> Result {
     let app_name = env!("CARGO_PKG_NAME");
 
-    iced::application(&*app_name, App::update, App::view)
-        .window_size(iced::Size::new(800.0, 600.0))
+    application(&*app_name, App::update, App::view)
+        .window_size(Size::new(800.0, 600.0))
+        .window(Settings {
+            min_size: Some(Size::new(800.0, 600.0)),
+            ..Settings::default()
+        })
         .run()
 }
