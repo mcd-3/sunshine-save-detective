@@ -3,9 +3,11 @@ mod models {
     pub mod mem_card;
     pub mod world;
     pub mod save_file;
+    pub mod shine;
 }
 
 mod data {
+    pub mod shine_data;
     pub mod blue_coin_data;
     pub mod coin_data;
 }
@@ -18,12 +20,14 @@ mod ui {
         pub mod header;
         pub mod icon;
         pub mod blue_coin_display;
+        pub mod shine_display;
         pub mod error_warning;
         pub mod file_prompter;
         pub mod save_radio;
         pub mod world_pick_list;
         pub mod footer;
         pub mod navbar;
+        pub mod blue_coin_shines_counter;
     }
 }
 

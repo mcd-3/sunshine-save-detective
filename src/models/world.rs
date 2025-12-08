@@ -1,12 +1,12 @@
 use crate::{
     data::{
         blue_coin_data::BlueCoinData,
-        coin_data::CoinData
+        coin_data::CoinData, shine_data::ShineData
     },
     enums::world_identifier::WorldIdentifier,
     models::{
         mem_card::MemoryCard,
-        save_file::SaveFile
+        save_file::SaveFile, shine::Shine
     },
     utils::data::read_u16_data_from_address
 };
@@ -17,6 +17,7 @@ pub struct World {
     name: String,
     coin_hs: u16,
     pub blue_coins: Vec<BlueCoin>,
+    pub shines: Vec<Shine>,
     pub identifier: WorldIdentifier,
 }
 
@@ -79,7 +80,8 @@ impl World {
         name: String,
         world_identifier: WorldIdentifier,
         coin_data: CoinData,
-        blue_coin_data: Vec<BlueCoinData>
+        blue_coin_data: Vec<BlueCoinData>,
+        shine_data: Vec<ShineData>
     ) -> World {
         let coin_hs: u16 = World::get_total_coins(mem_card, save_file, coin_data.get_byte() as usize);
 
@@ -88,6 +90,11 @@ impl World {
             blue_coins.push(BlueCoin::from_data(mem_card, save_file, &bcd));
         }
 
-        World { name, coin_hs, blue_coins, identifier: world_identifier }
+        let mut shines: Vec<Shine> = vec![];
+        for sd in shine_data {
+            shines.push(Shine::from_data(mem_card, save_file, &sd));
+        }
+
+        World { name, coin_hs, blue_coins, shines, identifier: world_identifier }
     }
 }

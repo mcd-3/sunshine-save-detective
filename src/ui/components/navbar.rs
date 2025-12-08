@@ -1,8 +1,10 @@
 use iced::{
     Alignment::Center,
+    Font,
     Length::{self, Fill, Shrink},
     alignment::Horizontal::Left,
-    widget::{Row, row, text}
+    widget::{Row, row, text},
+    font::Weight::Semibold,
 };
 
 use crate::{
@@ -25,6 +27,12 @@ pub fn navbar<'a>() -> Row<'a, Message> {
             .width(Length::FillPortion(1))
             .height(Fill)
             .align_x(Left)
-            .align_y(Center),
+            .align_y(Center)
+            .font(
+                Font {
+                    weight: Semibold,
+                    ..Font::DEFAULT
+                }
+            ),
     ].height(Shrink)
 }

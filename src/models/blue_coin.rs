@@ -43,7 +43,7 @@ impl BlueCoin {
         // Ex: Get H.S, save -> Addr 1. Save again -> Addr 2. Save a 3rd time -> Addr 1. etc...
         // We need to check which address has the flag enabled (if it is at all)
 
-        let save_file_offset: u32 = save_file.get_bc_byte_offeset();
+        let save_file_offset: u32 = save_file.get_data_start_offeset();
         let address: u32 = bcd.get_byte() + save_file_offset;
         let index: u32 = bcd.get_byte_index();
 
