@@ -199,21 +199,21 @@ impl ShineData {
         ]
     }
 
-    // TODO: These might be completely wrong! Reverify before adding them!
+    // Note: This is the only world where the memory order is different
     pub fn get_pianta_shines() -> Vec<ShineData> {
         vec![
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_1_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_2_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_3_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_4_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_5_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_6_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_7_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_8_STR)),
+            ShineData::new(0x00A7, Self::BINARY_INDEX_16, String::from(Self::SHINE_1_STR)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_2, String::from(Self::SHINE_2_STR)),
+            ShineData::new(0x00A7, Self::BINARY_INDEX_64, String::from(Self::SHINE_3_STR)),
+            ShineData::new(0x00A7, Self::BINARY_INDEX_32, String::from(Self::SHINE_4_STR)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_1, String::from(Self::SHINE_5_STR)),
+            ShineData::new(0x00A7, Self::BINARY_INDEX_128, String::from(Self::SHINE_6_STR)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_4, String::from(Self::SHINE_7_STR)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_8, String::from(Self::SHINE_8_STR)),
 
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_SECRET_1_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_SECRET_2_STR)),
-            ShineData::new(0x00B5, Self::BINARY_INDEX_128, String::from(Self::SHINE_100_COINS_STR)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_16, String::from(Self::SHINE_SECRET_1_STR)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_32, String::from(Self::SHINE_SECRET_2_STR)),
+            ShineData::new(0x00AD, Self::BINARY_INDEX_4, String::from(Self::SHINE_100_COINS_STR)),
         ]
     }
 
