@@ -20,7 +20,10 @@ use iced::widget::{
 
 use crate::utils::data::get_shine_row_lists;
 use crate::{
-    enums::message::Message,
+    enums::{
+        message::Message,
+        world_identifier::WorldIdentifier
+    },
     ui::{
         components::{
             header::header
@@ -38,8 +41,20 @@ use crate::{
 };
 
 const SVG_SIZE: u16 = 40;
+const SVG_SIZE_XL: u16 = 128;
 
 pub fn shine_display(app: &App) -> Column<'_, Message> {
+    // Make corona larger since it's the final shine in-game
+    let shine_size: u16 = match app.selected_world {
+        WorldIdentifier::CoronaId => SVG_SIZE_XL,
+        _ => SVG_SIZE
+    };
+
+    let row1_padding: f32 = match app.selected_world {
+        WorldIdentifier::CoronaId => 0.0,
+        _ => 12.0
+    };
+
     let shine_row_lists = get_shine_row_lists(
         &app.worlds[
             get_world_id_index(app.selected_world)
@@ -60,8 +75,8 @@ pub fn shine_display(app: &App) -> Column<'_, Message> {
                                         s.get_is_collected()
                                     )
                                 )
-                                .width(SVG_SIZE)
-                                .height(SVG_SIZE),
+                                .width(shine_size)
+                                .height(shine_size),
                             container(
                                 text(
                                         String::from(s.get_description())
@@ -91,11 +106,10 @@ pub fn shine_display(app: &App) -> Column<'_, Message> {
             Row::with_children(r1)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(Padding::ZERO.bottom(12.0)),
+            .padding(Padding::ZERO.bottom(row1_padding)),
         column![
             Row::with_children(r2)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(8),
     ]
 }
