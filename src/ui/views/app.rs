@@ -1,17 +1,22 @@
 use std::time::Duration;
 
-use iced::Length::Shrink;
 use iced::alignment::Horizontal::Right;
 use iced::widget::{
+    Row,
     button,
     center,
     column,
     row,
     text,
-    Row,
 };
 use iced::{
-    Center, Element, Fill, Length, Padding, Task, window
+    Center,
+    Element,
+    Fill,
+    Length,
+    Padding,
+    Task,
+    window,
 };
 use tokio::time::sleep;
 
@@ -58,7 +63,9 @@ use crate::{
 
 // TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
+const SMALL_SPACING: u16 = 12;
 const DEFAULT_SPACING: u16 = 16;
+const DEFAULT_PADDING: f32 = 25.0;
 const DEFAULT_ROW_HEIGHT: u16 = 38;
 
 #[derive(Default)]
@@ -97,7 +104,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 row![
                     column![
                         shine_display(&app.worlds, app.selected_world),
-                        blue_coin_shines_counter(&app.selected_save, &app.mem_card).height(Fill)
+                        row![
+                            blue_coin_shines_counter(&app.selected_save, &app.mem_card).height(Fill)
+                        ].padding(Padding::new(0.0).top(DEFAULT_PADDING))
                     ]
                 ]
             },
@@ -153,7 +162,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
                 column![
-                    shine_rows.spacing(12), //.padding(Padding::ZERO.bottom(48.0)),
+                    shine_rows.spacing(SMALL_SPACING),
                     row![
                         blue_coin_display(&app.worlds, app.selected_world)
                     ].height(Fill),
