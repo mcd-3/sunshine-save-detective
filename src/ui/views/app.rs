@@ -1,5 +1,6 @@
 use std::time::Duration;
 
+use iced::Length::Shrink;
 use iced::alignment::Horizontal::Right;
 use iced::widget::{
     button,
@@ -10,12 +11,7 @@ use iced::widget::{
     Row,
 };
 use iced::{
-    Center,
-    Element,
-    Fill,
-    Length,
-    Task,
-    window
+    Center, Element, Fill, Length, Padding, Task, window
 };
 use tokio::time::sleep;
 
@@ -101,7 +97,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 row![
                     column![
                         shine_display(&app.worlds, app.selected_world),
-                        blue_coin_shines_counter(&app.selected_save, &app.mem_card)
+                        blue_coin_shines_counter(&app.selected_save, &app.mem_card).height(Fill)
                     ]
                 ]
             },
@@ -156,10 +152,12 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         .align_y(Center),
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
-                shine_rows,
-                row![
-                    blue_coin_display(app)
-                ].spacing(DEFAULT_SPACING),
+                column![
+                    shine_rows.spacing(12), //.padding(Padding::ZERO.bottom(48.0)),
+                    row![
+                        blue_coin_display(&app.worlds, app.selected_world)
+                    ].height(Fill),
+                ]
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),

@@ -23,9 +23,6 @@ use crate::{
         components::{
             header::header
         },
-        views::{
-            app::App
-        }
     },
     utils::{
         data::{
@@ -33,15 +30,17 @@ use crate::{
             get_svg_path_from_blue_coin_collected,
             get_blue_coin_row_lists
         }, 
-    }
+    },
+    enums::world_identifier::WorldIdentifier,
+    models::world::World,
 };
 
 const SVG_SIZE: u16 = 28;
 
-pub fn blue_coin_display(app: &App) -> Column<'_, Message> {
+pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Column<'_, Message> {
     let blue_coin_row_lists = get_blue_coin_row_lists(
-        &app.worlds[
-            get_world_id_index(app.selected_world)
+        &worlds[
+            get_world_id_index(selected_world)
         ]
     );
     let mut r1: Vec<Element<'_, Message, Theme, Renderer>> = vec![];

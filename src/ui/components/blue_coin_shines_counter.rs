@@ -36,7 +36,7 @@ pub fn blue_coin_shines_counter<'a>(
         .width(Fill)
         .height(COMPONENT_HEIGHT)
         .align_x(Center)
-        .align_y(Bottom)
+        .align_y(Center)
         .color(color!(text_colour))
         .font(
             Font {

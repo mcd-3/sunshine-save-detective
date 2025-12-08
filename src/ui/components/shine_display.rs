@@ -1,4 +1,3 @@
-use iced::Padding;
 use iced::{
     Alignment::Center,
     Element,
@@ -28,9 +27,6 @@ use crate::{
     ui::{
         components::{
             header::header
-        },
-        views::{
-            app::App
         }
     },
     utils::{
@@ -49,11 +45,6 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
     let shine_size: u16 = match selected_world {
         WorldIdentifier::CoronaId => SVG_SIZE_XL,
         _ => SVG_SIZE
-    };
-
-    let row1_padding: f32 = match selected_world {
-        WorldIdentifier::CoronaId => 0.0,
-        _ => 12.0
     };
 
     let shine_row_lists = get_shine_row_lists(
@@ -107,7 +98,7 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
             Row::with_children(r1)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(Padding::ZERO.bottom(row1_padding)),
+            .padding([12.0, 0.0]),
         column![
             Row::with_children(r2)
                 .width(Length::Fill)
