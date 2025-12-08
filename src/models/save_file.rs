@@ -1,4 +1,4 @@
-use crate::{models::mem_card::MemoryCard, utils::data::read_u16_data_from_address};
+use crate::{data::shine_data::ShineData, models::{mem_card::MemoryCard, shine::Shine}, utils::data::read_u16_data_from_address};
 
 pub struct SaveFile {
     label: char,

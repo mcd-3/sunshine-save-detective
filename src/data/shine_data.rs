@@ -27,6 +27,7 @@ impl ShineData {
     const SHINE_SECRET_1_STR: &str = "Secret Shine 1";
     const SHINE_SECRET_2_STR: &str = "Secret Shine 2";
     const SHINE_100_COINS_STR: &str = "100 Coins Shine";
+    const SHINE_BC_STR: &str = "Blue Coin Shine";
 
     pub fn new(byte: u32, bit_index: u32, description: String) -> ShineData {
         ShineData { byte, bit_index, description }
@@ -45,8 +46,55 @@ impl ShineData {
     }
 
     pub fn get_delfino_shines() -> Vec<ShineData> {
-        // TODO: Add shines
-        vec![]
+        vec![
+            ShineData::new(0x00AA, Self::BINARY_INDEX_64, String::from("Air strip")),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_128, String::from("Police gate")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_1, String::from("Airstrip red coins")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_2, String::from("Pachinko")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_4, String::from("Stone pillars pipe")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_8, String::from("Desert island pipe")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_16, String::from("Cliff trees pipe")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_32, String::from("Lighthouse groundpound")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_64, String::from("Crates 1")),
+            ShineData::new(0x00AB, Self::BINARY_INDEX_128, String::from("Crates 2")),
+            ShineData::new(0x00AC, Self::BINARY_INDEX_1, String::from("Tower bell")),
+            ShineData::new(0x00AC, Self::BINARY_INDEX_2, String::from("Jail bell")),
+            ShineData::new(0x00AC, Self::BINARY_INDEX_8, String::from("Chuckster")),
+            ShineData::new(0x00AC, Self::BINARY_INDEX_16, String::from("Shine gate")),
+            ShineData::new(0x00AD, Self::BINARY_INDEX_1, String::from("100 coins")),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_16, String::from("Under bell tower")),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_32, String::from("Beach")),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_64, String::from("Desert island bird")),
+        ]
+    }
+
+    pub fn get_blue_coin_shines() -> Vec<ShineData> {
+        vec![
+            ShineData::new(0x00A8, Self::BINARY_INDEX_64, format!("{} {}", Self::SHINE_BC_STR, 1)),
+            ShineData::new(0x00A8, Self::BINARY_INDEX_128, format!("{} {}", Self::SHINE_BC_STR, 2)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_1, format!("{} {}", Self::SHINE_BC_STR, 3)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_2, format!("{} {}", Self::SHINE_BC_STR, 4)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_4, format!("{} {}", Self::SHINE_BC_STR, 5)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_8, format!("{} {}", Self::SHINE_BC_STR, 6)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_16, format!("{} {}", Self::SHINE_BC_STR, 7)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_32, format!("{} {}", Self::SHINE_BC_STR, 8)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_64, format!("{} {}", Self::SHINE_BC_STR, 9)),
+            ShineData::new(0x00A9, Self::BINARY_INDEX_128, format!("{} {}", Self::SHINE_BC_STR, 10)),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_1, format!("{} {}", Self::SHINE_BC_STR, 11)),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_2, format!("{} {}", Self::SHINE_BC_STR, 12)),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_4, format!("{} {}", Self::SHINE_BC_STR, 13)),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_8, format!("{} {}", Self::SHINE_BC_STR, 14)),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_16, format!("{} {}", Self::SHINE_BC_STR, 15)),
+            ShineData::new(0x00AA, Self::BINARY_INDEX_32, format!("{} {}", Self::SHINE_BC_STR, 16)),
+            ShineData::new(0x00AD, Self::BINARY_INDEX_16, format!("{} {}", Self::SHINE_BC_STR, 17)),
+            ShineData::new(0x00AD, Self::BINARY_INDEX_32, format!("{} {}", Self::SHINE_BC_STR, 18)),
+            ShineData::new(0x00AD, Self::BINARY_INDEX_64, format!("{} {}", Self::SHINE_BC_STR, 19)),
+            ShineData::new(0x00AD, Self::BINARY_INDEX_128, format!("{} {}", Self::SHINE_BC_STR, 20)),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_1, format!("{} {}", Self::SHINE_BC_STR, 21)),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_2, format!("{} {}", Self::SHINE_BC_STR, 22)),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_4, format!("{} {}", Self::SHINE_BC_STR, 23)),
+            ShineData::new(0x00AE, Self::BINARY_INDEX_8, format!("{} {}", Self::SHINE_BC_STR, 24)),
+        ]
     }
 
     pub fn get_bianco_shines() -> Vec<ShineData> {

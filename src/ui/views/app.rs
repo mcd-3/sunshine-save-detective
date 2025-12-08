@@ -10,17 +10,15 @@ use iced::widget::{
     Row,
 };
 use iced::{
-    window,
     Center,
     Element,
     Fill,
     Length,
-    Task
+    Task,
+    window
 };
 use tokio::time::sleep;
 
-use crate::ui::components::shine_display::shine_display;
-use crate::utils::string::padded_string;
 use crate::{
     enums::{
         message::Message,
@@ -41,6 +39,8 @@ use crate::{
             save_radio::save_radio,
             footer::footer,
             navbar::navbar,
+            shine_display::shine_display,
+            blue_coin_shines_counter::blue_coin_shines_counter
         }
     },
     utils::{
@@ -55,7 +55,8 @@ use crate::{
             blue_coin_collected_svg_path,
             sunshine_collected_svg_path,
             yellow_coin_svg_path
-        }  
+        },
+        string::padded_string
     }
 };
 
@@ -94,6 +95,22 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
         };
 
         let bc_total_str: String = padded_string(&app.blue_coin_total.to_string(), 1, 0);
+
+        let shine_rows = match &app.selected_world {
+            WorldIdentifier::DelfinoId => {
+                row![
+                    column![
+                        shine_display(&app.worlds, app.selected_world),
+                        blue_coin_shines_counter(&app.selected_save, &app.mem_card)
+                    ]
+                ]
+            },
+            _ => {
+                row![
+                    shine_display(&app.worlds, app.selected_world),
+                ].spacing(DEFAULT_SPACING)
+            }
+        };
 
         return row![
             column![
@@ -139,9 +156,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         .align_y(Center),
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
-                row![
-                    shine_display(app),
-                ].spacing(DEFAULT_SPACING),
+                shine_rows,
                 row![
                     blue_coin_display(app)
                 ].spacing(DEFAULT_SPACING),

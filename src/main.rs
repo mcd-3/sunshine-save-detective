@@ -27,6 +27,7 @@ mod ui {
         pub mod world_pick_list;
         pub mod footer;
         pub mod navbar;
+        pub mod blue_coin_shines_counter;
     }
 }
 

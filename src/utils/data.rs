@@ -238,6 +238,19 @@ pub fn get_shine_row_lists(world: &World) -> Vec<Vec<Shine>> {
     vec![r1, r2]
 }
 
+pub fn get_blue_coin_shine_count(save_file: &SaveFile, mem_card: &MemoryCard) -> u16 {
+    let mut count: u16 = 0;
+    for sd in ShineData::get_blue_coin_shines() {
+        count = count + if Shine::from_data(mem_card, save_file, &sd).get_is_collected() {
+            1
+        } else {
+            0
+        };
+    }
+
+    count
+}
+
 /// Reads data from a byte address by comparing 2 save blocks from the memory card
 /// 
 /// Returns the u16 number from the read memory address

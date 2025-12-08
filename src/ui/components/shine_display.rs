@@ -18,6 +18,7 @@ use iced::widget::{
     column
 };
 
+use crate::models::world::World;
 use crate::utils::data::get_shine_row_lists;
 use crate::{
     enums::{
@@ -43,21 +44,21 @@ use crate::{
 const SVG_SIZE: u16 = 40;
 const SVG_SIZE_XL: u16 = 128;
 
-pub fn shine_display(app: &App) -> Column<'_, Message> {
+pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Column<'_, Message> {
     // Make corona larger since it's the final shine in-game
-    let shine_size: u16 = match app.selected_world {
+    let shine_size: u16 = match selected_world {
         WorldIdentifier::CoronaId => SVG_SIZE_XL,
         _ => SVG_SIZE
     };
 
-    let row1_padding: f32 = match app.selected_world {
+    let row1_padding: f32 = match selected_world {
         WorldIdentifier::CoronaId => 0.0,
         _ => 12.0
     };
 
     let shine_row_lists = get_shine_row_lists(
-        &app.worlds[
-            get_world_id_index(app.selected_world)
+        &worlds[
+            get_world_id_index(selected_world)
         ]
     );
     let mut r1: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
