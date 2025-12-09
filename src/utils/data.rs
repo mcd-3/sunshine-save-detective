@@ -1,3 +1,5 @@
+use iced::widget::svg::Handle;
+
 use crate::{
     data::{
         blue_coin_data::BlueCoinData,
@@ -170,11 +172,11 @@ pub fn get_blue_coin_count(world_list: &Vec<World>) -> u16 {
 /// Gets the SVG asset corresponding to blue coin collected state
 /// 
 /// Returns a path string to the SVG
-pub fn get_svg_path_from_blue_coin_collected(is_collected: bool) -> String {
+pub fn get_svg_path_from_blue_coin_collected(is_collected: bool) -> Handle {
     return if is_collected {
-        String::from(blue_coin_collected_svg_path())
+        blue_coin_collected_svg_path()
     } else {
-        String::from(blue_coin_missing_svg_path())
+        blue_coin_missing_svg_path()
     }
 }
 
@@ -205,11 +207,11 @@ pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
 /// Gets the SVG asset corresponding to blue coin collected state
 /// 
 /// Returns a path string to the SVG
-pub fn get_svg_path_from_shine_collected(is_collected: bool) -> String {
+pub fn get_svg_path_from_shine_collected(is_collected: bool) -> Handle {
     return if is_collected {
-        String::from(sunshine_collected_svg_path())
+        sunshine_collected_svg_path()
     } else {
-        String::from(sunshine_missing_svg_path())
+        sunshine_missing_svg_path()
     }
 }
 

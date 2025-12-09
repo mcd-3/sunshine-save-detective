@@ -62,7 +62,7 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
                 let new_element = Element::new(
                     Container::new(
                         Tooltip::new(
-                            Svg::from_path(
+                            Svg::new(
                                     get_svg_path_from_shine_collected(
                                         s.get_is_collected()
                                     )

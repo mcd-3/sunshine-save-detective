@@ -54,7 +54,7 @@ pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -
                 let new_element = Element::new(
                     Container::new(
                         Tooltip::new(
-                            Svg::from_path(
+                            Svg::new(
                                     get_svg_path_from_blue_coin_collected(
                                         b.get_is_collected()
                                     )
