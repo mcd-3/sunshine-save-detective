@@ -1,11 +1,8 @@
 use std::time::Duration;
 
-use iced::Length::{FillPortion, Shrink};
+use iced::Length::FillPortion;
 use iced::alignment::Horizontal::Right;
-use iced::widget::tooltip::Position;
-use iced::widget::{
-    Container, Row, Tooltip, button, center, column, container, row, text
-};
+use iced::widget::{Row, button, center, column, row};
 use iced::{
     Center,
     Element,
@@ -30,7 +27,6 @@ use crate::{
     },
     ui::{
         components::{
-            icon::icon,
             blue_coin_display::blue_coin_display,
             file_prompter::file_prompter,
             world_pick_list::world_pick_list,
@@ -56,7 +52,6 @@ use crate::{
             yellow_coin_svg_path,
             lives_svg_path,
         },
-        string::padded_string
     }
 };
 
@@ -70,32 +65,16 @@ const DEFAULT_ROW_HEIGHT: u16 = 38;
 #[derive(Default)]
 pub struct App {
     is_uploaded: bool,
-    pub file_error: FileError,
+    file_error: FileError,
     selected_save: SaveFile,
     mem_card: MemoryCard,
-    pub worlds: Vec<World>,
-    pub selected_world: WorldIdentifier,
+    worlds: Vec<World>,
+    selected_world: WorldIdentifier,
     blue_coin_total: u16,
 }
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
     if is_uploaded {
-        let coin_hs_str: String = match app.selected_world {
-            WorldIdentifier::CoronaId => padded_string("0", 1, 0),
-            _ => {
-                padded_string(
-                    String::from(
-                        &app.worlds[
-                            get_world_id_index(app.selected_world)
-                        ].get_coin_hs()
-                            .to_string()
-                    ).as_str(),
-                    1,
-                    0
-                )
-            }
-        };
-
         let shine_rows = match &app.selected_world {
             WorldIdentifier::DelfinoId => {
                 row![
@@ -157,12 +136,18 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     .height(DEFAULT_ROW_HEIGHT),
                 row![
                     world_pick_list(app.selected_world),
-                    row![
-                        icon(yellow_coin_svg_path()),
-                        text(coin_hs_str)
-                    ].width(Length::FillPortion(1))
-                        .height(Fill)
-                        .align_y(Center),
+                    count_display(
+                        yellow_coin_svg_path(),
+                        "Coin highscore",
+                        match app.selected_world {
+                            WorldIdentifier::CoronaId => 0,
+                            _ => {
+                                *&app.worlds[
+                                    get_world_id_index(app.selected_world)
+                                ].get_coin_hs()
+                            }
+                        }
+                    ),
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
                 column![
