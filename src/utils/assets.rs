@@ -12,6 +12,8 @@ const BLUE_COIN_MISSING_SVG: &[u8; 2674] =
     include_bytes!("./../assets/blue_coin_missing.svg");
 const YELLOW_COIN_SVG: &[u8; 2142] =
     include_bytes!("./../assets/yellow_coin.svg");
+const LIVES_PNG: &[u8; 5012] =
+    include_bytes!("./../assets/lives.svg");
 
 pub fn sunshine_collected_svg_path() -> Handle {
     Handle::from_memory(SUNSHINE_COLLECTED_SVG.as_slice())
@@ -35,4 +37,8 @@ pub fn blue_coin_missing_svg_path() -> Handle {
 
 pub fn yellow_coin_svg_path() -> Handle {
     Handle::from_memory(YELLOW_COIN_SVG.as_slice())
+}
+
+pub fn lives_svg_path() -> Handle {
+    Handle::from_memory(LIVES_PNG.as_slice())
 }

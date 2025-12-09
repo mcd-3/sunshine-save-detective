@@ -74,6 +74,20 @@ impl SaveFile {
         }
     }
 
+    fn get_lives_count_byte_offset(&self) -> u32 {
+        match self.index {
+            SaveFile::SAVE_A_FILE_INDEX => 0x22A7,
+            SaveFile::SAVE_B_FILE_INDEX => 0x62A7,
+            SaveFile::SAVE_C_FILE_INDEX => 0xA2A7,
+            _ => 0x22A7,
+        }
+    }
+
+    pub fn get_lives_count(&self, mem_card: &MemoryCard) -> u16 {
+        let save_address: usize = self.get_lives_count_byte_offset() as usize;
+        read_u16_data_from_address(save_address, mem_card)
+    }
+
     pub fn get_shine_count(&self, mem_card: &MemoryCard) -> u16 {
         let save_address: usize = self.get_shine_count_byte_offset() as usize;
         read_u16_data_from_address(save_address, mem_card)

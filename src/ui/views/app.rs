@@ -56,7 +56,8 @@ use crate::{
         assets::{
             blue_coin_collected_svg_path,
             sunshine_collected_svg_path,
-            yellow_coin_svg_path
+            yellow_coin_svg_path,
+            lives_svg_path,
         },
         string::padded_string
     }
@@ -99,6 +100,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
         };
 
         let bc_total_str: String = padded_string(&app.blue_coin_total.to_string(), 1, 0);
+        let lives_total_str: String = padded_string(&app.selected_save.get_lives_count(&app.mem_card).to_string(), 1, 0);
 
         let shine_rows = match &app.selected_world {
             WorldIdentifier::DelfinoId => {
@@ -129,26 +131,40 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     save_radio(app.selected_save.index),
                     row![
                         row![
-                            icon(sunshine_collected_svg_path()),
-                            text(
-                                padded_string(
-                                    app.selected_save
-                                        .get_shine_count(&app.mem_card)
-                                        .to_string()
-                                        .as_str(),
-                                    1,
-                                    4
-                                )
-                            ),
-                            icon(blue_coin_collected_svg_path()),
-                            text(bc_total_str),
-                        ].width(Fill)
+                            row![
+                                icon(sunshine_collected_svg_path()),
+                                text(
+                                    padded_string(
+                                        app.selected_save
+                                            .get_shine_count(&app.mem_card)
+                                            .to_string()
+                                            .as_str(),
+                                        1,
+                                        0
+                                    )
+                                ),
+                            ].width(FillPortion(1))
+                                .height(Fill)
+                                .align_y(Center),
+                            row![
+                                icon(blue_coin_collected_svg_path()),
+                                text(bc_total_str),
+                            ].width(FillPortion(1))
+                                .height(Fill)
+                                .align_y(Center),
+                            row![
+                                icon(lives_svg_path()),
+                                text(lives_total_str)
+                            ].width(FillPortion(1))
+                                .height(Fill)
+                                .align_y(Center),
+                        ].width(FillPortion(3))
                             .height(Fill)
                             .align_y(Center),
                         column![
                             button("Upload")
                                 .on_press(Message::FileSelectOpen)
-                        ].width(Fill)
+                        ].width(FillPortion(1))
                             .spacing(DEFAULT_SPACING)
                             .align_x(Right)
                             .height(Fill)
