@@ -28,6 +28,7 @@ mod ui {
         pub mod footer;
         pub mod navbar;
         pub mod blue_coin_shines_counter;
+        pub mod count_display;
     }
 }
 

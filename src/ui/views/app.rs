@@ -38,7 +38,8 @@ use crate::{
             footer::footer,
             navbar::navbar,
             shine_display::shine_display,
-            blue_coin_shines_counter::blue_coin_shines_counter
+            blue_coin_shines_counter::blue_coin_shines_counter,
+            count_display::count_display,
         }
     },
     utils::{
@@ -95,9 +96,6 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
             }
         };
 
-        let bc_total_str: String = padded_string(&app.blue_coin_total.to_string(), 1, 0);
-        let lives_total_str: String = padded_string(&app.selected_save.get_lives_count(&app.mem_card).to_string(), 1, 0);
-
         let shine_rows = match &app.selected_world {
             WorldIdentifier::DelfinoId => {
                 row![
@@ -127,63 +125,21 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     save_radio(app.selected_save.index),
                     row![
                         row![
-                            row![
-                                Container::new(
-                                    Tooltip::new(
-                                        icon(sunshine_collected_svg_path()),
-                                        container(
-                                            text("Total shines collected")
-                                            )
-                                            .padding(10)
-                                            .style(container::rounded_box),
-                                            Position::Top
-                                    )
-                                ),
-                                text(
-                                    padded_string(
-                                        app.selected_save
-                                            .get_shine_count(&app.mem_card)
-                                            .to_string()
-                                            .as_str(),
-                                        1,
-                                        0
-                                    )
-                                ),
-                            ].width(FillPortion(1))
-                                .height(Fill)
-                                .align_y(Center),
-                            row![
-                                Container::new(
-                                    Tooltip::new(
-                                        icon(blue_coin_collected_svg_path()),
-                                        container(
-                                            text("Total blue coins collected")
-                                            )
-                                            .padding(10)
-                                            .style(container::rounded_box),
-                                            Position::Top
-                                    )
-                                ), 
-                                text(bc_total_str),
-                            ].width(FillPortion(1))
-                                .height(Fill)
-                                .align_y(Center),
-                            row![
-                                Container::new(
-                                    Tooltip::new(
-                                        icon(lives_svg_path()),
-                                        container(
-                                            text("Total lives")
-                                            )
-                                            .padding(10)
-                                            .style(container::rounded_box),
-                                            Position::Top
-                                    )
-                                ),
-                                text(lives_total_str)
-                            ].width(FillPortion(1))
-                                .height(Fill)
-                                .align_y(Center),
+                            count_display(
+                                sunshine_collected_svg_path(),
+                                "Total shines collected",
+                                app.selected_save.get_shine_count(&app.mem_card)
+                            ),
+                            count_display(
+                                blue_coin_collected_svg_path(),
+                                "Total blue coins collected",
+                                *&app.blue_coin_total
+                            ),
+                            count_display(
+                                lives_svg_path(),
+                                "Total lives",
+                                *&app.selected_save.get_lives_count(&app.mem_card)
+                            ),
                         ].width(FillPortion(3))
                             .height(Fill)
                             .align_y(Center),
