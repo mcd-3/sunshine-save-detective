@@ -118,6 +118,11 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
             }
         };
 
+        let shine_portion = match &app.selected_world {
+            WorldIdentifier::DelfinoId => 3,
+            _ => 2,
+        };
+
         return row![
             column![
                 row![
@@ -163,7 +168,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
                 column![
-                    shine_rows.spacing(SMALL_SPACING).height(FillPortion(3)),
+                    shine_rows.spacing(SMALL_SPACING).height(FillPortion(shine_portion)),
                     row![
                         blue_coin_display(&app.worlds, app.selected_world)
                     ].height(FillPortion(2)),
