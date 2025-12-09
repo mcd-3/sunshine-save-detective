@@ -6,7 +6,10 @@ use crate::{
         coin_data::CoinData,
         shine_data::ShineData
     },
-    enums::world_identifier::WorldIdentifier,
+    enums::{
+        nozzle_type::NozzleType,
+        world_identifier::WorldIdentifier
+    },
     models::{
         blue_coin::BlueCoin,
         mem_card::MemoryCard,
@@ -17,8 +20,12 @@ use crate::{
     utils::assets::{
         blue_coin_collected_svg_path,
         blue_coin_missing_svg_path,
+        rocket_nozzle_collected_svg_path,
+        rocket_nozzle_missing_svg_path,
         sunshine_collected_svg_path,
-        sunshine_missing_svg_path
+        sunshine_missing_svg_path,
+        turbo_nozzle_collected_svg_path,
+        turbo_nozzle_missing_svg_path,
     }
 };
 
@@ -240,6 +247,26 @@ pub fn get_shine_row_lists(world: &World) -> Vec<Vec<Shine>> {
     vec![r1, r2]
 }
 
+/// Gets the SVG asset corresponding to blue coin collected state
+/// 
+/// Returns a path string to the SVG
+pub fn get_svg_path_from_nozzle_collected(is_collected: bool, nozzle_type: NozzleType) -> Handle {
+    if is_collected {
+        return match nozzle_type {
+            NozzleType::Rocket => rocket_nozzle_collected_svg_path(),
+            NozzleType::Turbo => turbo_nozzle_collected_svg_path()
+        }
+    } else {
+        return match nozzle_type {
+            NozzleType::Rocket => rocket_nozzle_missing_svg_path(),
+            NozzleType::Turbo => turbo_nozzle_missing_svg_path()
+        }
+    }
+}
+
+/// Gets the total blue coin shine count for a save file
+/// 
+/// Returns the total blue coin shine count
 pub fn get_blue_coin_shine_count(save_file: &SaveFile, mem_card: &MemoryCard) -> u16 {
     let mut count: u16 = 0;
     for sd in ShineData::get_blue_coin_shines() {
