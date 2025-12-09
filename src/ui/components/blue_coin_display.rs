@@ -9,7 +9,6 @@ use iced::widget::{
     Column,
     Container,
     Row,
-    Svg,
     Tooltip,
     container,
     text,
@@ -21,7 +20,8 @@ use crate::{
     enums::message::Message,
     ui::{
         components::{
-            header::header
+            header::header,
+            icon::icon
         },
     },
     utils::{
@@ -54,7 +54,7 @@ pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -
                 let new_element = Element::new(
                     Container::new(
                         Tooltip::new(
-                            Svg::new(
+                            icon(
                                     get_svg_path_from_blue_coin_collected(
                                         b.get_is_collected()
                                     )

@@ -17,8 +17,6 @@ use iced::widget::{
     column
 };
 
-use crate::models::world::World;
-use crate::utils::data::get_shine_row_lists;
 use crate::{
     enums::{
         message::Message,
@@ -26,13 +24,16 @@ use crate::{
     },
     ui::{
         components::{
-            header::header
+            header::header,
+            icon::icon
         }
     },
+    models::world::World,
     utils::{
         data::{
             get_world_id_index,
-            get_svg_path_from_shine_collected
+            get_svg_path_from_shine_collected,
+            get_shine_row_lists
         }, 
     }
 };
@@ -62,7 +63,7 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
                 let new_element = Element::new(
                     Container::new(
                         Tooltip::new(
-                            Svg::new(
+                            icon(
                                     get_svg_path_from_shine_collected(
                                         s.get_is_collected()
                                     )
