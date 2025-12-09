@@ -2,13 +2,9 @@ use std::time::Duration;
 
 use iced::Length::{FillPortion, Shrink};
 use iced::alignment::Horizontal::Right;
+use iced::widget::tooltip::Position;
 use iced::widget::{
-    Row,
-    button,
-    center,
-    column,
-    row,
-    text,
+    Container, Row, Tooltip, button, center, column, container, row, text
 };
 use iced::{
     Center,
@@ -132,7 +128,17 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     row![
                         row![
                             row![
-                                icon(sunshine_collected_svg_path()),
+                                Container::new(
+                                    Tooltip::new(
+                                        icon(sunshine_collected_svg_path()),
+                                        container(
+                                            text("Total shines collected")
+                                            )
+                                            .padding(10)
+                                            .style(container::rounded_box),
+                                            Position::Top
+                                    )
+                                ),
                                 text(
                                     padded_string(
                                         app.selected_save
@@ -147,13 +153,33 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                                 .height(Fill)
                                 .align_y(Center),
                             row![
-                                icon(blue_coin_collected_svg_path()),
+                                Container::new(
+                                    Tooltip::new(
+                                        icon(blue_coin_collected_svg_path()),
+                                        container(
+                                            text("Total blue coins collected")
+                                            )
+                                            .padding(10)
+                                            .style(container::rounded_box),
+                                            Position::Top
+                                    )
+                                ), 
                                 text(bc_total_str),
                             ].width(FillPortion(1))
                                 .height(Fill)
                                 .align_y(Center),
                             row![
-                                icon(lives_svg_path()),
+                                Container::new(
+                                    Tooltip::new(
+                                        icon(lives_svg_path()),
+                                        container(
+                                            text("Total lives")
+                                            )
+                                            .padding(10)
+                                            .style(container::rounded_box),
+                                            Position::Top
+                                    )
+                                ),
                                 text(lives_total_str)
                             ].width(FillPortion(1))
                                 .height(Fill)
