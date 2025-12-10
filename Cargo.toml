@@ -1,5 +1,6 @@
 [package]
 name = "sunshine_save_detective"
+authors = ["Matthew Carvalho-Dagenais"]
 version = "0.8.0"
 edition = "2021"
 

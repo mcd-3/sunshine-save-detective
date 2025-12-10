@@ -10,8 +10,10 @@ const TEXT_SIZE_SUBHEADER: u16 = 12;
 
 pub fn footer<'a>() -> Row<'a, Message> {
     let version: String = String::from("Version: v.") + env!["CARGO_PKG_VERSION"];
+    let author: String = String::from("By: ") + env!["CARGO_PKG_AUTHORS"];
+
     row![
-        text("License")
+        text(author)
             .size(TEXT_SIZE_SUBHEADER)
             .width(Length::FillPortion(1))
             .align_x(Left),
