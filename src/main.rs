@@ -49,7 +49,14 @@ mod utils {
     pub mod string;
 }
 
-use iced::{Result, Size, application, window::{self, Settings}};
+use iced::{
+    Result,
+    Size,
+    advanced::graphics::image::image_rs::ImageFormat,
+    application,
+    window::{self, Settings}
+};
+
 use ui::views::app::App;
 
 fn main() -> Result {
@@ -57,8 +64,8 @@ fn main() -> Result {
 
     let icon = window::icon::from_file_data(
         include_bytes!("./assets/logo.ico"),
-        None
-    ).expect("icon file should be reachable and in ICO file format");
+        Some(ImageFormat::Ico)
+    ).expect("Could not find logo.ico");
 
     application(&*app_name, App::update, App::view)
         .window(Settings {
