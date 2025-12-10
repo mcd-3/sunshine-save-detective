@@ -49,14 +49,20 @@ mod utils {
     pub mod string;
 }
 
-use iced::{application, Result, window::Settings, Size};
+use iced::{Result, Size, application, window::{self, Settings}};
 use ui::views::app::App;
 
 fn main() -> Result {
     let app_name = env!("CARGO_PKG_NAME");
 
+    let icon = window::icon::from_file_data(
+        include_bytes!("./assets/logo.ico"),
+        None
+    ).expect("icon file should be reachable and in ICO file format");
+
     application(&*app_name, App::update, App::view)
         .window(Settings {
+            icon: Some(icon),
             min_size: Some(Size::new(800.0, 600.0)),
             size: Size::new(800.0, 600.0),
             ..Settings::default()
