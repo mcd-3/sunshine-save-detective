@@ -31,6 +31,7 @@ mod ui {
         pub mod navbar;
         pub mod blue_coin_shines_counter;
         pub mod count_display;
+        pub mod nozzle_display;
     }
 }
 
