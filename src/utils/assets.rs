@@ -23,6 +23,8 @@ const YELLOW_COIN_SVG: &[u8; 2142] =
 const LIVES_PNG: &[u8; 5012] =
     include_bytes!("./../assets/lives.svg");
 
+const KNEWAVE_FONT: &[u8; 56996] = include_bytes!("./../assets/fonts/knewave.ttf");
+
 pub fn sunshine_collected_svg_path() -> Handle {
     Handle::from_memory(SUNSHINE_COLLECTED_SVG.as_slice())
 }
@@ -65,4 +67,8 @@ pub fn yellow_coin_svg_path() -> Handle {
 
 pub fn lives_svg_path() -> Handle {
     Handle::from_memory(LIVES_PNG.as_slice())
+}
+
+pub fn knewave_font_path() -> &'static [u8] {
+    KNEWAVE_FONT
 }

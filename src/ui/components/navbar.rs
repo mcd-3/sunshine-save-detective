@@ -4,7 +4,6 @@ use iced::{
     Length::{self, Fill, Shrink},
     alignment::Horizontal::Left,
     widget::{Row, row, text},
-    font::Weight::Semibold,
 };
 
 use crate::{
@@ -16,7 +15,7 @@ use crate::{
     }
 };
 
-const TEXT_SIZE_HEADER: u16 = 18;
+const TEXT_SIZE_HEADER: u16 = 24;
 
 pub fn navbar<'a>() -> Row<'a, Message> {
     row![
@@ -28,11 +27,6 @@ pub fn navbar<'a>() -> Row<'a, Message> {
             .height(Fill)
             .align_x(Left)
             .align_y(Center)
-            .font(
-                Font {
-                    weight: Semibold,
-                    ..Font::DEFAULT
-                }
-            ),
+            .font(Font::with_name("Knewave")),
     ].height(Shrink)
 }

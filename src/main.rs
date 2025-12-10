@@ -59,6 +59,8 @@ use iced::{
 
 use ui::views::app::App;
 
+use crate::utils::assets::knewave_font_path;
+
 fn main() -> Result {
     let app_name = env!("CARGO_PKG_NAME");
 
@@ -74,5 +76,6 @@ fn main() -> Result {
             size: Size::new(800.0, 600.0),
             ..Settings::default()
         })
+        .font(knewave_font_path())
         .run()
 }
