@@ -4,12 +4,14 @@ mod models {
     pub mod world;
     pub mod save_file;
     pub mod shine;
+    pub mod nozzle;
 }
 
 mod data {
     pub mod shine_data;
     pub mod blue_coin_data;
     pub mod coin_data;
+    pub mod nozzle_data;
 }
 
 mod ui {
@@ -29,6 +31,7 @@ mod ui {
         pub mod navbar;
         pub mod blue_coin_shines_counter;
         pub mod count_display;
+        pub mod nozzle_display;
     }
 }
 
@@ -36,6 +39,7 @@ mod enums {
     pub mod message;
     pub mod file_error;
     pub mod world_identifier;
+    pub mod nozzle_type;
 }
 
 mod utils {

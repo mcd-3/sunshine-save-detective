@@ -1,7 +1,10 @@
-use crate::{data::shine_data::ShineData, models::{mem_card::MemoryCard, shine::Shine}, utils::data::read_u16_data_from_address};
+use crate::{
+    models::mem_card::MemoryCard,
+    utils::data::read_u16_data_from_address
+};
 
 pub struct SaveFile {
-    label: char,
+    _label: char,
     pub index: u8,   
 }
 
@@ -15,7 +18,7 @@ impl SaveFile {
     pub const SAVE_C_FILE_INDEX: u8 = 2;
 
     pub fn new(label: char, index: u8 ) -> Self {
-        SaveFile { label, index }
+        SaveFile { _label: label, index }
     }
 
     pub fn new_by_label(label: char) -> Self {
@@ -97,7 +100,7 @@ impl SaveFile {
 impl Default for SaveFile {
     fn default() -> Self {
         Self {
-            label: SaveFile::SAVE_A_LABEL,
+            _label: SaveFile::SAVE_A_LABEL,
             index: SaveFile::SAVE_A_FILE_INDEX,
         }
     }

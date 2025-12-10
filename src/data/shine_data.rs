@@ -33,7 +33,7 @@ impl ShineData {
         ShineData { byte, bit_index, description }
     }
 
-        pub fn get_byte(&self) -> u32 {
+    pub fn get_byte(&self) -> u32 {
         self.byte
     }
 

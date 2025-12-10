@@ -40,8 +40,7 @@ impl MemoryCard {
         let sms_save_size: usize = 57408;
         let save_file: Vec<u8> = match std::fs::read(path) {
             Ok(file) => file,
-            Err(e) => {
-                println!("Error: {}", e);
+            Err(_e) => {
                 vec![]
             }
         };

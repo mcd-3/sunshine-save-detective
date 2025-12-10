@@ -5,7 +5,6 @@ use crate::enums::{
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {
-    Default,
     FileSelectOpen,
     DisplayFileError(FileError),
     SelectSaveFile(u8),
