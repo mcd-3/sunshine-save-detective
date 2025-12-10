@@ -2,9 +2,7 @@ use iced::widget::svg::Handle;
 
 use crate::{
     data::{
-        blue_coin_data::BlueCoinData,
-        coin_data::CoinData,
-        shine_data::ShineData
+        blue_coin_data::BlueCoinData, coin_data::CoinData, nozzle_data::NozzleData, shine_data::ShineData
     },
     enums::{
         nozzle_type::NozzleType,
@@ -83,6 +81,7 @@ pub fn get_worlds_data_list(
             CoinData::get_delfino_coin_data(),
             BlueCoinData::get_delfino_bcs(),
             ShineData::get_delfino_shines(),
+            NozzleData::get_delfino_nozzles(),
         ),
         World::new(
             mem_card,
@@ -92,6 +91,7 @@ pub fn get_worlds_data_list(
             CoinData::get_bianco_coin_data(),
             BlueCoinData::get_bianco_bcs(),
             ShineData::get_bianco_shines(),
+            NozzleData::get_bianco_nozzles(),
         ),
         World::new(
             mem_card,
@@ -101,6 +101,7 @@ pub fn get_worlds_data_list(
             CoinData::get_ricco_coin_data(),
             BlueCoinData::get_ricco_bcs(),
             ShineData::get_ricco_shines(),
+            NozzleData::get_ricco_nozzles(),
         ),        
         World::new(
             mem_card,
@@ -110,6 +111,7 @@ pub fn get_worlds_data_list(
             CoinData::get_gelato_coin_data(),
             BlueCoinData::get_gelato_bcs(),
             ShineData::get_gelato_shines(),
+            NozzleData::get_gelato_nozzles(),
         ),
         World::new(
             mem_card,
@@ -119,6 +121,7 @@ pub fn get_worlds_data_list(
             CoinData::get_pinna_coin_data(),
             BlueCoinData::get_pinna_bcs(),
             ShineData::get_pinna_shines(),
+            NozzleData::get_pinna_nozzles(),
         ),
         World::new(
             mem_card,
@@ -128,6 +131,7 @@ pub fn get_worlds_data_list(
             CoinData::get_sirena_coin_data(),
             BlueCoinData::get_sirena_bcs(),
             ShineData::get_sirena_shines(),
+            NozzleData::get_sirena_nozzles(),
         ),
         World::new(
             mem_card,
@@ -137,6 +141,7 @@ pub fn get_worlds_data_list(
             CoinData::get_noki_coin_data(),
             BlueCoinData::get_noki_bcs(),
             ShineData::get_noki_shines(),
+            NozzleData::get_noki_nozzles(),
         ),
         World::new(
             mem_card,
@@ -146,6 +151,7 @@ pub fn get_worlds_data_list(
             CoinData::get_pianta_coin_data(),
             BlueCoinData::get_pianta_bcs(),
             ShineData::get_pianta_shines(),
+            NozzleData::get_pianta_nozzles(),
         ),
         World::new(
             mem_card,
@@ -155,6 +161,7 @@ pub fn get_worlds_data_list(
             CoinData::get_corona_coin_data(),
             BlueCoinData::get_corona_bcs(),
             ShineData::get_corona_shines(),
+            NozzleData::get_corona_nozzles(),
         ),
     ]
 }

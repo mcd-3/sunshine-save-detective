@@ -1,12 +1,10 @@
 use crate::{
     data::{
-        blue_coin_data::BlueCoinData,
-        coin_data::CoinData, shine_data::ShineData
+        blue_coin_data::BlueCoinData, coin_data::CoinData, nozzle_data::NozzleData, shine_data::ShineData
     },
     enums::world_identifier::WorldIdentifier,
     models::{
-        mem_card::MemoryCard,
-        save_file::SaveFile, shine::Shine
+        mem_card::MemoryCard, nozzle::Nozzle, save_file::SaveFile, shine::Shine
     },
     utils::data::read_u16_data_from_address
 };
@@ -18,6 +16,7 @@ pub struct World {
     coin_hs: u16,
     pub blue_coins: Vec<BlueCoin>,
     pub shines: Vec<Shine>,
+    pub nozzles: Vec<Nozzle>,
     pub identifier: WorldIdentifier,
 }
 
@@ -81,7 +80,8 @@ impl World {
         world_identifier: WorldIdentifier,
         coin_data: CoinData,
         blue_coin_data: Vec<BlueCoinData>,
-        shine_data: Vec<ShineData>
+        shine_data: Vec<ShineData>,
+        nozzle_data: Vec<NozzleData>,
     ) -> World {
         let coin_hs: u16 = World::get_total_coins(mem_card, save_file, coin_data.get_byte() as usize);
 
@@ -95,6 +95,11 @@ impl World {
             shines.push(Shine::from_data(mem_card, save_file, &sd));
         }
 
-        World { name, coin_hs, blue_coins, shines, identifier: world_identifier }
+        let mut nozzles: Vec<Nozzle> = vec![];
+        for nd in nozzle_data {
+            nozzles.push(Nozzle::from_data(mem_card, save_file, &nd));
+        }
+
+        World { name, coin_hs, blue_coins, shines, nozzles, identifier: world_identifier }
     }
 }

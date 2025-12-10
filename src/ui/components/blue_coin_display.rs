@@ -7,21 +7,16 @@ use iced::{
 };
 use iced::widget::{
     Column,
-    Container,
     Row,
-    Tooltip,
-    container,
-    text,
-    tooltip::Position,
     column
 };
 
+use crate::ui::components::icon::tooltiped_icon;
 use crate::{
     enums::message::Message,
     ui::{
         components::{
-            header::header,
-            icon::icon
+            header::header
         },
     },
     utils::{
@@ -34,8 +29,6 @@ use crate::{
     enums::world_identifier::WorldIdentifier,
     models::world::World,
 };
-
-const SVG_SIZE: u16 = 28;
 
 pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Column<'_, Message> {
     let blue_coin_row_lists = get_blue_coin_row_lists(
@@ -52,26 +45,13 @@ pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -
         if !r.is_empty() {
             for b in r {
                 let new_element = Element::new(
-                    Container::new(
-                        Tooltip::new(
-                            icon(
-                                    get_svg_path_from_blue_coin_collected(
-                                        b.get_is_collected()
-                                    )
-                                )
-                                .width(SVG_SIZE)
-                                .height(SVG_SIZE),
-                            container(
-                                text(
-                                        b.get_overview()
-                                    )
-                                )
-                                .padding(10)
-                                .style(container::rounded_box),
-                                Position::Top
-                        )
-                    ).width(Length::FillPortion(1))
-                        .align_x(Center)
+                    tooltiped_icon(
+                        get_svg_path_from_blue_coin_collected(
+                                b.get_is_collected()
+                            ),
+                                b.get_overview()
+                        ).width(Length::FillPortion(1))
+                            .align_x(Center)
                 );
 
                 match row_number {

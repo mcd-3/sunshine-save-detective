@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use iced::Length::FillPortion;
+use iced::Length::{FillPortion, Shrink};
 use iced::alignment::Horizontal::Right;
 use iced::widget::{Row, button, center, column, row};
 use iced::{
@@ -14,6 +14,9 @@ use iced::{
 };
 use tokio::time::sleep;
 
+use crate::enums::nozzle_type::NozzleType;
+use crate::ui::components::icon::{tooltiped_icon};
+use crate::utils::data::get_svg_path_from_nozzle_collected;
 use crate::{
     enums::{
         message::Message,
@@ -98,6 +101,53 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
             _ => 2,
         };
 
+        let nozzles: Row<'_, Message> = match &app.selected_world {
+            WorldIdentifier::SirenaId | WorldIdentifier::PinnaId => { row![] }, // Null
+            WorldIdentifier::PiantaId | WorldIdentifier::CoronaId => {
+                let nozzle_list = &app.worlds[
+                    get_world_id_index(app.selected_world)
+                ].nozzles;
+                row![
+                    tooltiped_icon(
+                        get_svg_path_from_nozzle_collected(
+                            nozzle_list[0].get_is_collected(),
+                            NozzleType::Rocket
+                        ),
+                        nozzle_list[0].get_overview()
+                    ).width(Length::Fill)
+                        .align_x(Right),
+                ].height(Fill)
+                    .width(Fill)
+                    .align_y(Center)
+            }, // Rocket only
+            _ => {
+                let nozzle_list = &app.worlds[
+                    get_world_id_index(app.selected_world)
+                ].nozzles;
+                row![
+                    tooltiped_icon(
+                        get_svg_path_from_nozzle_collected(
+                            nozzle_list[0].get_is_collected(),
+                            NozzleType::Rocket
+                        ),
+                        nozzle_list[0].get_overview()
+                    ).width(Length::Fill)
+                        .align_x(Right),
+                    tooltiped_icon(
+                        get_svg_path_from_nozzle_collected(
+                            nozzle_list[1].get_is_collected(),
+                            NozzleType::Turbo
+                        ),
+                        nozzle_list[1].get_overview()
+                    ).width(Shrink)
+                        .padding(Padding::ZERO.left(12.0))
+                        .align_x(Right)
+                ].height(Fill)
+                    .width(Fill)
+                    .align_y(Center)
+            }
+        };
+
         return row![
             column![
                 row![
@@ -136,18 +186,21 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     .height(DEFAULT_ROW_HEIGHT),
                 row![
                     world_pick_list(app.selected_world),
-                    count_display(
-                        yellow_coin_svg_path(),
-                        "Coin highscore",
-                        match app.selected_world {
-                            WorldIdentifier::CoronaId => 0,
-                            _ => {
-                                *&app.worlds[
-                                    get_world_id_index(app.selected_world)
-                                ].get_coin_hs()
+                    row![
+                        count_display(
+                            yellow_coin_svg_path(),
+                            "Coin highscore",
+                            match app.selected_world {
+                                WorldIdentifier::CoronaId => 0,
+                                _ => {
+                                    *&app.worlds[
+                                        get_world_id_index(app.selected_world)
+                                    ].get_coin_hs()
+                                }
                             }
-                        }
-                    ),
+                        ),
+                        nozzles,
+                    ]
                 ].spacing(DEFAULT_SPACING)
                     .height(DEFAULT_ROW_HEIGHT + 4),
                 column![
