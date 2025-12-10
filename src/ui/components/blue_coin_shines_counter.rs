@@ -1,6 +1,6 @@
 use iced::Length::Fill;
 use iced::widget::Text;
-use iced::{Alignment::Center, Font, alignment::Vertical::Bottom, color, widget::text};
+use iced::{Alignment::Center, Font, color, widget::text};
 use iced::font::Weight::Semibold;
 use dark_light::Mode;
 

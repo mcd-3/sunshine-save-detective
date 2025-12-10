@@ -10,7 +10,6 @@ use iced::{
     Length,
     Padding,
     Task,
-    window,
 };
 use tokio::time::sleep;
 
@@ -56,7 +55,6 @@ use crate::{
     }
 };
 
-// TODO: Follow good examples: https://github.com/fogarecious/iced_tutorial
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
 const SMALL_SPACING: u16 = 12;
 const DEFAULT_SPACING: u16 = 16;
@@ -173,7 +171,6 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
 impl App {
     pub fn update(&mut self, message: Message) -> Task<Message> {
         match message {
-            Message::Default => window::get_latest().and_then(window::close),
             Message::FileSelectOpen => {
                 let result: MemoryCard = pick_file();
 
@@ -218,9 +215,6 @@ impl App {
             },
             Message::SelectWorld(id) => {
                 self.selected_world = id;
-                Task::none()
-            }
-            _ => {
                 Task::none()
             }
         }

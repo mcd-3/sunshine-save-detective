@@ -9,7 +9,6 @@ use iced::widget::{
     Column,
     Container,
     Row,
-    Svg,
     Tooltip,
     container,
     text,

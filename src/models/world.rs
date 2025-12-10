@@ -12,7 +12,7 @@ use crate::{
 use super::blue_coin::BlueCoin;
 
 pub struct World {
-    name: String,
+    _name: String,
     coin_hs: u16,
     pub blue_coins: Vec<BlueCoin>,
     pub shines: Vec<Shine>,
@@ -69,7 +69,6 @@ impl World {
             WorldIdentifier::NokiId => World::NAME_NOKI,
             WorldIdentifier::PiantaId => World::NAME_PIANTA,
             WorldIdentifier::CoronaId => World::NAME_CORONA,
-            _ => World::NAME_DELFINO
         }
     }
 
@@ -100,6 +99,13 @@ impl World {
             nozzles.push(Nozzle::from_data(mem_card, save_file, &nd));
         }
 
-        World { name, coin_hs, blue_coins, shines, nozzles, identifier: world_identifier }
+        World {
+            _name: name,
+            coin_hs,
+            blue_coins,
+            shines,
+            nozzles,
+            identifier: world_identifier
+        }
     }
 }
