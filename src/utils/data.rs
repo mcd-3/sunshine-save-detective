@@ -223,7 +223,10 @@ pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
 /// Gets the SVG asset corresponding to blue coin collected state
 /// 
 /// Returns a path string to the SVG
-pub fn get_svg_path_from_shine_collected(is_collected: bool, is_secret: bool) -> Handle {
+pub fn get_svg_path_from_shine_collected(
+    is_collected: bool,
+    is_secret: bool
+) -> Handle {
     return if is_collected {
         if is_secret {
             sunshine_secret_collected_svg_path()
@@ -295,7 +298,10 @@ pub fn get_shine_row_lists(world: &World) -> Vec<Vec<Shine>> {
 /// Gets the SVG asset corresponding to blue coin collected state
 /// 
 /// Returns a path string to the SVG
-pub fn get_svg_path_from_nozzle_collected(is_collected: bool, nozzle_type: NozzleType) -> Handle {
+pub fn get_svg_path_from_nozzle_collected(
+    is_collected: bool,
+    nozzle_type: NozzleType
+) -> Handle {
     if is_collected {
         return match nozzle_type {
             NozzleType::Rocket => rocket_nozzle_collected_svg_path(),
@@ -312,7 +318,10 @@ pub fn get_svg_path_from_nozzle_collected(is_collected: bool, nozzle_type: Nozzl
 /// Gets the total blue coin shine count for a save file
 /// 
 /// Returns the total blue coin shine count
-pub fn get_blue_coin_shine_count(save_file: &SaveFile, mem_card: &MemoryCard) -> u16 {
+pub fn get_blue_coin_shine_count(
+    save_file: &SaveFile,
+    mem_card: &MemoryCard
+) -> u16 {
     let mut count: u16 = 0;
     for sd in ShineData::get_blue_coin_shines() {
         count = count + if Shine::from_data(mem_card, save_file, &sd).get_is_collected() {
@@ -331,9 +340,12 @@ pub fn get_blue_coin_shine_count(save_file: &SaveFile, mem_card: &MemoryCard) ->
 pub fn read_u16_data_from_address(save_address: usize, mem_card: &MemoryCard) -> u16 {
     // Combine 2 bytes into 1 16-bit value using bitwise operations
     // Note: could cause endian problems.
-    let val_addr1: u16 = (mem_card.get_mem_data()[save_address - 1] as u16) << 8 | mem_card.get_mem_data()[save_address] as u16;
+    let val_addr1: u16 =
+        (mem_card.get_mem_data()[save_address - 1] as u16) << 8
+            | mem_card.get_mem_data()[save_address] as u16;
     let val_addr2: u16 = 
-        (mem_card.get_mem_data()[(save_address + 0x2000) - 1] as u16) << 8 | mem_card.get_mem_data()[save_address + 0x2000] as u16;
+        (mem_card.get_mem_data()[(save_address + 0x2000) - 1] as u16) << 8
+            | mem_card.get_mem_data()[save_address + 0x2000] as u16;
 
     if val_addr1 > val_addr2 {
         return val_addr1;

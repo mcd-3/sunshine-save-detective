@@ -1,4 +1,8 @@
-use iced::{Theme, advanced::svg::Handle, widget::{Container, Svg, Tooltip, container, text, tooltip::Position}};
+use iced::{
+    Theme,
+    advanced::svg::Handle,
+    widget::{Container, Svg, Tooltip, container, text, tooltip::Position}
+};
 
 use crate::enums::message::Message;
 
