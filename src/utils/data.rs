@@ -223,17 +223,15 @@ pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
 /// Gets the SVG asset corresponding to blue coin collected state
 /// 
 /// Returns a path string to the SVG
-pub fn get_svg_path_from_shine_collected(is_collected: bool, description: &str) -> Handle {
+pub fn get_svg_path_from_shine_collected(is_collected: bool, is_secret: bool) -> Handle {
     return if is_collected {
-        // TODO: Modify ShineData to instead have a "is_secret" field
-        if description.contains("Secret") || description.contains("100") {
+        if is_secret {
             sunshine_secret_collected_svg_path()
         } else {
             sunshine_collected_svg_path()
         }
     } else {
-        // TODO: Modify ShineData to instead have a "is_secret" field
-        if description.contains("Secret") || description.contains("100") {
+        if is_secret {
             sunshine_secret_missing_svg_path()
         } else {
             sunshine_missing_svg_path()

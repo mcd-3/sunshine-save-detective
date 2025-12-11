@@ -4,11 +4,12 @@ use crate::{data::shine_data::ShineData, models::{mem_card::MemoryCard, save_fil
 pub struct Shine {
     is_collected: bool,
     description: String,
+    is_secret: bool,
 }
 
 impl Shine {
-    pub fn new(is_collected: bool, description: String) -> Self {
-        Shine { is_collected, description }
+    pub fn new(is_collected: bool, description: String, is_secret: bool) -> Self {
+        Shine { is_collected, description, is_secret }
     }
 
     pub fn get_is_collected(&self) -> bool {
@@ -17,6 +18,10 @@ impl Shine {
 
     pub fn get_description(&self) -> &str {
         &self.description
+    }
+
+    pub fn get_is_secret(&self) -> bool {
+        self.is_secret
     }
 
     fn get_shine_collected(mem_card: &MemoryCard, save_file: &SaveFile, sd: &ShineData) -> bool {
@@ -38,7 +43,8 @@ impl Shine {
     pub fn from_data(mem_card: &MemoryCard, save_file: &SaveFile, data: &ShineData) -> Shine {
         Shine::new(
             Self::get_shine_collected(mem_card, save_file, data),
-            data.get_description()
+            data.get_description(),
+            data.get_is_secret()
         )
     }
 }

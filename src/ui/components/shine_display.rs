@@ -74,7 +74,7 @@ pub fn shine_display(
                             icon(
                                     get_svg_path_from_shine_collected(
                                         s.get_is_collected(),
-                                        s.get_description()
+                                        s.get_is_secret()
                                     )
                                 )
                                 .width(shine_size)
