@@ -1,3 +1,5 @@
+#![windows_subsystem = "windows"]
+
 mod models {
     pub mod blue_coin;
     pub mod mem_card;
