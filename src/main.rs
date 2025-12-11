@@ -82,23 +82,23 @@ fn main() -> Result {
         Some(ImageFormat::Ico)
     ).expect("Could not find logo.ico");
 
-    application("Sunshine Save Detective", App::update, App::view)
-        .window(Settings {
-            icon: Some(icon),
-            min_size: Some(WINDOW_SIZE),
-            size: WINDOW_SIZE,
-            ..Settings::default()
-        })
-        .style(|_state, _theme| {
-            Appearance {
-                background_color: if *is_dark {
-                    BACKGROUND_DARK_MODE
-                } else {
-                    BACKGROUND_LIGHT_MODE
-                },
-                text_color: if *is_dark { Color::WHITE } else { Color::BLACK },
-            }
-        })
-        .font(knewave_font_path())
+    application(
+        "Sunshine Save Detective",
+        App::update, App::view
+    ).window(Settings {
+        icon: Some(icon),
+        min_size: Some(WINDOW_SIZE),
+        size: WINDOW_SIZE,
+        ..Settings::default()
+    }).style(|_state, _theme| {
+        Appearance {
+            background_color: if *is_dark {
+                BACKGROUND_DARK_MODE
+            } else {
+                BACKGROUND_LIGHT_MODE
+            },
+            text_color: if *is_dark { Color::WHITE } else { Color::BLACK },
+        }
+    }).font(knewave_font_path())
         .run()
 }
