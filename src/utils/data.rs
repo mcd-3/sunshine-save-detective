@@ -22,6 +22,8 @@ use crate::{
         rocket_nozzle_missing_svg_path,
         sunshine_collected_svg_path,
         sunshine_missing_svg_path,
+        sunshine_secret_collected_svg_path,
+        sunshine_secret_missing_svg_path,
         turbo_nozzle_collected_svg_path,
         turbo_nozzle_missing_svg_path,
     }
@@ -221,11 +223,21 @@ pub fn get_blue_coin_row_lists(world: &World) -> Vec<Vec<BlueCoin>> {
 /// Gets the SVG asset corresponding to blue coin collected state
 /// 
 /// Returns a path string to the SVG
-pub fn get_svg_path_from_shine_collected(is_collected: bool) -> Handle {
+pub fn get_svg_path_from_shine_collected(is_collected: bool, description: &str) -> Handle {
     return if is_collected {
-        sunshine_collected_svg_path()
+        // TODO: Modify ShineData to instead have a "is_secret" field
+        if description.contains("Secret") || description.contains("100") {
+            sunshine_secret_collected_svg_path()
+        } else {
+            sunshine_collected_svg_path()
+        }
     } else {
-        sunshine_missing_svg_path()
+        // TODO: Modify ShineData to instead have a "is_secret" field
+        if description.contains("Secret") || description.contains("100") {
+            sunshine_secret_missing_svg_path()
+        } else {
+            sunshine_missing_svg_path()
+        }
     }
 }
 
@@ -236,22 +248,50 @@ pub fn get_shine_row_lists(world: &World) -> Vec<Vec<Shine>> {
     let mut count: usize = 0;
     let divider = match world.identifier {
         WorldIdentifier::DelfinoId => 9,
-        _ => 8,
+        _ => 6,
     };
+
+    let is_delfino = match world.identifier {
+        WorldIdentifier::DelfinoId => true,
+        _ => false,
+    };
+
     let mut r1: Vec<Shine> = vec![];
     let mut r2: Vec<Shine> = vec![];
+    let mut r3: Vec<Shine> = vec![];
 
-    for s in &world.shines {
-        match count / divider {
-            0 => r1.push(s.clone()),
-            1 => r2.push(s.clone()),
-            _ => { /* Do nothing */ }
-        };
+    if !is_delfino {
+        let mut index = 0;
+        let row_counts = vec![4, 4, 3];
+        let mut current_count = 0;
+        for s in &world.shines {
+            if current_count >= row_counts[index] {
+                index = index + 1;
+                current_count = 0;
+            }
 
-        count = count +1;
+            current_count = current_count + 1;
+
+            match index {
+                0 => r1.push(s.clone()),
+                1 => r2.push(s.clone()),
+                2 => r3.push(s.clone()),
+                _ => { /* Do nothing */ }
+            };
+        }
+    } else {
+        for s in &world.shines {
+            match count / divider {
+                0 => r1.push(s.clone()),
+                1 => r2.push(s.clone()),
+                _ => { /* Do nothing */ }
+            };
+
+            count = count +1;
+        }
     }
 
-    vec![r1, r2]
+    vec![r1, r2, r3]
 }
 
 /// Gets the SVG asset corresponding to blue coin collected state

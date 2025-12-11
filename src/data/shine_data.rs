@@ -61,10 +61,12 @@ impl ShineData {
             ShineData::new(0x00AC, Self::BINARY_INDEX_2, String::from("Jail bell")),
             ShineData::new(0x00AC, Self::BINARY_INDEX_8, String::from("Chuckster")),
             ShineData::new(0x00AC, Self::BINARY_INDEX_16, String::from("Shine gate")),
-            ShineData::new(0x00AD, Self::BINARY_INDEX_1, String::from("100 coins")),
             ShineData::new(0x00AE, Self::BINARY_INDEX_16, String::from("Under bell tower")),
             ShineData::new(0x00AE, Self::BINARY_INDEX_32, String::from("Beach")),
             ShineData::new(0x00AE, Self::BINARY_INDEX_64, String::from("Desert island bird")),
+            // Putting the 100 coins shine last because it makes UX sense even though it's not
+            // the correct order in memory
+            ShineData::new(0x00AD, Self::BINARY_INDEX_1, String::from("100 coins")),
         ]
     }
 

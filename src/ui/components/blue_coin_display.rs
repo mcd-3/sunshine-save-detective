@@ -1,3 +1,4 @@
+use iced::Padding;
 use iced::{
     Alignment::Center,
     Element,
@@ -29,6 +30,10 @@ use crate::{
     enums::world_identifier::WorldIdentifier,
     models::world::World,
 };
+
+const HEADER_PADDING_LEFT: f32 = 16.0;
+const HEADER_PADDING_TOP_BOTTOM: f32 = 8.0;
+const PADDING: u16 = 8;
 
 pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Column<'_, Message> {
     let blue_coin_row_lists = get_blue_coin_row_lists(
@@ -66,21 +71,26 @@ pub fn blue_coin_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -
     };
 
     column![
-        header(String::from("Blue Coins")),
+        header(String::from("Blue Coins"))
+            .padding(
+                Padding::ZERO
+                    .left(HEADER_PADDING_LEFT)
+                    .top(HEADER_PADDING_TOP_BOTTOM)
+            ),
         column![
             Row::with_children(r1)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(8),
+            .padding(PADDING),
         column![
             Row::with_children(r2)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(8),
+            .padding(PADDING),
         column![
             Row::with_children(r3)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding(8),
+            .padding(PADDING),
     ]
 }

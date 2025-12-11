@@ -6,6 +6,10 @@ const SUNSHINE_COLLECTED_SVG: &[u8] =
     include_bytes!("./../assets/sunshine.svg");
 const SUNSHINE_MISSING_SVG: &[u8] =
     include_bytes!("./../assets/sunshine_missing.svg");
+const SUNSHINE_SECRET_COLLECTED_SVG: &[u8] =
+    include_bytes!("./../assets/sunshine_secret_collected.svg");
+const SUNSHINE_SECRET_MISSING_SVG: &[u8] =
+    include_bytes!("./../assets/sunshine_secret_missing.svg");
 const BLUE_COIN_COLLECTED_SVG: &[u8] =
     include_bytes!("./../assets/blue_coin_collected.svg");
 const BLUE_COIN_MISSING_SVG: &[u8] =
@@ -31,6 +35,14 @@ pub fn sunshine_collected_svg_path() -> Handle {
 
 pub fn sunshine_missing_svg_path() -> Handle {
     Handle::from_memory(SUNSHINE_MISSING_SVG)
+}
+
+pub fn sunshine_secret_collected_svg_path() -> Handle {
+    Handle::from_memory(SUNSHINE_SECRET_COLLECTED_SVG)
+}
+
+pub fn sunshine_secret_missing_svg_path() -> Handle {
+    Handle::from_memory(SUNSHINE_SECRET_MISSING_SVG)
 }
 
 pub fn sunshine_detective_svg_path() -> Handle {

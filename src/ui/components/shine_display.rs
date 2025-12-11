@@ -1,3 +1,4 @@
+use iced::Padding;
 use iced::{
     Alignment::Center,
     Element,
@@ -37,10 +38,17 @@ use crate::{
     }
 };
 
-const SVG_SIZE: u16 = 40;
+const SVG_SIZE: u16 = 48;
 const SVG_SIZE_XL: u16 = 128;
+const HEADER_PADDING_LEFT: f32 = 16.0;
+const HEADER_PADDING_TOP_BOTTOM: f32 = 8.0;
+const PADDING: u16 = 4;
+const TOOLTIP_PADDING: u16 = 10;
 
-pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Column<'_, Message> {
+pub fn shine_display(
+    worlds: &Vec<World>,
+    selected_world: WorldIdentifier
+) -> Column<'_, Message> {
     // Make corona larger since it's the final shine in-game
     let shine_size: u16 = match selected_world {
         WorldIdentifier::CoronaId => SVG_SIZE_XL,
@@ -54,6 +62,7 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
     );
     let mut r1: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
     let mut r2: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
+    let mut r3: Vec<Element<'_, Message, Theme, Renderer>> = vec![];
     let mut row_number = 0;
 
     for r in shine_row_lists {
@@ -64,7 +73,8 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
                         Tooltip::new(
                             icon(
                                     get_svg_path_from_shine_collected(
-                                        s.get_is_collected()
+                                        s.get_is_collected(),
+                                        s.get_description()
                                     )
                                 )
                                 .width(shine_size)
@@ -74,7 +84,7 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
                                         String::from(s.get_description())
                                     )
                                 )
-                                .padding(10)
+                                .padding(TOOLTIP_PADDING)
                                 .style(container::rounded_box),
                                 Position::Top
                         )
@@ -85,6 +95,7 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
                 match row_number {
                     0 => r1.push(new_element),
                     1 => r2.push(new_element),
+                    2 => r3.push(new_element),
                     _ => {}
                 }
             }
@@ -93,16 +104,26 @@ pub fn shine_display(worlds: &Vec<World>, selected_world: WorldIdentifier) -> Co
     };
 
     column![
-        header(String::from("Shines")),
+        header(String::from("Shines"))
+            .padding(
+                Padding::ZERO
+                    .left(HEADER_PADDING_LEFT)
+                    .top(HEADER_PADDING_TOP_BOTTOM)
+            ),
         column![
             Row::with_children(r1)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding([12.0, 0.0]),
+            .padding(PADDING),
         column![
             Row::with_children(r2)
                 .width(Length::Fill)
         ].width(Length::Fill)
-            .padding([12.0, 0.0]),
+            .padding(PADDING),
+        column![
+            Row::with_children(r3)
+                .width(Length::Fill)
+        ].width(Length::Fill)
+            .padding(PADDING),
     ]
 }
