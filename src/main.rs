@@ -71,7 +71,7 @@ fn main() -> Result {
         Some(ImageFormat::Ico)
     ).expect("Could not find logo.ico");
 
-    application("Sunshine Save Detectiv", App::update, App::view)
+    application("Sunshine Save Detective", App::update, App::view)
         .window(Settings {
             icon: Some(icon),
             min_size: Some(Size::new(800.0, 600.0)),
