@@ -23,7 +23,7 @@ pub fn blue_coin_shines_counter<'a>(
     let text_colour = match dark_light::detect() {
         Ok(Mode::Dark) => TEXT_COLOUR_DARK_MODE,
         Ok(Mode::Light) => TEXT_COLOUR_LIGHT_MODE,
-        Ok(Mode::Unspecified) | Err(_) => TEXT_COLOUR_DARK_MODE,
+        Ok(Mode::Unspecified) | Err(_) => TEXT_COLOUR_LIGHT_MODE,
     };
 
     text(

@@ -51,12 +51,9 @@ mod utils {
     pub mod string;
 }
 
+use dark_light::Mode;
 use iced::{
-    Result,
-    Size,
-    advanced::graphics::image::image_rs::ImageFormat,
-    application,
-    window::{self, Settings}
+    Color, Result, Size, advanced::graphics::image::image_rs::ImageFormat, application, daemon::Appearance, window::{self, Settings}
 };
 
 use ui::views::app::App;
@@ -64,7 +61,11 @@ use ui::views::app::App;
 use crate::utils::assets::knewave_font_path;
 
 fn main() -> Result {
-    // let app_name = env!("CARGO_PKG_NAME");
+    let is_dark: &bool = match dark_light::detect() {
+        Ok(Mode::Dark) => &true,
+        Ok(Mode::Light) => &false,
+        Ok(Mode::Unspecified) | Err(_) => &true,
+    };
 
     let icon = window::icon::from_file_data(
         include_bytes!("./assets/logo.ico"),
@@ -77,6 +78,16 @@ fn main() -> Result {
             min_size: Some(Size::new(800.0, 600.0)),
             size: Size::new(800.0, 600.0),
             ..Settings::default()
+        })
+        .style(|_state, _theme| {
+            Appearance {
+                background_color: if *is_dark {
+                    Color::from_rgb(0.1, 0.1, 0.1)
+                } else {
+                    Color::from_rgb(0.985, 0.985, 0.985)
+                },
+                text_color: if *is_dark { Color::WHITE } else { Color::BLACK },
+            }
         })
         .font(knewave_font_path())
         .run()
