@@ -53,12 +53,22 @@ mod utils {
 
 use dark_light::Mode;
 use iced::{
-    Color, Result, Size, advanced::graphics::image::image_rs::ImageFormat, application, daemon::Appearance, window::{self, Settings}
+    Color,
+    Result,
+    Size,
+    advanced::graphics::image::image_rs::ImageFormat,
+    application,
+    daemon::Appearance,
+    window::{self, Settings}
 };
 
 use ui::views::app::App;
 
 use crate::utils::assets::knewave_font_path;
+
+const WINDOW_SIZE: Size = Size::new(800.0, 600.0);
+const BACKGROUND_LIGHT_MODE: Color = Color::from_rgb(0.980, 0.980, 0.980);
+const BACKGROUND_DARK_MODE: Color = Color::from_rgb(0.1, 0.1, 0.1);
 
 fn main() -> Result {
     let is_dark: &bool = match dark_light::detect() {
@@ -72,23 +82,23 @@ fn main() -> Result {
         Some(ImageFormat::Ico)
     ).expect("Could not find logo.ico");
 
-    application("Sunshine Save Detective", App::update, App::view)
-        .window(Settings {
-            icon: Some(icon),
-            min_size: Some(Size::new(800.0, 600.0)),
-            size: Size::new(800.0, 600.0),
-            ..Settings::default()
-        })
-        .style(|_state, _theme| {
-            Appearance {
-                background_color: if *is_dark {
-                    Color::from_rgb(0.1, 0.1, 0.1)
-                } else {
-                    Color::from_rgb(0.985, 0.985, 0.985)
-                },
-                text_color: if *is_dark { Color::WHITE } else { Color::BLACK },
-            }
-        })
-        .font(knewave_font_path())
+    application(
+        "Sunshine Save Detective",
+        App::update, App::view
+    ).window(Settings {
+        icon: Some(icon),
+        min_size: Some(WINDOW_SIZE),
+        size: WINDOW_SIZE,
+        ..Settings::default()
+    }).style(|_state, _theme| {
+        Appearance {
+            background_color: if *is_dark {
+                BACKGROUND_DARK_MODE
+            } else {
+                BACKGROUND_LIGHT_MODE
+            },
+            text_color: if *is_dark { Color::WHITE } else { Color::BLACK },
+        }
+    }).font(knewave_font_path())
         .run()
 }

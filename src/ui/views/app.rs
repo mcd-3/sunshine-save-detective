@@ -1,15 +1,11 @@
 use std::time::Duration;
 
-use iced::Length::FillPortion;
+use iced::Length::{FillPortion, Shrink};
 use iced::alignment::Horizontal::Right;
-use iced::widget::{Row, button, center, column, row};
+use iced::alignment::Vertical::{Bottom, Top};
+use iced::widget::{Row, button, center, column, container, row};
 use iced::{
-    Center,
-    Element,
-    Fill,
-    Length,
-    Padding,
-    Task,
+    Border, Center, Color, Element, Fill, Length, Padding, Task
 };
 use tokio::time::sleep;
 
@@ -56,10 +52,14 @@ use crate::{
 };
 
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
-const SMALL_SPACING: u16 = 12;
 const DEFAULT_SPACING: u16 = 16;
-const DEFAULT_PADDING: f32 = 25.0;
+const DEFAULT_PADDING: f32 = 12.0;
 const DEFAULT_ROW_HEIGHT: u16 = 38;
+const SHINES_ROW_DELFINO_HEIGHT: u16 = 148;
+const PADDING_EXTRA: u16 = 16;
+const BORDER_COLOUR: Color = Color::from_rgb(0.45, 0.45, 0.45);
+const BORDER_WIDTH: f32 = 1.2;
+const BORDER_RADIUS: f32 = 4.0;
 
 #[derive(Default)]
 pub struct App {
@@ -78,23 +78,19 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
             WorldIdentifier::DelfinoId => {
                 row![
                     column![
-                        shine_display(&app.worlds, app.selected_world),
+                        shine_display(&app.worlds, app.selected_world)
+                            .height(SHINES_ROW_DELFINO_HEIGHT),
                         row![
-                            blue_coin_shines_counter(&app.selected_save, &app.mem_card).height(Fill)
-                        ].padding(Padding::new(0.0).top(DEFAULT_PADDING))
-                    ]
+                            blue_coin_shines_counter(&app.selected_save, &app.mem_card)
+                        ].padding(Padding::ZERO.top(DEFAULT_PADDING))
+                    ].height(Fill)
                 ]
             },
             _ => {
                 row![
                     shine_display(&app.worlds, app.selected_world),
-                ].spacing(DEFAULT_SPACING)
+                ].height(Shrink)
             }
-        };
-
-        let shine_portion = match &app.selected_world {
-            WorldIdentifier::DelfinoId => 3,
-            _ => 2,
         };
 
         return row![
@@ -151,13 +147,25 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                         nozzle_display(&app.worlds, app.selected_world),
                     ]
                 ].spacing(DEFAULT_SPACING)
-                    .height(DEFAULT_ROW_HEIGHT + 4),
-                column![
-                    shine_rows.spacing(SMALL_SPACING).height(FillPortion(shine_portion)),
-                    row![
-                        blue_coin_display(&app.worlds, app.selected_world)
-                    ].height(FillPortion(2)),
-                ]
+                    .height(DEFAULT_ROW_HEIGHT + 4)
+                    .padding(Padding::ZERO.bottom(PADDING_EXTRA)),
+                container(
+                    column![
+                        shine_rows.align_y(Top),
+                        row![
+                            blue_coin_display(&app.worlds, app.selected_world)
+                        ].height(Shrink).align_y(Bottom).padding(Padding::ZERO.bottom(8)),
+                    ]
+                ).style(|_theme| {
+                    container::Style {
+                        border: Border {
+                            width: BORDER_WIDTH,
+                            color: BORDER_COLOUR,
+                            radius: BORDER_RADIUS.into(),
+                        },
+                        ..Default::default()
+                    }
+                }),
             ].height(Fill)
                 .width(Fill)
                 .align_x(Center),

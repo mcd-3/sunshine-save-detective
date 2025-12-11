@@ -1,10 +1,16 @@
 use crate::{
     data::{
-        blue_coin_data::BlueCoinData, coin_data::CoinData, nozzle_data::NozzleData, shine_data::ShineData
+        blue_coin_data::BlueCoinData,
+        coin_data::CoinData,
+        nozzle_data::NozzleData,
+        shine_data::ShineData
     },
     enums::world_identifier::WorldIdentifier,
     models::{
-        mem_card::MemoryCard, nozzle::Nozzle, save_file::SaveFile, shine::Shine
+        mem_card::MemoryCard,
+        nozzle::Nozzle,
+        save_file::SaveFile,
+        shine::Shine
     },
     utils::data::read_u16_data_from_address
 };
