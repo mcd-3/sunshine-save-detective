@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="1024mm"
-   height="1024mm"
-   viewBox="0 0 1024 1024"
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93333"
    version="1.1"
    id="svg1"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.12330844"
-     inkscape:cx="498.74932"
-     inkscape:cy="1626.0039"
+     inkscape:zoom="0.34876894"
+     inkscape:cx="139.06055"
+     inkscape:cy="589.21532"
      inkscape:window-width="1920"
      inkscape:window-height="1001"
      inkscape:window-x="-9"
@@ -38,52 +38,56 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <path
-       sodipodi:type="star"
-       style="fill:#6e6e6e;stroke-width:0.344223;fill-opacity:1"
-       id="path2"
-       inkscape:flatsided="true"
-       sodipodi:sides="6"
-       sodipodi:cx="212.41379"
-       sodipodi:cy="168.41379"
-       sodipodi:r1="188.73042"
-       sodipodi:r2="170.04025"
-       sodipodi:arg1="1.1395115"
-       sodipodi:arg2="1.6631103"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="M 291.31034,339.86205 103.38351,322.46434 24.486962,151.01607 133.51724,-3.0344757 321.44406,14.36324 400.34061,185.8115 Z"
-       inkscape:transform-center-x="-25.213847"
-       inkscape:transform-center-y="-4.1064021"
-       transform="matrix(0.26942688,2.6972286,-2.9457693,0.2460514,950.87818,-100.84975)" />
-    <path
-       sodipodi:type="star"
-       style="fill:#b1b1b1;fill-opacity:1;stroke-width:0.344223"
-       id="path2-8"
-       inkscape:flatsided="true"
-       sodipodi:sides="6"
-       sodipodi:cx="212.41379"
-       sodipodi:cy="168.41379"
-       sodipodi:r1="188.73042"
-       sodipodi:r2="170.04025"
-       sodipodi:arg1="1.1395115"
-       sodipodi:arg2="1.6631103"
-       inkscape:rounded="0"
-       inkscape:randomized="0"
-       d="M 291.31034,339.86205 103.38351,322.46434 24.486962,151.01607 133.51724,-3.0344757 321.44406,14.36324 400.34061,185.8115 Z"
-       inkscape:transform-center-x="-22.647488"
-       inkscape:transform-center-y="-3.6884245"
-       transform="matrix(0.24200341,2.4226927,-2.6459357,0.22100719,906.20719,-39.833991)" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:761.56px;font-family:Forte;-inkscape-font-specification:'Forte, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke-width:82.566;stroke-dasharray:none"
-       x="326.25818"
-       y="763.74615"
-       id="text3"><tspan
-         sodipodi:role="line"
-         id="tspan3"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:761.56px;font-family:Forte;-inkscape-font-specification:'Forte, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:82.566;stroke-dasharray:none"
-         x="326.25818"
-         y="763.74615">T</tspan></text>
+    <g
+       id="g1"
+       transform="matrix(0.26319571,0,0,0.26319571,0.71046362,0.31113159)">
+      <path
+         sodipodi:type="star"
+         style="fill:#6e6e6e;fill-opacity:1;stroke-width:0.344223"
+         id="path2"
+         inkscape:flatsided="true"
+         sodipodi:sides="6"
+         sodipodi:cx="212.41379"
+         sodipodi:cy="168.41379"
+         sodipodi:r1="188.73042"
+         sodipodi:r2="170.04025"
+         sodipodi:arg1="1.1395115"
+         sodipodi:arg2="1.6631103"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="M 291.31034,339.86205 103.38351,322.46434 24.486962,151.01607 133.51724,-3.0344757 321.44406,14.36324 400.34061,185.8115 Z"
+         inkscape:transform-center-x="-25.213847"
+         inkscape:transform-center-y="-4.1064021"
+         transform="matrix(0.26942688,2.6972286,-2.9457693,0.2460514,950.87818,-100.84975)" />
+      <path
+         sodipodi:type="star"
+         style="fill:#b1b1b1;fill-opacity:1;stroke-width:0.344223"
+         id="path2-8"
+         inkscape:flatsided="true"
+         sodipodi:sides="6"
+         sodipodi:cx="212.41379"
+         sodipodi:cy="168.41379"
+         sodipodi:r1="188.73042"
+         sodipodi:r2="170.04025"
+         sodipodi:arg1="1.1395115"
+         sodipodi:arg2="1.6631103"
+         inkscape:rounded="0"
+         inkscape:randomized="0"
+         d="M 291.31034,339.86205 103.38351,322.46434 24.486962,151.01607 133.51724,-3.0344757 321.44406,14.36324 400.34061,185.8115 Z"
+         inkscape:transform-center-x="-22.647488"
+         inkscape:transform-center-y="-3.6884245"
+         transform="matrix(0.24200341,2.4226927,-2.6459357,0.22100719,906.20719,-39.833991)" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:761.56px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke-width:82.566;stroke-dasharray:none"
+         x="277.35919"
+         y="788.84637"
+         id="text3"><tspan
+           sodipodi:role="line"
+           id="tspan3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:761.56px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke-width:82.566;stroke-dasharray:none"
+           x="277.35919"
+           y="788.84637">T</tspan></text>
+    </g>
   </g>
 </svg>
