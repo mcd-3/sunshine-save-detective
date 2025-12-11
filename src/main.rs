@@ -64,14 +64,14 @@ use ui::views::app::App;
 use crate::utils::assets::knewave_font_path;
 
 fn main() -> Result {
-    let app_name = env!("CARGO_PKG_NAME");
+    // let app_name = env!("CARGO_PKG_NAME");
 
     let icon = window::icon::from_file_data(
         include_bytes!("./assets/logo.ico"),
         Some(ImageFormat::Ico)
     ).expect("Could not find logo.ico");
 
-    application(&*app_name, App::update, App::view)
+    application("Sunshine Save Detectiv", App::update, App::view)
         .window(Settings {
             icon: Some(icon),
             min_size: Some(Size::new(800.0, 600.0)),
