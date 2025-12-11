@@ -57,7 +57,7 @@ const DEFAULT_PADDING: f32 = 12.0;
 const DEFAULT_ROW_HEIGHT: u16 = 38;
 const SHINES_ROW_DELFINO_HEIGHT: u16 = 148;
 const PADDING_EXTRA: u16 = 16;
-const BORDER_COLOUR_LIGHT_MODE: Color = Color::from_rgb(0.45, 0.45, 0.45);
+const BORDER_COLOUR: Color = Color::from_rgb(0.45, 0.45, 0.45);
 const BORDER_WIDTH: f32 = 1.2;
 const BORDER_RADIUS: f32 = 4.0;
 
@@ -160,7 +160,7 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                     container::Style {
                         border: Border {
                             width: BORDER_WIDTH,
-                            color: BORDER_COLOUR_LIGHT_MODE,
+                            color: BORDER_COLOUR,
                             radius: BORDER_RADIUS.into(),
                         },
                         ..Default::default()
