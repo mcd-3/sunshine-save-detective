@@ -67,7 +67,7 @@ use ui::views::app::App;
 use crate::utils::assets::knewave_font_path;
 
 const WINDOW_SIZE: Size = Size::new(800.0, 600.0);
-const BACKGROUND_LIGHT_MODE: Color = Color::from_rgb(0.985, 0.985, 0.985);
+const BACKGROUND_LIGHT_MODE: Color = Color::from_rgb(0.980, 0.980, 0.980);
 const BACKGROUND_DARK_MODE: Color = Color::from_rgb(0.1, 0.1, 0.1);
 
 fn main() -> Result {
