@@ -24,6 +24,14 @@ impl Shine {
         self.is_secret
     }
 
+    pub fn get_overview(&self) -> String {
+        return format!(
+            "{}\n\n{}",
+            self.get_description(),
+            if self.is_collected { "Collected" } else { "Missing" }
+        )
+    }
+
     fn get_shine_collected(mem_card: &MemoryCard, save_file: &SaveFile, sd: &ShineData) -> bool {
         // Shine flags are stored in 2 addresses:
         // 0x2nnn and 0x4nnn (for File A)

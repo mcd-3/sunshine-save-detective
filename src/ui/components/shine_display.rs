@@ -81,7 +81,7 @@ pub fn shine_display(
                                 .height(shine_size),
                             container(
                                 text(
-                                        String::from(s.get_description())
+                                        String::from(s.get_overview())
                                     )
                                 )
                                 .padding(TOOLTIP_PADDING)
