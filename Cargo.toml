@@ -3,6 +3,10 @@ name = "sunshine_save_detective"
 authors = ["mcd-3"]
 version = "0.8.0"
 edition = "2021"
+build = "build.rs"
+
+[build-dependencies]
+winresource = "0.1.28"
 
 [dependencies]
 iced = { version = "0.13.1", features = ["tokio", "svg", "image", "advanced"]}
