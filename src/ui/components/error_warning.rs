@@ -4,7 +4,7 @@ use crate::{
     enums::file_error::FileError
 };
 
-pub fn error_warning(file_error: &FileError) -> Text {
+pub fn error_warning(file_error: &FileError) -> Text<'_> {
     let error_text: &str = match file_error {
         FileError::FileRead => "Cannot read file",
         FileError::NotProperGame => "Game save is not from Super Mario Sunshine",
