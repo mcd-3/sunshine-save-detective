@@ -3548,7 +3548,7 @@ dependencies = [
 
 [[package]]
 name = "sunshine_save_detective"
-version = "0.8.0"
+version = "1.0.0"
 dependencies = [
  "dark-light 2.0.0",
  "iced",
