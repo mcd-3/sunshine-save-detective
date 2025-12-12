@@ -8,7 +8,7 @@ build = "build.rs"
 [package.metadata.bundle]
 name = "Sunshine Save Detective"
 identifier = "com.mcd3.sunshine_save_detective"
-icon = ["src/assets/logo.icns"]
+icon = ["src/assets/logo.icns", "src/assets/logo.png"]
 version = "1.0.0"
 resources = ["src/assets"]
 short_description = "Save file analyzer for Super Mario Sunshine."
