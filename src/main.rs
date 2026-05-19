@@ -51,6 +51,8 @@ mod utils {
     pub mod string;
 }
 
+use std::env;
+
 use dark_light::Mode;
 use iced::{
     Color,
@@ -71,6 +73,14 @@ const BACKGROUND_LIGHT_MODE: Color = Color::from_rgb(0.980, 0.980, 0.980);
 const BACKGROUND_DARK_MODE: Color = Color::from_rgb(0.1, 0.1, 0.1);
 
 fn main() -> Result {
+    #[cfg(target_os = "linux")]
+    {
+        unsafe {
+            // On Linux, the window is scaled wayyy too big
+            env::set_var("WINIT_X11_SCALE_FACTOR", "1.0");
+        };
+    }
+
     let is_dark: &bool = match dark_light::detect() {
         Ok(Mode::Dark) => &true,
         Ok(Mode::Light) => &false,
