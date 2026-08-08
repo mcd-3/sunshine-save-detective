@@ -13,7 +13,8 @@ use crate::{
     enums::{
         message::Message,
         file_error::FileError,
-        world_identifier::WorldIdentifier
+        world_identifier::WorldIdentifier,
+        region::Region
     },
     models::{
         mem_card::MemoryCard,
@@ -70,6 +71,7 @@ pub struct App {
     worlds: Vec<World>,
     selected_world: WorldIdentifier,
     blue_coin_total: u16,
+    region: Region
 }
 
 pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
@@ -193,6 +195,7 @@ impl App {
                     self.worlds = get_worlds_data_list(&self.mem_card, &self.selected_save);
                     self.selected_world = WorldIdentifier::DelfinoId;
                     self.blue_coin_total = get_blue_coin_count(&self.worlds);
+                    self.region = self.mem_card.region
                 } else {
                     self.is_uploaded = false;
                     self.file_error = result.file_error;

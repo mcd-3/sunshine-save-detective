@@ -4,7 +4,6 @@ pub enum FileError {
     FileRead,
     NotProperGame,
     NotValidSave,
-    NotProperRegion,
     ReadCancelled
 }
 

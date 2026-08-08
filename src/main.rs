@@ -42,6 +42,7 @@ mod enums {
     pub mod file_error;
     pub mod world_identifier;
     pub mod nozzle_type;
+    pub mod region;
 }
 
 mod utils {

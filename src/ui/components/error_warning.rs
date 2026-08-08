@@ -8,7 +8,6 @@ pub fn error_warning(file_error: &FileError) -> Text<'_> {
     let error_text: &str = match file_error {
         FileError::FileRead => "Cannot read file",
         FileError::NotProperGame => "Game save is not from Super Mario Sunshine",
-        FileError::NotProperRegion => "Game save is not from the North America region",
         FileError::NotValidSave => "Not a valid GCI file",
         _ => ""
     };

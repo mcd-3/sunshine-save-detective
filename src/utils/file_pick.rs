@@ -1,7 +1,10 @@
 use rfd::FileDialog;
 
 use crate::{
-    enums::file_error::FileError,
+    enums::{
+        file_error::FileError,
+        region::Region
+    },
     models::mem_card::MemoryCard
 };
 
@@ -20,7 +23,7 @@ pub fn pick_file() -> MemoryCard {
     };
 
     if path == "" {
-        return MemoryCard { mem_data: vec![], file_error: FileError::ReadCancelled };
+        return MemoryCard { mem_data: vec![], file_error: FileError::ReadCancelled, region: Region::INVALID };
     }
 
     let mem_card: MemoryCard = MemoryCard::read_from_file(&path);

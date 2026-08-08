@@ -4,7 +4,7 @@
 **A save file analyzer for the Gamecube game Super Mario Sunshine**
 
 ## Features
-- Reads North American `.gci` save files
+- Reads NTSC-U, NTSC-J, and PAL `.gci` save files
 - Swap between save files A, B, and C
 - Check which shines and blue coins were collected per world
 - See each world's high score count and if nozzles were collected
