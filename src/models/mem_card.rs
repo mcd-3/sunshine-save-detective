@@ -21,6 +21,15 @@ impl MemoryCard {
         }
     }
 
+    pub fn get_region_name(&self) -> String {
+        match self.region {
+            Region::NTSCU => String::from("NTSC-U"),
+            Region::NTSCJ => String::from("NTSC-J"),
+            Region::PAL => String::from("PAL"),
+            Region::INVALID => String::from("OTHER"),
+        }
+    }
+
     fn is_game_sms(save_file: &Vec<u8>) -> bool {
         // TODO: Rework this part
         //       This is to check if the uploaded save is a SMS file

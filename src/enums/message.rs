@@ -9,4 +9,5 @@ pub enum Message {
     DisplayFileError(FileError),
     SelectSaveFile(u8),
     SelectWorld(WorldIdentifier),
+    FileReportWriteToOpen,
 }

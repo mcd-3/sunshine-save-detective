@@ -50,6 +50,7 @@ mod utils {
     pub mod data;
     pub mod assets;
     pub mod string;
+    pub mod report;
 }
 
 use std::env;

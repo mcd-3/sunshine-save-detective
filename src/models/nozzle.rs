@@ -21,6 +21,13 @@ impl Nozzle {
         self.is_collected
     }
 
+    pub fn get_nozzle_name(&self) -> String {
+        match self.nozzle_type {
+            NozzleType::Rocket => String::from("Rocket Nozzle"),
+            NozzleType::Turbo => String::from("Turbo Nozzle"),
+        }
+    }
+
     pub fn get_overview(&self) -> String {
         let nozzle_str = match self.nozzle_type {
             NozzleType::Rocket => "Rocket Nozzle",

@@ -1,9 +1,7 @@
 use iced::{
     Alignment::Center,
-    Font,
     Length::Fill,
     widget::{Row, button, column, row, text},
-    font::Weight::Semibold
 };
 
 use crate::{
@@ -20,13 +18,7 @@ pub fn file_prompter(file_error: &FileError) -> Row<'_, Message>{
     row![
         column![
             text("Select a GCI file")
-                .size(22)
-                .font(
-                    Font {
-                        weight: Semibold,
-                        ..Font::DEFAULT
-                    }
-                ),
+                .size(22),
             button("Upload")
                 .padding([10, 20])
                 .on_press(Message::FileSelectOpen),

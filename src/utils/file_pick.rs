@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use rfd::FileDialog;
 
 use crate::{
@@ -29,4 +30,14 @@ pub fn pick_file() -> MemoryCard {
     let mem_card: MemoryCard = MemoryCard::read_from_file(&path);
 
     mem_card.clone()
+}
+
+/// Launches a file dialog to pick a directory to save a txt file to
+/// 
+/// Returns the path as an option
+pub fn pick_directory() -> Option<PathBuf> {
+    FileDialog::new()
+        .add_filter("Text File", &["txt"])
+        .set_title("Select where to write the report to")
+        .save_file()
 }

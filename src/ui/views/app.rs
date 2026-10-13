@@ -3,7 +3,7 @@ use std::time::Duration;
 use iced::Length::{FillPortion, Shrink};
 use iced::alignment::Horizontal::Right;
 use iced::alignment::Vertical::{Bottom, Top};
-use iced::widget::{Row, button, center, column, container, row};
+use iced::widget::{Row, text, center, column, container, row};
 use iced::{
     Border, Center, Color, Element, Fill, Length, Padding, Task
 };
@@ -42,13 +42,17 @@ use crate::{
             get_blue_coin_count,
             get_world_id_index,
         },
-        file_pick::pick_file,
+        file_pick::{
+            pick_file,
+            pick_directory,
+        },
         assets::{
             blue_coin_collected_svg_path,
             sunshine_collected_svg_path,
             yellow_coin_svg_path,
             lives_svg_path,
         },
+        report::write_report,
     }
 };
 
@@ -120,8 +124,9 @@ pub fn get_main_content(app: &App, is_uploaded: bool) -> Row<'_, Message> {
                             .height(Fill)
                             .align_y(Center),
                         column![
-                            button("Upload")
-                                .on_press(Message::FileSelectOpen)
+                            text(app.mem_card.get_region_name())
+                                .height(Fill)
+                                .align_y(Center)
                         ].width(FillPortion(1))
                             .spacing(DEFAULT_SPACING)
                             .align_x(Right)
@@ -227,13 +232,45 @@ impl App {
             Message::SelectWorld(id) => {
                 self.selected_world = id;
                 Task::none()
+            },
+            Message::FileReportWriteToOpen => {
+                let path_buf = pick_directory();
+                match path_buf {
+                    Some(path) => {
+                        let path_str = match path.as_path().to_str() {
+                            Some(str) => String::from(str),
+                            None => String::new(),
+                        };
+
+                        // If cancelled, don't write anything
+                        if path_str.is_empty() {
+                            return Task::none();
+                        }
+
+                        write_report(
+                            &self.mem_card,
+                            vec!['A', 'B', 'C'],
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            Some(path_str)
+                        );
+                    },
+                    None => {}
+                }
+                Task::none()
             }
         }
     }
 
     pub fn view(&self) -> Element<'_, Message> {
         let content = column![
-            navbar(),
+            navbar(!self.is_uploaded),
             get_main_content(&self, self.is_uploaded),
             footer(),
         ].height(Fill)
