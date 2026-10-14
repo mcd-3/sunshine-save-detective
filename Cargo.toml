@@ -1,7 +1,7 @@
 [package]
 name = "sunshine_save_detective"
 authors = ["mcd-3"]
-version = "1.1.0"
+version = "1.2.0"
 edition = "2024"
 build = "build.rs"
 
@@ -9,7 +9,7 @@ build = "build.rs"
 name = "Sunshine Save Detective"
 identifier = "com.mcd3.sunshine_save_detective"
 icon = ["src/assets/logo.icns", "src/assets/logo.png"]
-version = "1.1.0"
+version = "1.2.0"
 resources = ["src/assets"]
 short_description = "Save file analyzer for Super Mario Sunshine."
 
