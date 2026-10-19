@@ -9,13 +9,6 @@ mod models {
     pub mod nozzle;
 }
 
-mod data {
-    pub mod shine_data;
-    pub mod blue_coin_data;
-    pub mod coin_data;
-    pub mod nozzle_data;
-}
-
 mod ui {
     pub mod views {
         pub mod app;
@@ -41,7 +34,6 @@ mod enums {
     pub mod message;
     pub mod file_error;
     pub mod world_identifier;
-    pub mod nozzle_type;
     pub mod region;
 }
 
@@ -49,9 +41,10 @@ mod utils {
     pub mod file_pick;
     pub mod data;
     pub mod assets;
-    pub mod string;
     pub mod report;
 }
+
+extern crate sunshine_lib;
 
 use std::env;
 

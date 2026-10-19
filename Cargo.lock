@@ -3547,12 +3547,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "sunshine_lib"
+version = "1.2.0"
+
+[[package]]
 name = "sunshine_save_detective"
 version = "1.2.0"
 dependencies = [
  "dark-light 2.0.0",
  "iced",
  "rfd",
+ "sunshine_lib",
  "tokio",
  "winresource",
 ]

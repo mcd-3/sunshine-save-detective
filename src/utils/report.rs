@@ -10,9 +10,9 @@ use crate::{
         data::{
             get_blue_coin_count,
             get_worlds_data_list
-        },
-        string::padded_string
-    }
+        }
+    },
+    sunshine_lib::utils::string::padded_string
 };
 
 const PADDING_NONE: u16 = 0;

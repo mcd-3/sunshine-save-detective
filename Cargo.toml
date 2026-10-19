@@ -1,3 +1,7 @@
+[members]
+resolver = "3"
+members = ["sunshine_lib", "sunshine_ui", "sunshine_cli"]
+
 [package]
 name = "sunshine_save_detective"
 authors = ["mcd-3"]
@@ -17,6 +21,7 @@ short_description = "Save file analyzer for Super Mario Sunshine."
 winresource = "0.1.28"
 
 [dependencies]
+sunshine_lib = { path = "./sunshine_lib" }
 iced = { version = "0.13.1", features = ["tokio", "svg", "image", "advanced"]}
 rfd = "0.15.4"
 tokio = { version = "1.47.1", features = ["fs", "time"]}

@@ -1,11 +1,7 @@
 use iced::widget::svg::Handle;
 
 use crate::{
-    data::{
-        blue_coin_data::BlueCoinData, coin_data::CoinData, nozzle_data::NozzleData, shine_data::ShineData
-    },
     enums::{
-        nozzle_type::NozzleType,
         world_identifier::WorldIdentifier
     },
     models::{
@@ -26,6 +22,15 @@ use crate::{
         sunshine_secret_missing_svg_path,
         turbo_nozzle_collected_svg_path,
         turbo_nozzle_missing_svg_path,
+    },
+    sunshine_lib::{
+        data::{
+            blue_coin_data::BlueCoinData,
+            coin_data::CoinData,
+            shine_data::ShineData,
+            nozzle_data::NozzleData, 
+        },
+        enums::nozzle_type::NozzleType,
     }
 };
 

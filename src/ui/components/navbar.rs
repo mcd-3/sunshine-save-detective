@@ -10,9 +10,9 @@ use crate::{
     enums::message::Message,
     ui::components::icon::icon_large,
     utils::{
-        assets::sunshine_detective_svg_path,
-        string::padded_string
-    }
+        assets::sunshine_detective_svg_path
+    },
+    sunshine_lib::utils::string::padded_string
 };
 
 const TEXT_SIZE_HEADER: u16 = 24;

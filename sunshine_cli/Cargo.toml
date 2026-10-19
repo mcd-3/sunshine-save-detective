@@ -1,0 +1,6 @@
+[package]
+name = "sunshine_cli"
+version = "1.2.0"
+edition = "2024"
+
+[dependencies]

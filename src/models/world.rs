@@ -1,10 +1,4 @@
 use crate::{
-    data::{
-        blue_coin_data::BlueCoinData,
-        coin_data::CoinData,
-        nozzle_data::NozzleData,
-        shine_data::ShineData
-    },
     enums::world_identifier::WorldIdentifier,
     models::{
         mem_card::MemoryCard,
@@ -12,7 +6,13 @@ use crate::{
         save_file::SaveFile,
         shine::Shine
     },
-    utils::data::read_u16_data_from_address
+    utils::data::read_u16_data_from_address,
+    sunshine_lib::data::{
+        blue_coin_data::BlueCoinData,
+        coin_data::CoinData,
+        shine_data::ShineData,
+        nozzle_data::NozzleData,
+    }
 };
 
 use super::blue_coin::BlueCoin;

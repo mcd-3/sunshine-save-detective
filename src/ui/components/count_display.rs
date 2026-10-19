@@ -11,8 +11,8 @@ use iced::{
 
 use crate::{
     enums::message::Message,
-     ui::components::icon::tooltiped_icon,
-     utils::string::padded_string
+    ui::components::icon::tooltiped_icon,
+    sunshine_lib::utils::string::padded_string,
 };
 
 pub fn count_display<'a>(

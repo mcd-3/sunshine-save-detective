@@ -7,7 +7,7 @@ use iced::{
 use crate::{
     enums::message::Message,
     models::save_file::SaveFile,
-    utils::string::padded_string
+    sunshine_lib::utils::string::padded_string,
 };
 
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;
