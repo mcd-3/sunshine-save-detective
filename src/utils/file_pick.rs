@@ -4,9 +4,9 @@ use rfd::FileDialog;
 use crate::{
     enums::{
         file_error::FileError,
-        region::Region
     },
-    models::mem_card::MemoryCard
+    models::mem_card::MemoryCard,
+    sunshine_lib::enums::region::Region,
 };
 
 /// Launches a file picker for GCI memory card files

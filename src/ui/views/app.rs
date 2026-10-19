@@ -13,8 +13,6 @@ use crate::{
     enums::{
         message::Message,
         file_error::FileError,
-        world_identifier::WorldIdentifier,
-        region::Region
     },
     models::{
         mem_card::MemoryCard,
@@ -53,7 +51,11 @@ use crate::{
             lives_svg_path,
         },
         report::write_report,
-    }
+    },
+    sunshine_lib::enums::{
+        region::Region,
+        world_identifier::WorldIdentifier,
+    },
 };
 
 const DEFAULT_SAVE_FILE_INDEX: u8 = SaveFile::SAVE_A_FILE_INDEX + 1;

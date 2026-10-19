@@ -1,4 +1,5 @@
-use crate::enums::{file_error::FileError, region::Region};
+use crate::enums::{file_error::FileError};
+use crate::sunshine_lib::enums::region::Region;
 
 #[derive(Clone)]
 pub struct MemoryCard {

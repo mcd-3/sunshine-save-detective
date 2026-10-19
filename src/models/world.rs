@@ -1,5 +1,4 @@
 use crate::{
-    enums::world_identifier::WorldIdentifier,
     models::{
         mem_card::MemoryCard,
         nozzle::Nozzle,
@@ -7,11 +6,14 @@ use crate::{
         shine::Shine
     },
     utils::data::read_u16_data_from_address,
-    sunshine_lib::data::{
-        blue_coin_data::BlueCoinData,
-        coin_data::CoinData,
-        shine_data::ShineData,
-        nozzle_data::NozzleData,
+    sunshine_lib::{
+        data::{
+            blue_coin_data::BlueCoinData,
+            coin_data::CoinData,
+            shine_data::ShineData,
+            nozzle_data::NozzleData,
+        },
+        enums::world_identifier::WorldIdentifier
     }
 };
 

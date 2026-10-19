@@ -9,7 +9,6 @@ use iced::{
 use crate::{
     enums::{
         message::Message,
-        world_identifier::WorldIdentifier
     },
     models::world::World,
     ui::components::icon::tooltiped_icon,
@@ -17,7 +16,10 @@ use crate::{
         get_svg_path_from_nozzle_collected,
         get_world_id_index
     },
-    sunshine_lib::enums::nozzle_type::NozzleType,
+    sunshine_lib::enums::{
+        world_identifier::WorldIdentifier,
+        nozzle_type::NozzleType
+    },
 };
 
 pub fn nozzle_display(

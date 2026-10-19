@@ -1,9 +1,6 @@
 use iced::widget::svg::Handle;
 
 use crate::{
-    enums::{
-        world_identifier::WorldIdentifier
-    },
     models::{
         blue_coin::BlueCoin,
         mem_card::MemoryCard,
@@ -30,7 +27,10 @@ use crate::{
             shine_data::ShineData,
             nozzle_data::NozzleData, 
         },
-        enums::nozzle_type::NozzleType,
+        enums::{
+            nozzle_type::NozzleType,
+            world_identifier::WorldIdentifier,
+        },
     }
 };
 

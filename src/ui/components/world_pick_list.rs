@@ -5,11 +5,9 @@ use iced::{
 };
 
 use crate::{
-    enums::{
-        message::Message,
-        world_identifier::WorldIdentifier
-    },
-    models::world::World
+    enums::message::Message,
+    models::world::World,
+    sunshine_lib::enums::world_identifier::WorldIdentifier,
 };
 
 pub fn world_pick_list<'a>(selected_world: WorldIdentifier) -> Row<'a, Message> {

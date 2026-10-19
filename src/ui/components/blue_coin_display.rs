@@ -12,12 +12,12 @@ use iced::widget::{
     column
 };
 
-use crate::ui::components::icon::tooltiped_icon;
 use crate::{
     enums::message::Message,
     ui::{
         components::{
-            header::header
+            header::header,
+            icon::tooltiped_icon,
         },
     },
     utils::{
@@ -27,8 +27,8 @@ use crate::{
             get_blue_coin_row_lists
         }, 
     },
-    enums::world_identifier::WorldIdentifier,
     models::world::World,
+    sunshine_lib::enums::world_identifier::WorldIdentifier,
 };
 
 const HEADER_PADDING_LEFT: f32 = 16.0;

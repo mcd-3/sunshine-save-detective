@@ -33,8 +33,6 @@ mod ui {
 mod enums {
     pub mod message;
     pub mod file_error;
-    pub mod world_identifier;
-    pub mod region;
 }
 
 mod utils {

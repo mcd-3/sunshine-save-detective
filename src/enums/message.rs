@@ -1,7 +1,5 @@
-use crate::enums::{
-    file_error::FileError,
-    world_identifier::WorldIdentifier
-};
+use crate::enums::file_error::FileError;
+use crate::sunshine_lib::enums::world_identifier::WorldIdentifier;
 
 #[derive(Debug, Clone, Copy)]
 pub enum Message {

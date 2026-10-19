@@ -18,10 +18,7 @@ use iced::widget::{
 };
 
 use crate::{
-    enums::{
-        message::Message,
-        world_identifier::WorldIdentifier
-    },
+    enums::message::Message,
     ui::{
         components::{
             header::header,
@@ -35,7 +32,8 @@ use crate::{
             get_svg_path_from_shine_collected,
             get_shine_row_lists
         }, 
-    }
+    },
+    sunshine_lib::enums::world_identifier::WorldIdentifier,
 };
 
 const SVG_SIZE: u16 = 48;
