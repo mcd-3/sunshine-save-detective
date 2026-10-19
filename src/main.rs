@@ -29,7 +29,6 @@ mod utils {
     pub mod file_pick;
     pub mod data;
     pub mod assets;
-    pub mod report;
 }
 
 extern crate sunshine_lib;

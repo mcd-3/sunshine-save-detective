@@ -1,6 +1,7 @@
 pub mod utils {
     pub mod data;
     pub mod string;
+    pub mod report;
 }
 
 pub mod data {

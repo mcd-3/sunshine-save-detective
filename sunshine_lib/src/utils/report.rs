@@ -1,19 +1,17 @@
 use std::fs;
 
 use crate::{
-    sunshine_lib::{
-        models::{
-            save_file::SaveFile,
-            world::World,
-            mem_card::MemoryCard
-        },
-        utils::{
-            string::padded_string,
-            data::{
-                get_blue_coin_count,
-                get_worlds_data_list
-            }
-        },
+    models::{
+        save_file::SaveFile,
+        world::World,
+        mem_card::MemoryCard
+    },
+    utils::{
+        string::padded_string,
+        data::{
+            get_blue_coin_count,
+            get_worlds_data_list
+        }
     },
 };
 

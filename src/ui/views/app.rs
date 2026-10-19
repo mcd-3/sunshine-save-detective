@@ -38,7 +38,6 @@ use crate::{
             yellow_coin_svg_path,
             lives_svg_path,
         },
-        report::write_report,
     },
     sunshine_lib::{
         enums::{
@@ -58,6 +57,7 @@ use crate::{
                 get_blue_coin_count,
                 get_world_id_index,
             },
+            report::write_report,
         }
     },
 };
