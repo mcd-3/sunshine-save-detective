@@ -25,15 +25,17 @@ use crate::{
             icon::icon
         }
     },
-    models::world::World,
-    utils::{
-        data::{
-            get_world_id_index,
-            get_svg_path_from_shine_collected,
-            get_shine_row_lists
-        }, 
+    utils::data::get_svg_path_from_shine_collected,
+    sunshine_lib::{
+        enums::world_identifier::WorldIdentifier,
+        utils::{
+            data::{
+                get_world_id_index,
+                get_shine_row_lists
+            }, 
+        },
+        models::world::World
     },
-    sunshine_lib::enums::world_identifier::WorldIdentifier,
 };
 
 const SVG_SIZE: u16 = 48;

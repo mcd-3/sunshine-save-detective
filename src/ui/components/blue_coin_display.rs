@@ -22,13 +22,19 @@ use crate::{
     },
     utils::{
         data::{
-            get_world_id_index,
             get_svg_path_from_blue_coin_collected,
+        }, 
+    },
+    sunshine_lib::{
+        enums::world_identifier::WorldIdentifier,
+        models::world::World,
+            utils::{
+        data::{
+            get_world_id_index,
             get_blue_coin_row_lists
         }, 
     },
-    models::world::World,
-    sunshine_lib::enums::world_identifier::WorldIdentifier,
+    },
 };
 
 const HEADER_PADDING_LEFT: f32 = 16.0;

@@ -1,4 +1,5 @@
 pub mod utils {
+    pub mod data;
     pub mod string;
 }
 
@@ -18,4 +19,9 @@ pub mod enums {
 
 pub mod models {
     pub mod mem_card;
+    pub mod save_file;
+    pub mod shine;
+    pub mod blue_coin;
+    pub mod world;
+    pub mod nozzle;
 }

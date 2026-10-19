@@ -10,15 +10,17 @@ use crate::{
     enums::{
         message::Message,
     },
-    models::world::World,
     ui::components::icon::tooltiped_icon,
     utils::data::{
         get_svg_path_from_nozzle_collected,
-        get_world_id_index
     },
-    sunshine_lib::enums::{
-        world_identifier::WorldIdentifier,
-        nozzle_type::NozzleType
+    sunshine_lib::{
+        enums::{
+            world_identifier::WorldIdentifier,
+            nozzle_type::NozzleType
+        },
+        utils::data::get_world_id_index,
+        models::world::World,
     },
 };
 

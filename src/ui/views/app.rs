@@ -13,10 +13,6 @@ use crate::{
     enums::{
         message::Message,
     },
-    models::{
-        save_file::SaveFile,
-        world::World
-    },
     ui::{
         components::{
             blue_coin_display::blue_coin_display,
@@ -32,12 +28,6 @@ use crate::{
         }
     },
     utils::{
-        data::{
-            get_save_file,
-            get_worlds_data_list,
-            get_blue_coin_count,
-            get_world_id_index,
-        },
         file_pick::{
             pick_file,
             pick_directory,
@@ -56,7 +46,19 @@ use crate::{
             region::Region,
             world_identifier::WorldIdentifier,
         },
-        models::mem_card::MemoryCard,
+        models::{
+            mem_card::MemoryCard,
+            save_file::SaveFile,
+            world::World
+        },
+        utils::{
+            data::{
+                get_save_file,
+                get_worlds_data_list,
+                get_blue_coin_count,
+                get_world_id_index,
+            },
+        }
     },
 };
 

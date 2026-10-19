@@ -2,19 +2,17 @@ use crate::{
     models::{
         nozzle::Nozzle,
         save_file::SaveFile,
-        shine::Shine
+        shine::Shine,
+        mem_card::MemoryCard
     },
     utils::data::read_u16_data_from_address,
-    sunshine_lib::{
-        data::{
-            blue_coin_data::BlueCoinData,
-            coin_data::CoinData,
-            shine_data::ShineData,
-            nozzle_data::NozzleData,
-        },
-        enums::world_identifier::WorldIdentifier,
-        models::mem_card::MemoryCard,
-    }
+    data::{
+        blue_coin_data::BlueCoinData,
+        coin_data::CoinData,
+        shine_data::ShineData,
+        nozzle_data::NozzleData,
+    },
+    enums::world_identifier::WorldIdentifier,
 };
 
 use super::blue_coin::BlueCoin;

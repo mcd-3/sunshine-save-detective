@@ -1,6 +1,6 @@
 use crate::{
     utils::data::read_u16_data_from_address,
-    sunshine_lib::models::mem_card::MemoryCard,
+    models::mem_card::MemoryCard,
 };
 
 pub struct SaveFile {

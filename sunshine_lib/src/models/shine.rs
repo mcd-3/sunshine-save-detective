@@ -1,11 +1,9 @@
 use crate::{
     models::{
-        save_file::SaveFile
+        save_file::SaveFile,
+        mem_card::MemoryCard
     },
-    sunshine_lib::{
-        data::shine_data::ShineData,
-        models::mem_card::MemoryCard,
-    },
+    data::shine_data::ShineData,
 };
 
 #[derive(Clone)]

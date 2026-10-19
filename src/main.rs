@@ -1,13 +1,5 @@
 #![windows_subsystem = "windows"]
 
-mod models {
-    pub mod blue_coin;
-    pub mod world;
-    pub mod save_file;
-    pub mod shine;
-    pub mod nozzle;
-}
-
 mod ui {
     pub mod views {
         pub mod app;

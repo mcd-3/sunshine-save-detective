@@ -1,12 +1,10 @@
 use crate::{
     models::{
+        mem_card::MemoryCard,
         save_file::SaveFile
     },
-    sunshine_lib::{
-        data::nozzle_data::NozzleData,
-        enums::nozzle_type::NozzleType,
-        models::mem_card::MemoryCard,
-    },
+    data::nozzle_data::NozzleData,
+    enums::nozzle_type::NozzleType,
 };
 
 pub struct Nozzle {
