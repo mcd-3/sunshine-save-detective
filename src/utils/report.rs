@@ -2,7 +2,6 @@ use std::fs;
 
 use crate::{
     models::{
-        mem_card::MemoryCard,
         save_file::SaveFile,
         world::World
     },
@@ -12,7 +11,10 @@ use crate::{
             get_worlds_data_list
         }
     },
-    sunshine_lib::utils::string::padded_string
+    sunshine_lib::{
+        utils::string::padded_string,
+        models::mem_card::MemoryCard,
+    },
 };
 
 const PADDING_NONE: u16 = 0;

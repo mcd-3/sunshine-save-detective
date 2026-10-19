@@ -14,7 +14,6 @@ use crate::{
         message::Message,
     },
     models::{
-        mem_card::MemoryCard,
         save_file::SaveFile,
         world::World
     },
@@ -51,10 +50,13 @@ use crate::{
         },
         report::write_report,
     },
-    sunshine_lib::enums::{
-        file_error::FileError,
-        region::Region,
-        world_identifier::WorldIdentifier,
+    sunshine_lib::{
+        enums::{
+            file_error::FileError,
+            region::Region,
+            world_identifier::WorldIdentifier,
+        },
+        models::mem_card::MemoryCard,
     },
 };
 

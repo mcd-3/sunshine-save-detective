@@ -6,10 +6,10 @@ use dark_light::Mode;
 
 use crate::{
     models::{
-        mem_card::MemoryCard,
         save_file::SaveFile
     },
-    utils::data::get_blue_coin_shine_count
+    utils::data::get_blue_coin_shine_count,
+    sunshine_lib::models::mem_card::MemoryCard,
 };
 
 const FONT_SIZE: u16 = 18;

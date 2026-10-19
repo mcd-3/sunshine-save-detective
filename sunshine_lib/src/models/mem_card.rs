@@ -1,4 +1,4 @@
-use crate::sunshine_lib::enums::{
+use crate::enums::{
     file_error::FileError,
     region::Region
 };

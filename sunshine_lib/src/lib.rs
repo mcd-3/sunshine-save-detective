@@ -15,3 +15,7 @@ pub mod enums {
     pub mod world_identifier;
     pub mod nozzle_type;
 }
+
+pub mod models {
+    pub mod mem_card;
+}

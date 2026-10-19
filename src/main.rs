@@ -2,7 +2,6 @@
 
 mod models {
     pub mod blue_coin;
-    pub mod mem_card;
     pub mod world;
     pub mod save_file;
     pub mod shine;

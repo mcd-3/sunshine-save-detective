@@ -2,10 +2,12 @@ use std::path::PathBuf;
 use rfd::FileDialog;
 
 use crate::{
-    models::mem_card::MemoryCard,
-    sunshine_lib::enums::{
-        file_error::FileError,
-        region::Region
+    sunshine_lib::{
+        enums::{
+            file_error::FileError,
+            region::Region
+        },
+        models::mem_card::MemoryCard,
     },
 };
 

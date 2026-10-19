@@ -1,6 +1,5 @@
 use crate::{
     models::{
-        mem_card::MemoryCard,
         nozzle::Nozzle,
         save_file::SaveFile,
         shine::Shine
@@ -13,7 +12,8 @@ use crate::{
             shine_data::ShineData,
             nozzle_data::NozzleData,
         },
-        enums::world_identifier::WorldIdentifier
+        enums::world_identifier::WorldIdentifier,
+        models::mem_card::MemoryCard,
     }
 };
 
