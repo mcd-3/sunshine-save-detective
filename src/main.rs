@@ -32,7 +32,6 @@ mod ui {
 
 mod enums {
     pub mod message;
-    pub mod file_error;
 }
 
 mod utils {

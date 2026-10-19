@@ -2,11 +2,11 @@ use std::path::PathBuf;
 use rfd::FileDialog;
 
 use crate::{
-    enums::{
-        file_error::FileError,
-    },
     models::mem_card::MemoryCard,
-    sunshine_lib::enums::region::Region,
+    sunshine_lib::enums::{
+        file_error::FileError,
+        region::Region
+    },
 };
 
 /// Launches a file picker for GCI memory card files

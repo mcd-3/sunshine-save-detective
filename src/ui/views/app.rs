@@ -12,7 +12,6 @@ use tokio::time::sleep;
 use crate::{
     enums::{
         message::Message,
-        file_error::FileError,
     },
     models::{
         mem_card::MemoryCard,
@@ -53,6 +52,7 @@ use crate::{
         report::write_report,
     },
     sunshine_lib::enums::{
+        file_error::FileError,
         region::Region,
         world_identifier::WorldIdentifier,
     },

@@ -1,8 +1,6 @@
 use iced::{Color, widget::{Text, text}};
 
-use crate::{
-    enums::file_error::FileError
-};
+use crate::sunshine_lib::enums::file_error::FileError;
 
 pub fn error_warning(file_error: &FileError) -> Text<'_> {
     let error_text: &str = match file_error {

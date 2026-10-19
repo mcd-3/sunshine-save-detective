@@ -10,6 +10,7 @@ pub mod data {
 }
 
 pub mod enums {
+    pub mod file_error;
     pub mod region;
     pub mod world_identifier;
     pub mod nozzle_type;

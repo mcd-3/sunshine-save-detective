@@ -6,10 +6,10 @@ use iced::{
 
 use crate::{
     enums::{
-        file_error::FileError,
         message::Message
     },
-    ui::components::error_warning::error_warning
+    ui::components::error_warning::error_warning,
+    sunshine_lib::enums::file_error::FileError,
 };
 
 const DEFAULT_SPACING: u16 = 16;
