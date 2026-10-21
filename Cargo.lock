@@ -3547,11 +3547,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "sunshine_cli"
+version = "1.2.0"
+
+[[package]]
 name = "sunshine_lib"
 version = "1.2.0"
 
 [[package]]
-name = "sunshine_save_detective"
+name = "sunshine_ui"
 version = "1.2.0"
 dependencies = [
  "dark-light 2.0.0",
