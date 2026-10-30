@@ -110,6 +110,17 @@ pub fn write_report(
     }
 
     for label in &save_file_labels {
+        if !show_shine_total
+            && !show_bc_total
+            && !show_world_shines
+            && !show_world_bcs
+            && !show_world_coin_hs
+            && !show_nozzles
+            && !show_lives_total
+        {
+            break;
+        }
+
         if label.to_ascii_uppercase() != 'A'
             && label.to_ascii_uppercase() != 'B'
             && label.to_ascii_uppercase() != 'C'
@@ -158,6 +169,14 @@ pub fn write_report(
         }
 
         for world in worlds {
+            if !show_world_coin_hs
+                && !show_world_shines
+                && !show_world_bcs
+                && !show_nozzles
+            {
+                break;
+            }
+
             add_formated_string(
                 &mut lines,
                 &String::from(
