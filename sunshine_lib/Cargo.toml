@@ -1,0 +1,6 @@
+[package]
+name = "sunshine_lib"
+version = "1.2.1"
+edition = "2024"
+
+[dependencies]

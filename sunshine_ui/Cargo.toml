@@ -1,0 +1,24 @@
+[package]
+name = "sunshine_ui"
+version = "1.2.1"
+edition = "2024"
+authors = ["mcd-3"]
+build = "src/build.rs"
+
+[package.metadata.bundle]
+name = "Sunshine Save Detective"
+identifier = "com.mcd3.sunshine_save_detective"
+icon = ["src/assets/logo.icns", "src/assets/logo.png"]
+version = "1.2.1"
+resources = ["src/assets"]
+short_description = "Save file analyzer for Super Mario Sunshine."
+
+[build-dependencies]
+winresource = "0.1.28"
+
+[dependencies]
+sunshine_lib = { path = "../sunshine_lib" }
+iced = { version = "0.13.1", features = ["tokio", "svg", "image", "advanced"]}
+rfd = "0.15.4"
+tokio = { version = "1.47.1", features = ["fs", "time"]}
+dark-light = "2.0.0"
