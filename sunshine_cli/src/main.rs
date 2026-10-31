@@ -62,9 +62,18 @@ fn main() {
 
     let read_is_okay = match mem_card.file_error {
         FileError::NoError => true,
-        FileError::FileRead => false,
-        FileError::NotProperGame => false,
-        FileError::NotValidSave => false,
+        FileError::FileRead => {
+            println!("Could not read file. Check if the path and file exists!");
+            false
+        },
+        FileError::NotProperGame => {
+            println!("Game save is not Super Mario Sunshine.");
+            false
+        },
+        FileError::NotValidSave => {
+            println!("Not a valid save file.");
+            false
+        },
         FileError::ReadCancelled => false,
     };
 
