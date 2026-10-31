@@ -1,5 +1,5 @@
 # Sunshine Save Detective
-![sun](./src/assets/logo.png)
+![sun](./sunshine_ui/src/assets/logo.png)
 
 **A save file analyzer for the Gamecube game Super Mario Sunshine**
 
